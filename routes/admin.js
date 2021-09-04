@@ -1,8 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.render('admin/index');
+const adminService = require('../services/admin');
+
+router.get('/', async (req, res) => {
+  let stores = await adminService.findAll();
+  res.render('admin/index', {stores: stores});
 })
 
 module.exports = router;

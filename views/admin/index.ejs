@@ -8,6 +8,34 @@
 
   <div class="container">
     <h1>Admin home</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Address</th>
+          <th scope="col">Update</th>
+          <th scope="col">Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (stores.length) { %>
+          <% for (let store of stores) { %>
+            <tr>
+              <th scope="row"><%= store.id %></th>
+              <td><%= store.title %></td>
+              <td><%= store.addr %></td>
+              <td>update</td>
+              <td>delete</td>
+            </tr>
+          <% } %>
+        <% } else { %>
+          <tr>
+            <td>No data</td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
   </div>
 </body>
 </html>
