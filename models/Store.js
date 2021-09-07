@@ -46,3 +46,18 @@ exports.findOne = function(id) {
   let store = stores[id];
   return store;
 }
+
+exports.remove = function(id) {
+  let idx = 0;
+  if (stores.length > 1) {
+    for (let i = 0; i < stores.length; i++) {
+      if (stores[i].id == id) {
+        idx = i;
+        break;
+      }
+    }
+    stores.splice(idx, 1);
+  } else {
+    stores.shift();
+  }
+}

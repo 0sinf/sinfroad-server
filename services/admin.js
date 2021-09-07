@@ -20,3 +20,7 @@ exports.updateStore = async function(id, data) {
   let storeId = await storeRepository.save(data);
   return storeId;
 }
+
+exports.removeStore = async function(id) {
+  await storeRepository.remove(id);
+}

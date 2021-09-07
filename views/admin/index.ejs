@@ -25,8 +25,13 @@
               <th scope="row"><%= store.id %></th>
               <td><a href="/admin/stores/<%= store.id %>"><%= store.title %></a></td>
               <td><%= store.addr %></td>
-              <td><a href="/admin/stores/<%= store.id %>/form">update</a></td>
-              <td>delete</td>
+              <td><a class="btn btn-primary" href="/admin/stores/<%= store.id %>/form">update</a></td>
+              <td>
+                <form action="/admin/stores/<%= store.id %>" method="POST">
+                  <input type="hidden" name="_method" value="DELETE" />
+                  <input class="btn btn-primary" type="submit" value="delete" />
+                </form>
+              </td>
             </tr>
           <% } %>
         <% } else { %>
