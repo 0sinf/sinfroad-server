@@ -23,7 +23,7 @@
           <% for (let store of stores) { %>
             <tr>
               <th scope="row"><%= store.id %></th>
-              <td><a href="#"><%= store.title %></a></td>
+              <td><a href="/admin/stores/<%= store.id %>"><%= store.title %></a></td>
               <td><%= store.addr %></td>
               <td>update</td>
               <td>delete</td>

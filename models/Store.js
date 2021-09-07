@@ -13,7 +13,7 @@ class Store {
    * 4. SNS Link : kakao, naver, youtube links (optional)
    */
   constructor(title, content, part, addr) {
-    this.id = ++cnt;
+    this.id = cnt++;
     this.title = title;
     this.content = content;
     this.part = part;
@@ -30,4 +30,9 @@ exports.save = function(store) {
   let data = new Store(store.title, store.content, store.part, store.addr);
   stores.push(data);
   return data.id;
+}
+
+exports.findOne = function(id) {
+  let store = stores[id];
+  return store;
 }

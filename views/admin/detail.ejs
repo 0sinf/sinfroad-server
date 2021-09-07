@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../common/header') %>
+</head>
+<body>
+  <%- include('../common/nav') %>
+
+  <div class="container">
+    <h1>Detail</h1>
+    <div class="card">
+      <h5 class="card-title"><%= store.title%></h5>
+      <div class="card-body">
+        <%= store.content %>
+      </div>
+      <div class="card-body">
+        <%= store.part %>
+      </div>
+      <div class="card-body">
+        <%= store.addr %>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

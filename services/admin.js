@@ -9,3 +9,8 @@ exports.saveStore = async function(store) {
   let storeId = await storeRepository.save(store);
   return storeId;
 }
+
+exports.findStore = async function(id) {
+  let store = await storeRepository.findOne(id);
+  return store;
+}

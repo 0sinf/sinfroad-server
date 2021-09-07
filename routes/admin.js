@@ -19,4 +19,10 @@ router.post('/stores', async(req, res) => {
   res.redirect('/admin');
 })
 
+router.get('/stores/:id', async (req, res) => {
+  let storeId = req.params.id;
+  let store = await adminService.findStore(storeId);
+  res.render('admin/detail', {store: store});
+})
+
 module.exports = router;
