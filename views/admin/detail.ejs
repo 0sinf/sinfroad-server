@@ -7,17 +7,15 @@
   <%- include('../common/nav') %>
 
   <div class="container">
-    <h1>Detail</h1>
-    <div class="card">
-      <h5 class="card-title"><%= store.title%></h5>
+    <h1><%= store.title%></h1>
+    <div class="card my-3">
       <div class="card-body">
-        <%= store.content %>
-      </div>
-      <div class="card-body">
-        <%= store.part %>
-      </div>
-      <div class="card-body">
-        <%= store.addr %>
+        <h5 class="card-subtitle">Content</h5>
+        <p><%= store.content %></p>
+        <h5 class="card-subtitle">Part</h5>
+        <p><%= store.part %></p>
+        <h5 class="card-subtitle">Address</h5>
+        <p><%= store.addr %></p>
       </div>
     </div>
   </div>
