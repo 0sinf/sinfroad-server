@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <%- include('../common/header') %>
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" defer></script>
 </head>
 <body>
   <%- include('../common/nav') %>
@@ -27,9 +28,24 @@
       <div class="mb-3">
         <label for="addr" class="form-label">Address</label>
         <input type="text" class="form-control" id="addr" name="addr">
+        <input type="button" class="btn btn-secondary" value="주소검색" onclick="execDaumPostCode()" />
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>
 </body>
+
+<script>
+function execDaumPostCode() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+            var address = data.address; // 최종 주소 변수
+
+            // 주소 정보를 해당 필드에 넣는다.
+            document.getElementById("addr").value = address;
+        }
+    }).open();
+}
+</script>
+
 </html>
