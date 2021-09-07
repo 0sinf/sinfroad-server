@@ -24,4 +24,17 @@ router.get('/stores/:id', async (req, res) => {
   res.render('admin/detail', {store: store});
 })
 
+router.get('/stores/:id/form', async (req, res) => {
+  let storeId = req.params.id;
+  let store = await adminService.findStore(storeId);
+  res.render('admin/updateForm', {store: store});
+})
+
+router.put('/stores/:id', async (req, res) => {
+  let storeId = req.params.id;
+  let data = req.body;
+  let store = await adminService.updateStore(storeId, data);
+  res.redirect('/admin');
+})
+
 module.exports = router;

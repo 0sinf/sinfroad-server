@@ -26,10 +26,20 @@ exports.findAll = function() {
   return stores;
 }
 
-exports.save = function(store) {
-  let data = new Store(store.title, store.content, store.part, store.addr);
-  stores.push(data);
-  return data.id;
+exports.save = function(data) {
+  if (data.id) {
+    let store = stores[data.id];
+    console.log(data);
+    store.title = data.title;
+    store.content = data.content;
+    store.part = data.part;
+    store.addr = data.addr;
+    return store.id;
+  } else {
+    let store = new Store(data.title, data.content, data.part, data.addr);
+    stores.push(store);
+    return store.id;
+  }
 }
 
 exports.findOne = function(id) {

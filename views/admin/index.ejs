@@ -25,7 +25,7 @@
               <th scope="row"><%= store.id %></th>
               <td><a href="/admin/stores/<%= store.id %>"><%= store.title %></a></td>
               <td><%= store.addr %></td>
-              <td>update</td>
+              <td><a href="/admin/stores/<%= store.id %>/form">update</a></td>
               <td>delete</td>
             </tr>
           <% } %>
