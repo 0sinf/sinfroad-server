@@ -5,7 +5,6 @@
 </head>
 <body>
   <%- include('../common/nav') %>
-
   <div class="container">
     <h1>Admin home</h1>
     <table class="table">
@@ -27,9 +26,9 @@
               <td><%= store.addr %></td>
               <td><a class="btn btn-primary" href="/admin/stores/<%= store.id %>/form">update</a></td>
               <td>
-                <form action="/admin/stores/<%= store.id %>" method="POST" name="deleteStore">
+                <form action="/admin/stores/<%= store.id %>" method="POST">
                   <input type="hidden" name="_method" value="DELETE" />
-                  <input class="btn btn-primary" type="submit" value="delete" onclick="removeCheck(deleteStore)" />
+                  <input class="btn btn-primary" type="submit" value="delete" />
                 </form>
               </td>
             </tr>
@@ -43,15 +42,4 @@
     </table>
   </div>
 </body>
-
-<script>
-function removeCheck(that) {
-  if (confirm("정말 삭제하시겠습니까?") == true) {
-    document.that.submit();
-  } else {
-    return false;
-  }
-}
-</script>
-
 </html>

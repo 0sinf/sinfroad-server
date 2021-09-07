@@ -29,7 +29,6 @@ exports.findAll = function() {
 exports.save = function(data) {
   if (data.id) {
     let store = stores[data.id];
-    console.log(data);
     store.title = data.title;
     store.content = data.content;
     store.part = data.part;
