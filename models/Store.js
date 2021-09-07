@@ -43,7 +43,7 @@ exports.save = function(data) {
 }
 
 exports.findOne = function(id) {
-  let store = stores[id];
+  let store = stores.find(s => s.id == id);
   return store;
 }
 
