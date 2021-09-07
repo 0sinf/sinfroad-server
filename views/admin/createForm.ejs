@@ -11,24 +11,26 @@
     <h1>Form</h1>
     <form action="/admin/stores" method="POST">
       <div class="mb-3">
-        <label for="title" class="form-label">Title</label>
+        <label for="title" class="form-label"><h3>Title</h3></label>
         <input type="text" class="form-control" id="title" name="title">
       </div>
       <div class="mb-3">
-        <label for="content" class="form-label">Content</label>
+        <label for="content" class="form-label"><h3>Content</h3></label>
         <input type="text" class="form-control" id="content" name="content">
       </div>
       <div class="mb-3">
-        <label for="part" class="form-label">Part</label>
+        <label for="part" class="form-label"><h3>Part</h3></label>
         <select id="part" class="form-select" name="part">
           <option>식당</option>
           <option>카페</option>
         </select>
       </div>
       <div class="mb-3">
-        <label for="addr" class="form-label">Address</label>
-        <input type="text" class="form-control" id="addr" name="addr">
-        <input type="button" class="btn btn-secondary" value="주소검색" onclick="execDaumPostCode()" />
+        <label for="addr" class="form-label"><h3>Address</h3></label>
+        <div class="input-group">
+          <input type="text" class="form-control" id="addr" name="addr" readonly>
+          <button type="button" class="btn btn-secondary"onclick="execDaumPostCode()">주소검색</button>
+        </div>
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
