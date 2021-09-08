@@ -13,6 +13,7 @@
           <th scope="col">#</th>
           <th scope="col">Name</th>
           <th scope="col">Address</th>
+          <th scope="col">Part</th>
           <th scope="col">Update</th>
           <th scope="col">Delete</th>
         </tr>
@@ -24,6 +25,7 @@
               <th scope="row"><%= store.id %></th>
               <td><a href="/admin/stores/<%= store.id %>"><%= store.title %></a></td>
               <td><%= store.addr %></td>
+              <td><%= store.part %></td>
               <td><a class="btn btn-primary" href="/admin/stores/<%= store.id %>/form">update</a></td>
               <td>
                 <form action="/admin/stores/<%= store.id %>" method="POST">

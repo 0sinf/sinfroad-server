@@ -29,8 +29,25 @@ app.use(methodOverride(function (req, res) {
   }
 }))
 
+// session
+const session = require('express-session');
+let sessionSecret = require('./config/admin').sessionKey;
+app.set('trust proxy', 1) // trust first proxy
+app.use(session({
+  secret: sessionSecret,
+  resave: false,
+  saveUninitialized: true,
+  // cookie: { secure: true }
+}))
+
+// passport
+let passport = require('./lib/passport')(app);
+
 app.use('/', indexRouter);
 app.use('/admin', require('./routes/admin'));
+app.post('/admin/login',
+  passport.authenticate('local', { successRedirect: '/admin',
+                                   failureRedirect: '/admin/login' }));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
