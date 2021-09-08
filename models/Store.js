@@ -21,6 +21,12 @@ class Store {
   }
 }
 
+// for test data
+for (let i = 0; i < 30; i++) {
+  let store = new Store(`title ${i}`, `content ${i}`, 'restaurant', 'aa');
+  stores.push(store);
+}
+
 exports.findAll = function() {
   // stores.push(new Store('title', 'content', 'addr'));
   return stores;
@@ -59,4 +65,9 @@ exports.remove = function(id) {
   } else {
     stores.shift();
   }
+}
+
+exports.findByName = function(search) {
+  let data = stores.filter(store => store.title.includes(search));
+  return data;
 }

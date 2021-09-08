@@ -22,5 +22,10 @@ exports.updateStore = async function(id, data) {
 }
 
 exports.removeStore = async function(id) {
-  await storeRepository.remove(id);
+  storeRepository.remove(id);
+}
+
+exports.findByName = async function(search) {
+  let stores = await storeRepository.findByName(search);
+  return stores;
 }

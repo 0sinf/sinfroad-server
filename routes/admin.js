@@ -7,9 +7,18 @@ const adminService = require('../services/admin');
 // Store List
 router.get('/', async (req, res) => {
   // Access Control Filter
-  if (!req.user) res.redirect('/admin/login');
-  let stores = await adminService.findAll();
-  res.render('admin/index', {stores: stores});
+  if (!req.user) {
+    return res.redirect('/admin/login');
+  }
+  // check get param
+  if (req.query.search) {
+    let stores = await adminService.findByName(req.query.search);
+    res.render('admin/index', {stores:stores});
+  } else {
+    let stores = await adminService.findAll();
+    res.render('admin/index', {stores: stores});
+  }
+
 })
 
 // Create Store

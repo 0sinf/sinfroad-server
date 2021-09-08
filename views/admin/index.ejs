@@ -7,6 +7,16 @@
   <%- include('../common/nav') %>
   <div class="container">
     <h1>Admin home</h1>
+    <!-- search box -->
+    <form action="/admin" method="GET">
+      <div class="input-group">
+        <label class="form-label" for="search"></label>
+        <input type="search" id="search" name="search" class="form-control" placeholder="Search" />
+        <button type="submit" class="btn btn-primary">검색</button>
+      </div>
+    </form>
+
+    <!-- store list -->
     <table class="table">
       <thead>
         <tr>
