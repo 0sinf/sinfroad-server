@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('./common/header') %>
+</head>
+<body id="body">
+  <h1>Test page</h1>
+
+  <script>
+    fetch('http://localhost:3000/api/stores').then(data => {
+      return data.json();
+    }).then(stores => {
+      
+      let table = makeTable(stores);
+      const container = document.createElement("div");
+      container.classList.add("container");
+      container.innerHTML = table;
+      const body = document.getElementById("body");
+      body.appendChild(container);
+    })
+
+    function makeTable(stores) {
+      let table = `
+      <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Address</th>
+          <th scope="col">Part</th>
+          <th scope="col">Update</th>
+          <th scope="col">Delete</th>
+        </tr>
+      </thead>
+      <tbody>`;
+      if (stores.length == 0) table += '<tr><th>No data</th></tr>';
+      for (let store of stores) {
+        table += `
+        <tr>
+          <th scope="row">${store.id}</th>
+          <td><a href="/admin/stores/${store.id}">${store.title}</a></td>
+          <td>${store.addr}</td>
+          <td>${store.part}</td>
+          <td><a class="btn btn-primary" href="/admin/stores/${store.id}/form">update</a></td>
+          <td>
+            <form action="/admin/stores/${store.id}" method="POST">
+              <input type="hidden" name="_method" value="DELETE" />
+              <input class="btn btn-primary" type="submit" value="delete" />
+            </form>
+          </td>
+        </tr>
+        `
+      }
+      table += `</tbody></table>`;
+      return table;
+    }
+  </script>
+</body>
+</html>

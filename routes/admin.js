@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
   }
   // check get param
   if (req.query.search) {
-    let stores = await adminService.findByName(req.query.search);
+    let stores = await adminService.findByTitle(req.query.search);
     res.render('admin/index', {stores:stores});
   } else {
     let stores = await adminService.findAll();

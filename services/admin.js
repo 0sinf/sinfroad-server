@@ -25,7 +25,7 @@ exports.removeStore = async function(id) {
   storeRepository.remove(id);
 }
 
-exports.findByName = async function(search) {
-  let stores = await storeRepository.findByName(search);
+exports.findByTitle = async function(search) {
+  let stores = await storeRepository.findByTitle(search);
   return stores;
 }

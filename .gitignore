@@ -80,4 +80,4 @@ typings/
 
 # Configuration file
 
-config
+config/admin.js

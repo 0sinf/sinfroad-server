@@ -67,7 +67,7 @@ exports.remove = function(id) {
   }
 }
 
-exports.findByName = function(search) {
+exports.findByTitle = function(search) {
   let data = stores.filter(store => store.title.includes(search));
   return data;
 }

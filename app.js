@@ -43,8 +43,12 @@ app.use(session({
 // passport
 let passport = require('./lib/passport')(app);
 
+app.get('/test', (req, res) => {
+  res.render('test');
+})
 app.use('/', indexRouter);
 app.use('/admin', require('./routes/admin'));
+app.use('/api', require('./routes/api/store'));
 app.post('/admin/login', passport.authenticate('local', { successRedirect: '/admin', failureRedirect: '/admin/login' }));
 
 // catch 404 and forward to error handler
