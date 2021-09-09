@@ -3,24 +3,6 @@ const router = express.Router();
 
 const adminService = require('../services/admin');
 
-
-// Store List
-router.get('/', async (req, res) => {
-  // Access Control Filter
-  if (!req.user) {
-    return res.redirect('/admin/login');
-  }
-  let stores = await adminService.findAll();
-  // check get param
-  if (req.query.search) {
-    stores = stores.filter(store => store.title.includes(req.query.search));
-  }
-  // pagination
-  
-  res.render('admin/index', {stores: stores});
-
-})
-
 // Create Store
 router.get('/stores', async(req, res) => {
   if (!req.user) res.redirect('/admin/login');
@@ -74,6 +56,31 @@ router.get('/login', async(req, res) => {
 router.get('/logout', async(req, res) => {
   req.logout();
   res.redirect('/admin/login');
+})
+
+// Store List
+router.get('/', async (req, res) => {
+  // Access Control Filter
+  if (!req.user) {
+    return res.redirect('/admin/login');
+  }
+  let stores = await adminService.findAll();
+  // check get param
+  if (req.query.search) {
+    let category = req.query.category;
+    switch (category) {
+      case 'title':
+        stores = stores.filter(store => store.title.includes(req.query.search));
+        break;
+      case 'addr':
+        stores = stores.filter(store => store.addr.includes(req.query.search));
+        break;
+      case 'part':
+        stores = stores.filter(store => store.part.includes(req.query.search));
+        break;
+    }
+  }
+  res.render('admin/index', {stores: stores});
 })
 
 module.exports = router;
