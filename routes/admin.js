@@ -10,14 +10,14 @@ router.get('/', async (req, res) => {
   if (!req.user) {
     return res.redirect('/admin/login');
   }
+  let stores = await adminService.findAll();
   // check get param
   if (req.query.search) {
-    let stores = await adminService.findByTitle(req.query.search);
-    res.render('admin/index', {stores:stores});
-  } else {
-    let stores = await adminService.findAll();
-    res.render('admin/index', {stores: stores});
+    stores = stores.filter(store => store.title.includes(req.query.search));
   }
+  // pagination
+  
+  res.render('admin/index', {stores: stores});
 
 })
 

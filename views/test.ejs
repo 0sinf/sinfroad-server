@@ -5,19 +5,38 @@
 </head>
 <body id="body">
   <h1>Test page</h1>
+  
+  <div class="input-group">
+    <input type="search" id="search" name="search" class="form-control" placeholder="Search" />
+  </div>
+  <div class="container mb-3" id="container">
+  </div>
+
+  <nav class="d-flex justify-content-center" aria-label="Page navigation example">
+    <ul class="pagination" id="pagination">
+      
+    </ul>
+  </nav>
 
   <script>
-    fetch('http://localhost:3000/api/stores').then(data => {
-      return data.json();
-    }).then(stores => {
-      
+    const container = document.getElementById('container');
+    fetch('http://localhost:3000/api/stores').then(data => { return data.json(); })
+    .then(stores => {
       let table = makeTable(stores);
-      const container = document.createElement("div");
-      container.classList.add("container");
-      container.innerHTML = table;
-      const body = document.getElementById("body");
-      body.appendChild(container);
-    })
+      container.innerHTML += table;
+    });
+    
+    const input = document.querySelector('input');
+    input.addEventListener('input', updateValue);
+
+    async function updateValue(e) {
+      container.innerHTML = '';
+      let search = e.target.value;
+      let stores = await fetch('http://localhost:3000/api/stores').then(data => {return data.json()});
+      let filteredStore = stores.filter(store => store.title.includes(search));
+      let table = makeTable(filteredStore);
+      container.innerHTML += table;
+    }
 
     function makeTable(stores) {
       let table = `
