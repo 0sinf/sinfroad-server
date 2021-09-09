@@ -81,3 +81,5 @@ typings/
 # Configuration file
 
 config/admin.js
+
+views/client/index.ejs
