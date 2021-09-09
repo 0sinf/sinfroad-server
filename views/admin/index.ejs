@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <%- include('../common/header') %>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.1/css/jquery.dataTables.min.css">
 </head>
 <body>
   <%- include('../common/nav') %>
@@ -22,7 +23,7 @@
     </form> -->
 
     <!-- store list -->
-    <table class="table">
+    <table class="table" id="table">
       <thead>
         <tr>
           <!-- <th scope="col">#</th> -->
@@ -59,15 +60,21 @@
     </table>
   </div>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/jquery.fancytable/dist/fancyTable.min.js"></script>
-<script type="text/javascript">
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery.fancytable/dist/fancyTable.min.js"></script> -->
+<!-- <script type="text/javascript">
   $(document).ready(function() {
     $('.table').fancyTable({
       sortColumn: 0,
       pagination: true,
-      perPage: 10,
+      perPage: 8,
       globalSearch: true,
     })
+  })
+</script> -->
+<script src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#table').DataTable();
   })
 </script>
 
