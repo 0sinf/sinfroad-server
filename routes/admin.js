@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const adminService = require('../services/admin');
+const adminService = require('../services/store');
 
 // Create Store
 router.get('/stores', async(req, res) => {
