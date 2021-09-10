@@ -10,8 +10,9 @@
     <div class="sidebar d-flex d-flex-column">
       <ul class="list-group">
         <li class="list-group-item"><a href="#">전체</a></li>
-        <li class="list-group-item">식당</li>
-        <li class="list-group-item">카페</li>
+        <li class="list-group-item"><a href="#">식당</a></li>
+        <li class="list-group-item"><a href="#">카페</a></li>
+        <li class="list-group-item"><a href="#">즐찾</a></li>
       </ul>
     </div>
 
@@ -29,6 +30,7 @@
 </body>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ab2a8afec742b81b3f9e9b74b025983b&libraries=services"></script>
 <script>
+
   var container = document.getElementById('map');
   var options = {
     center: new kakao.maps.LatLng(33.37903821496581, 126.55043597716713),
@@ -49,12 +51,28 @@
             map: map,
             position: coords
           });
+          var infowindow = new kakao.maps.InfoWindow({
+            content : `<div style="width:150px; text-align:center;">${store.title}</div>`
+          })
+
+          kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+          kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
         }
       })
     }
   })
-  
-  // function으로 api에서 가게 정보를 불러와 모두 마커 표시
+
+  function makeOverListener(map, marker, infowindow) {
+    return function() {
+      infowindow.open(map, marker);
+    }
+  }
+
+  function makeOutListener(infowindow) {
+    return function() {
+      infowindow.close();
+    }
+  }
   
 </script>
 </html>
