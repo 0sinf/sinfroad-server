@@ -40,17 +40,18 @@
   fetch('http://localhost:3000/api/stores').then(data => {
     return data.json();
   }).then(stores => {
-    let store = stores[0];
-    var geocoder = new kakao.maps.services.Geocoder();
-    geocoder.addressSearch(store.addr, (result, status) => {
-      if (status === kakao.maps.services.Status.OK) {
-        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-        var marker = new kakao.maps.Marker({
-          map: map,
-          position: coords
-        });
-      }
-    })
+    for (let store of stores) {
+      var geocoder = new kakao.maps.services.Geocoder();
+      geocoder.addressSearch(store.addr, (result, status) => {
+        if (status === kakao.maps.services.Status.OK) {
+          var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+          var marker = new kakao.maps.Marker({
+            map: map,
+            position: coords
+          });
+        }
+      })
+    }
   })
   
   // function으로 api에서 가게 정보를 불러와 모두 마커 표시
