@@ -22,10 +22,14 @@ class Store {
 }
 
 // for test data
-for (let i = 0; i < 30; i++) {
-  let store = new Store(`title ${i}`, `content ${i}`, 'restaurant', 'aa');
-  stores.push(store);
-}
+// for (let i = 0; i < 30; i++) {
+//   let store = new Store(`title ${i}`, `content ${i}`, 'restaurant', 'aa');
+//   stores.push(store);
+// }
+let store1 = new Store('세화숲', '프레첼이 맛있는 카페', 'cafe', '제주특별자치도 제주시 구좌읍 해맞이해안로 1460');
+stores.push(store1);
+let store2 = new Store('톰톰카레', '채식주의자들을 위한 카레', 'restaurant', '제주특별자치도 제주시 구좌읍 해맞이해안로 1112');
+stores.push(store2);
 
 exports.findAll = function() {
   // stores.push(new Store('title', 'content', 'addr'));

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../common/clientHeader') %>
+</head>
+<body>
+  <%- include('../common/clientNav') %>
+  <div class="container d-flex d-flex-row">
+    <!--  side bar -->
+    <div class="sidebar d-flex d-flex-column">
+      <ul class="list-group">
+        <li class="list-group-item"><a href="#">전체</a></li>
+        <li class="list-group-item">식당</li>
+        <li class="list-group-item">카페</li>
+      </ul>
+    </div>
+
+    <!-- map -->
+    <div id="map" style="width:60vw; height: 80vh; border-radius: 4px;">
+
+    </div>
+
+    <!-- detail -->
+    <div id="detail" style="border: solid 1px; border-radius: 4px; width: 20vw;">
+
+    </div>
+
+  </div>
+</body>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ab2a8afec742b81b3f9e9b74b025983b&libraries=services"></script>
+<script>
+  var container = document.getElementById('map');
+  var options = {
+    center: new kakao.maps.LatLng(33.37903821496581, 126.55043597716713),
+    level: 9,
+    scrollwheel: false,
+  };
+  var map = new kakao.maps.Map(container, options);
+  
+  fetch('http://localhost:3000/api/stores').then(data => {
+    return data.json();
+  }).then(stores => {
+    let store = stores[0];
+    var geocoder = new kakao.maps.services.Geocoder();
+    geocoder.addressSearch(store.addr, (result, status) => {
+      if (status === kakao.maps.services.Status.OK) {
+        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+        var marker = new kakao.maps.Marker({
+          map: map,
+          position: coords
+        });
+      }
+    })
+  })
+  
+  // function으로 api에서 가게 정보를 불러와 모두 마커 표시
+  
+</script>
+</html>
