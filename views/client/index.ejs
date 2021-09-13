@@ -9,7 +9,7 @@
     <!--  side bar -->
     <div class="sidebar d-flex d-flex-column">
       <ul class="list-group">
-        <li class="list-group-item"><a href="#">전체</a></li>
+        <li class="list-group-item" onclick="viewTotal()"><a href="#">전체</a></li>
         <li class="list-group-item"><a href="#">식당</a></li>
         <li class="list-group-item"><a href="#">카페</a></li>
         <li class="list-group-item"><a href="#">즐찾</a></li>
@@ -39,28 +39,39 @@
   };
   var map = new kakao.maps.Map(container, options);
   
-  fetch('http://localhost:3000/api/stores').then(data => {
-    return data.json();
-  }).then(stores => {
-    for (let store of stores) {
-      var geocoder = new kakao.maps.services.Geocoder();
-      geocoder.addressSearch(store.addr, (result, status) => {
-        if (status === kakao.maps.services.Status.OK) {
-          var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-          var marker = new kakao.maps.Marker({
-            map: map,
-            position: coords
-          });
-          var infowindow = new kakao.maps.InfoWindow({
-            content : `<div style="width:150px; text-align:center;">${store.title}</div>`
-          })
-
-          kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-          kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
-        }
-      })
-    }
-  })
+  function viewTotal() {
+    var container = document.getElementById('map');
+    container.innerHTML = '';
+    var options = {
+      center: new kakao.maps.LatLng(33.37903821496581, 126.55043597716713),
+      level: 9,
+      scrollwheel: false,
+    };
+    var map = new kakao.maps.Map(container, options);
+  
+    fetch('http://localhost:3000/api/stores').then(data => {
+      return data.json();
+    }).then(stores => {
+      for (let store of stores) {
+        var geocoder = new kakao.maps.services.Geocoder();
+        geocoder.addressSearch(store.addr, (result, status) => {
+          if (status === kakao.maps.services.Status.OK) {
+            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+            var marker = new kakao.maps.Marker({
+              map: map,
+              position: coords
+            });
+            var infowindow = new kakao.maps.InfoWindow({
+              content : `<div style="width:150px; text-align:center;">${store.title}</div>`
+            })
+  
+            kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+            kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+          }
+        })
+      }
+    })
+  }
 
   function makeOverListener(map, marker, infowindow) {
     return function() {

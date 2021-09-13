@@ -81,3 +81,4 @@ typings/
 # Configuration file
 
 config/admin.js
+config/db.js
