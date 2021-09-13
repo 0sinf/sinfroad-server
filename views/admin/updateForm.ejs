@@ -12,12 +12,12 @@
     <form action="/admin/stores/<%= store.id %>" method="POST">
       <input type="hidden" name="_method" value="PUT" />
       <div class="mb-3">
-        <label for="title" class="form-label"><h3>Title</h3></label>
-        <input type="text" class="form-control" id="title" name="title" value="<%= store.title %>">
+        <label for="name" class="form-label"><h3>name</h3></label>
+        <input type="text" class="form-control" id="name" name="name" value="<%= store.name %>">
       </div>
       <div class="mb-3">
-        <label for="content" class="form-label"><h3>Content</h3></label>
-        <input type="text" class="form-control" id="content" name="content" value="<%= store.content %>">
+        <label for="review" class="form-label"><h3>review</h3></label>
+        <input type="text" class="form-control" id="review" name="review" value="<%= store.review %>">
       </div>
       <div class="mb-3">
         <label for="part" class="form-label"><h3>Part</h3></label>

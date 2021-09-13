@@ -1,4 +1,4 @@
-const storeRepository = require('../models/Store');
+const storeRepository = require('../models/StoreMemory');
 
 exports.findAll = async function() {
   let stores = await storeRepository.findAll();
@@ -25,7 +25,7 @@ exports.removeStore = async function(id) {
   storeRepository.remove(id);
 }
 
-exports.findByTitle = async function(search) {
-  let stores = await storeRepository.findByTitle(search);
+exports.findByName = async function(search) {
+  let stores = await storeRepository.findByName(search);
   return stores;
 }

@@ -39,7 +39,7 @@
           <% for (let store of stores) { %>
             <tr>
               <!-- <th scope="row"><%= store.id %></th> -->
-              <td><a href="/admin/stores/<%= store.id %>"><%= store.title %></a></td>
+              <td><a href="/admin/stores/<%= store.id %>"><%= store.name %></a></td>
               <td><%= store.addr %></td>
               <td><%= store.part %></td>
               <td><a class="btn btn-primary" href="/admin/stores/<%= store.id %>/form">update</a></td>

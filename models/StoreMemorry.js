@@ -12,10 +12,10 @@ class Store {
    * 3. content : 1 line assessment.
    * 4. SNS Link : kakao, naver, youtube links (optional)
    */
-  constructor(title, content, part, addr) {
+  constructor(name, review, part, addr) {
     this.id = cnt++;
-    this.title = title;
-    this.content = content;
+    this.name = name;
+    this.review = review;
     this.part = part;
     this.addr = addr;
   }
@@ -39,13 +39,13 @@ exports.findAll = function() {
 exports.save = function(data) {
   if (data.id) {
     let store = stores[data.id];
-    store.title = data.title;
-    store.content = data.content;
+    store.name = data.name;
+    store.review = data.review;
     store.part = data.part;
     store.addr = data.addr;
     return store.id;
   } else {
-    let store = new Store(data.title, data.content, data.part, data.addr);
+    let store = new Store(data.name, data.review, data.part, data.addr);
     stores.push(store);
     return store.id;
   }
@@ -71,7 +71,7 @@ exports.remove = function(id) {
   }
 }
 
-exports.findByTitle = function(search) {
-  let data = stores.filter(store => store.title.includes(search));
+exports.findByName = function(search) {
+  let data = stores.filter(store => store.name.includes(search));
   return data;
 }
