@@ -29,3 +29,8 @@ exports.findByName = async function(search) {
   let stores = await storeRepository.findByName(search);
   return stores;
 }
+
+exports.findByPart = async function(part) {
+  let stores = await storeRepository.findByPart(part);
+  return stores;
+}

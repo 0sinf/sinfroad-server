@@ -75,3 +75,8 @@ exports.findByName = function(search) {
   let data = stores.filter(store => store.name.includes(search));
   return data;
 }
+
+exports.findByPart = function(part) {
+  let data = stores.filter(store => store.part === part);
+  return data;
+}
