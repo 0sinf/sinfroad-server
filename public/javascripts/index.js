@@ -58,8 +58,8 @@ function makeMarker(map, stores) {
           <div class="wrap">
             <div class="info">
             <h3>${store.name}</h3>
-            <p>${store.review}</p>
-            <p>${store.addr}</p>
+            <p style="font-size: 16px;">${store.review}</p>
+            <p style="visibility: hidden;">${store.addr}</p>
             </div>
           </div>`,
           position: marker.getPosition()
