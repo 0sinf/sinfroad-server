@@ -8,7 +8,6 @@ function callMap() {
   var options = {
     center: new kakao.maps.LatLng(33.37903821496581, 126.55043597716713),
     level: 9,
-    scrollwheel: false,
   };
   return new kakao.maps.Map(container, options);
 }
@@ -33,6 +32,8 @@ function viewPart(e) {
   })
 }
 
+var openBox = null;
+
 function makeMarker(map, stores) {
   for (let store of stores) {
     var geocoder = new kakao.maps.services.Geocoder();
@@ -44,29 +45,62 @@ function makeMarker(map, stores) {
           position: coords,
           clickable: true
         });
+
         var infowindow = new kakao.maps.InfoWindow({
           content : `<div style="width:150px; text-align:center;">${store.name}</div>`
         })
 
         kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
         kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
-        
-        selectMarker = null;
-        kakao.maps.event.addListener(marker, 'click', function() {
-          if (!selectMarker || selectMarker !== marker) {
-            var detail = document.getElementById('detail');
-            detail.style.visibility = 'visible';
-            detail.innerHTML = `
-            <div class="container my-3">
-              <h2>${store.name}</h2>
-              <p>${store.review}</p>
-              <p>${store.addr}</p>
+
+        var infoBox = new kakao.maps.InfoWindow({
+          content: `
+          <div class="wrap">
+            <div class="info">
+            <h3>${store.name}</h3>
+            <p>${store.review}</p>
+            <p>${store.addr}</p>
             </div>
-            `;
-            // info window로 출력하도록 변경 예정
-          }
-          selectMarker = marker;
+          </div>`,
+          position: marker.getPosition()
         })
+        
+        kakao.maps.event.addListener(marker, 'click', function() {
+          // 처음에 클릭할 때
+          if (openBox == null) {
+            infoBox.open(map, marker);
+            openBox = infoBox;
+          } 
+          // 이미 열린 창이 있고, 다른 마커 클릭할 때
+          else if (openBox != null && openBox != infoBox) {
+            openBox.close();
+            openBox = infoBox;
+            openBox.open(map, marker);
+          }
+          // 이미 열린 창, 같은 마커 클릭
+          else if (openBox != null && openBox == infoBox) {
+            openBox.close();
+            openBox = null;
+          }
+        })
+
+        
+        // selectMarker = null;
+        // kakao.maps.event.addListener(marker, 'click', function() {
+        //   if (!selectMarker || selectMarker !== marker) {
+        //     var detail = document.getElementById('detail');
+        //     detail.style.visibility = 'visible';
+        //     detail.innerHTML = `
+        //     <div class="container my-3">
+        //       <h2>${store.name}</h2>
+        //       <p>${store.review}</p>
+        //       <p>${store.addr}</p>
+        //     </div>
+        //     `;
+        //     // info window로 출력하도록 변경 예정
+        //   }
+        //   selectMarker = marker;
+        // })
       }
     })
   }
@@ -84,11 +118,8 @@ function makeOutListener(infowindow) {
   }
 }
 
-function makeClickListener() {
-  var detail = document.getElementById('detail');
-  if (detail.style.visibility == 'hidden') {
-    detail.style.visibility = 'visible';
-  } else {
-    detail.style.visibility = 'hidden';
-  }
-}
+// function closeInfoBox() {
+//   return function() {
+//     infoBox.close();
+//   }
+// }

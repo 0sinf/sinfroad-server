@@ -7,6 +7,33 @@ a {
   color: black;
 }
 
+.wrap {
+  /* position: absolute; */
+  /* left: 0; */
+  bottom: 40px;
+  width: 288px;
+  height: 90px;
+  /* margin-left: -144px; */
+  text-align: left;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1;
+}
+.wrap * {
+  padding: 0;
+  margin: 0;
+}
+.wrap .info {
+  padding: 16px;
+  width: 286px;
+  height: 90px;
+  border-radius: 5px;
+  border-bottom: 2px solid #ccc;
+  border-right: 1px solid #ccc;
+  overflow: hidden;
+  background: #fff;
+}
+
 @media screen and (max-width: 576px) {
   .container {
     display: flex;
