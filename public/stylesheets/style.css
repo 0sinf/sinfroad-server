@@ -44,4 +44,9 @@ a {
     display: flex;
     flex-direction: row;
   }
+
+  .list-group .list-group-item {
+    border: solid 1px grey;
+    border-radius: 4px;
+  }
 }
