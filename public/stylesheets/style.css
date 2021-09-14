@@ -6,3 +6,15 @@ a {
   text-decoration: none;
   color: black;
 }
+
+@media screen and (max-width: 576px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .list-group {
+    display: flex;
+    flex-direction: row;
+  }
+}
