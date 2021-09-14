@@ -29,6 +29,7 @@ router.get('/stores/:id/form', async (req, res) => {
   if (!req.user) res.redirect('/admin/login');
   let storeId = req.params.id;
   let store = await adminService.findStore(storeId);
+  console.log(store);
   res.render('admin/updateForm', {store: store});
 })
 
@@ -66,20 +67,20 @@ router.get('/', async (req, res) => {
   }
   let stores = await adminService.findAll();
   // check get param
-  if (req.query.search) {
-    let category = req.query.category;
-    switch (category) {
-      case 'title':
-        stores = stores.filter(store => store.title.includes(req.query.search));
-        break;
-      case 'addr':
-        stores = stores.filter(store => store.addr.includes(req.query.search));
-        break;
-      case 'part':
-        stores = stores.filter(store => store.part.includes(req.query.search));
-        break;
-    }
-  }
+  // if (req.query.search) {
+  //   let category = req.query.category;
+  //   switch (category) {
+  //     case 'title':
+  //       stores = stores.filter(store => store.title.includes(req.query.search));
+  //       break;
+  //     case 'addr':
+  //       stores = stores.filter(store => store.addr.includes(req.query.search));
+  //       break;
+  //     case 'part':
+  //       stores = stores.filter(store => store.part.includes(req.query.search));
+  //       break;
+  //   }
+  // }
   res.render('admin/index', {stores: stores});
 })
 

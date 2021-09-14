@@ -1,4 +1,4 @@
-const storeRepository = require('../models/StoreMemory');
+const storeRepository = require('../models/StoreMysql');
 
 exports.findAll = async function() {
   let stores = await storeRepository.findAll();
@@ -12,6 +12,7 @@ exports.saveStore = async function(data) {
 
 exports.findStore = async function(id) {
   let store = await storeRepository.findOne(id);
+  // console.log(store);
   return store;
 }
 

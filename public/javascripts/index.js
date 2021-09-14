@@ -63,6 +63,7 @@ function makeMarker(map, stores) {
               <p>${store.addr}</p>
             </div>
             `;
+            // info window로 출력하도록 변경 예정
           }
           selectMarker = marker;
         })

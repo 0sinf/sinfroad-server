@@ -35,7 +35,6 @@
         </tr>
       </thead>
       <tbody>
-        <% if (stores.length) { %>
           <% for (let store of stores) { %>
             <tr>
               <!-- <th scope="row"><%= store.id %></th> -->
@@ -51,11 +50,6 @@
               </td>
             </tr>
           <% } %>
-        <% } else { %>
-          <tr>
-            <td>No data</td>
-          </tr>
-        <% } %>
       </tbody>
     </table>
   </div>
