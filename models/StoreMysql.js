@@ -67,3 +67,12 @@ exports.findByName = (search) => {
     })
   })
 }
+
+exports.findByPart = function(part) {
+  return new Promise((resolve, reject) => {
+    conn.query(`SELECT * FROM store WHERE part=?`, [part], (err, stores) => {
+      if (err) reject(err);
+      resolve(stores)
+    })
+  })
+}

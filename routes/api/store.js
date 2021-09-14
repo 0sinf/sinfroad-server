@@ -10,7 +10,6 @@ router.get('/stores', async (req, res) => {
 
 router.get('/stores/:part', async(req, res) => {
   let part = req.params.part;
-  console.log('find by part')
   let stores = await storeService.findByPart(part);
   res.status(200).json(stores);
 })
