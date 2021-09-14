@@ -7,12 +7,12 @@ const adminService = require('../services/store');
 
 // Create Store
 router.get('/stores', async(req, res) => {
-  if (!req.user) res.redirect('/admin/login');
+  if (!req.user) res.redirect(`${adminAddr}/login`);
   res.render('admin/createForm');
 })
 
 router.post('/stores', async(req, res) => {
-  if (!req.user) res.redirect('/admin/login');
+  if (!req.user) res.redirect(`${adminAddr}/login`);
   let store = req.body;
   let id = await adminService.saveStore(store);
   res.redirect(adminAddr);
@@ -20,7 +20,7 @@ router.post('/stores', async(req, res) => {
 
 // Show Store detail
 router.get('/stores/:id', async (req, res) => {
-  if (!req.user) res.redirect('/admin/login');
+  if (!req.user) res.redirect(`${adminAddr}/login`);
   let storeId = req.params.id;
   let store = await adminService.findStore(storeId);
   res.render('admin/detail', {store: store});
@@ -28,7 +28,7 @@ router.get('/stores/:id', async (req, res) => {
 
 // Update Store
 router.get('/stores/:id/form', async (req, res) => {
-  if (!req.user) res.redirect('/admin/login');
+  if (!req.user) res.redirect(`${adminAddr}/login`);
   let storeId = req.params.id;
   let store = await adminService.findStore(storeId);
   console.log(store);
@@ -36,7 +36,7 @@ router.get('/stores/:id/form', async (req, res) => {
 })
 
 router.put('/stores/:id', async (req, res) => {
-  if (!req.user) res.redirect('/admin/login');
+  if (!req.user) res.redirect(`${adminAddr}/login`);
   let storeId = req.params.id;
   let data = req.body;
   let store = await adminService.updateStore(storeId, data);
@@ -45,7 +45,7 @@ router.put('/stores/:id', async (req, res) => {
 
 // Delete Store
 router.delete('/stores/:id', async (req, res) => {
-  if (!req.user) res.redirect('/admin/login');
+  if (!req.user) res.redirect(`${adminAddr}/login`);
   let storeId = req.params.id;
   await adminService.removeStore(storeId);
   res.redirect(adminAddr);
