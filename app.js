@@ -46,10 +46,11 @@ let passport = require('./lib/passport')(app);
 // app.get('/test', (req, res) => {
 //   res.render('test');
 // })
+let adminAddr = require('./config/admin').adminAddress;
 app.use('/', indexRouter);
-app.use('/admin', require('./routes/admin'));
+app.use(adminAddr, require('./routes/admin'));
 app.use('/api', require('./routes/api/store'));
-app.post('/admin/login', passport.authenticate('local', { successRedirect: '/admin', failureRedirect: '/admin/login' }));
+app.post(`${adminAddr}/login`, passport.authenticate('local', { successRedirect: adminAddr, failureRedirect: `${adminAddr}/login` }));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
