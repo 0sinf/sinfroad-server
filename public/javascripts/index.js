@@ -9,7 +9,12 @@ function callMap() {
     center: new kakao.maps.LatLng(33.37903821496581, 126.55043597716713),
     level: 9,
   };
-  return new kakao.maps.Map(container, options);
+  var map = new kakao.maps.Map(container, options);
+
+  var zoomControl = new kakao.maps.ZoomControl();
+  map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
+  return map;
 }
 
 function viewTotal() {
@@ -83,6 +88,12 @@ function makeMarker(map, stores) {
             openBox = null;
           }
         })
+
+        kakao.maps.event.addListener(map, 'click', function() {
+          infoBox.close();
+          openBox = null;
+        })
+
 
         
         // selectMarker = null;
