@@ -27,8 +27,8 @@ function callMap() {
       <li class="list-group-item" onclick="viewPart(this)" id="cafe"><a href="#">카페</a></li>
     </ul>
     <ul class="list-group list-group-horizontal d-flex justify-content-end">
-      <li class="list-group-item" type="button" onclick="callMap()">map</li>
-      <li class="list-group-item" type="button" onclick="callTab()">tab</li>
+      <li class="list-group-item" onclick="callMap()">map</li>
+      <li class="list-group-item" onclick="callTab()">tab</li>
     </ul>
   </div>
   <!-- map -->
@@ -195,7 +195,7 @@ function callTab() {
   }).then(stores => {
 
     var tr = document.createElement('tr');
-    tr.innerHTML = `<th>NAME</th><th>Review</th>`;  
+    tr.innerHTML = `<th>NAME</th><th>Review</th><th>Naver</th>`;  
     thead.appendChild(tr);
 
     return stores;
@@ -203,7 +203,7 @@ function callTab() {
   }).then(stores => {
     stores.forEach(store => {
       var tr = document.createElement('tr');
-      tr.innerHTML = `<td>${store.name}</td><td>${store.review}</td>`;
+      tr.innerHTML = `<td>${store.name}</td><td>${store.review}</td><td>${store.nLink}</td>`;
       tbody.appendChild(tr);
     })
     table.appendChild(thead);
