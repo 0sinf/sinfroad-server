@@ -203,7 +203,7 @@ function callTab() {
   }).then(stores => {
     stores.forEach(store => {
       var tr = document.createElement('tr');
-      tr.innerHTML = `<td>${store.name}</td><td>${store.review}</td><td>${store.nLink}</td>`;
+      tr.innerHTML = `<td>${store.name}</td><td>${store.review}</td><td><a href="${store.nLink}">link</a></td>`;
       tbody.appendChild(tr);
     })
     table.appendChild(thead);
