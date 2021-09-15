@@ -5,6 +5,7 @@ var map = callMap();
 // 함수로 맵을 불러오니 지도 다시 안불러오고 마커만 변경된다. 뭐지?
 function callMap() {
   var main = document.getElementById('main');
+  main.classList.replace('flex-column', 'flex-row');
   main.innerHTML = `
   <!--  side bar -->
   <div class="sidebar d-flex d-flex-column">
@@ -152,8 +153,21 @@ function makeOutListener(infowindow) {
 // }
 
 function callTab() {
-  var container = document.getElementById('main');
-  container.innerHTML = '';
+  var main = document.getElementById('main');
+  main.classList.replace('flex-row', 'flex-column');
+  main.innerHTML = `
+  <div class="d-flex flex-row">
+    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</button>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="#">Action</a></li>
+      <li><a class="dropdown-item" href="#">Another action</a></li>
+      <li><a class="dropdown-item" href="#">Something else here</a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><a class="dropdown-item" href="#">Separated link</a></li>
+    </ul>
+    <input type="text" class="form-control" id="input">
+  </div>
+  `;
   // table 검색기능, 페이징 기능
   var table = document.createElement('table');
   table.className = 'table';
@@ -180,7 +194,23 @@ function callTab() {
     })
     table.appendChild(thead);
     table.appendChild(tbody);
-    container.appendChild(table);
-
+    main.appendChild(table);
   })
+
+  input.oninput = function() {
+    var data = input.value;
+    var tr = table.getElementsByTagName('tr');
+
+    for (let i = 0; i < tr.length; i++) {
+      var td = tr[i].getElementsByTagName('td')[0];
+      if (td) {
+        if (td.innerHTML.includes(data)) {
+          tr[i].style.display = '';
+        } else {
+          tr[i].style.display = 'none';
+        }
+      }
+    }
+  }
 }
+
