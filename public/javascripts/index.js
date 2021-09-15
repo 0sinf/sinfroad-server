@@ -22,12 +22,12 @@ function callMap() {
   <!--  side bar -->
   <div class="sidebar d-flex flex-row justify-content-between">
     <ul class="list-group list-group-horizontal">
-      <li class="list-group-item" onclick="viewTotal()" id="total"><a href="#">전체</a></li>
-      <li class="list-group-item" onclick="viewPart(this)" id="restaurant"><a href="#">식당</a></li>
-      <li class="list-group-item" onclick="viewPart(this)" id="cafe"><a href="#">카페</a></li>
+      <li class="list-group-item" onclick="viewTotal()" id="total">전체</li>
+      <li class="list-group-item" onclick="viewPart(this)" id="restaurant">식당</li>
+      <li class="list-group-item" onclick="viewPart(this)" id="cafe">카페</li>
     </ul>
     <ul class="list-group list-group-horizontal d-flex justify-content-end">
-      <li class="list-group-item" onclick="callMap()">map</li>
+      <li class="list-group-item active" onclick="callMap()">map</li>
       <li class="list-group-item" onclick="callTab()">tab</li>
     </ul>
   </div>
@@ -58,6 +58,9 @@ function viewTotal() {
     return data.json();
   }).then(stores => {
     makeMarker(map, stores);
+
+    var total = document.getElementById('total');
+    total.classList.add('active');
   })
 }
 
@@ -68,6 +71,9 @@ function viewPart(e) {
     return data.json();
   }).then(stores => {
     makeMarker(map, stores);
+
+    var part = document.getElementById(e.id);
+    part.classList.add('active');
   })
 }
 
@@ -175,7 +181,7 @@ function callTab() {
   <div class="mb-3">
     <ul class="list-group list-group-horizontal d-flex justify-content-end">
       <li class="list-group-item" onclick="callMap()">map</li>
-      <li class="list-group-item" onclick="callTab()">tab</li>
+      <li class="list-group-item active" onclick="callTab()">tab</li>
     </ul>
   </div>
   <div class="d-flex flex-row">
