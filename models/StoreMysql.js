@@ -17,10 +17,9 @@ exports.save = (data) => {
       console.log(store);
       if (!store[0]) {
         // store가 없는 경우 저장
-        console.log('aa');
         conn.query(
-          `INSERT INTO store(name, review, addr, part) VALUES (?, ?, ?, ?)`,
-          [data.name, data.review, data.addr, data.part], (err2, result) => {
+          `INSERT INTO store(name, review, addr, part, nLink) VALUES (?, ?, ?, ?, ?)`,
+          [data.name, data.review, data.addr, data.part, data.nLink], (err2, result) => {
           if (err2) reject(err2);
           resolve(result.insertId);
         })
@@ -28,8 +27,8 @@ exports.save = (data) => {
       else {
         // store가 있는 경우 업데이트
         conn.query(
-          `UPDATE store SET name=?, review=?, addr=?, part=? WHERE id=?`, 
-          [data.name, data.review, data.addr, data.part, data.id], 
+          `UPDATE store SET name=?, review=?, addr=?, part=?, nLink=? WHERE id=?`, 
+          [data.name, data.review, data.addr, data.part, data.nLink, data.id], 
           (err2, result) => {
             if (err2) reject(err2);
             resolve(result.id);

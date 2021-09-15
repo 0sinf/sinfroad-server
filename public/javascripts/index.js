@@ -1,6 +1,18 @@
 var host = 'localhost:3000';
 
+
 var map = callMap();
+
+function main() {
+  callMap();
+}
+
+function intro() {
+  var main = document.getElementById('main');
+  main.innerHTML = `
+  <a href="https://github.com/younGsse/scenespick" style="font-size:64px;">Github</a>
+  `;
+}
 
 // 함수로 맵을 불러오니 지도 다시 안불러오고 마커만 변경된다. 뭐지?
 function callMap() {
@@ -10,7 +22,7 @@ function callMap() {
   <!--  side bar -->
   <div class="sidebar d-flex flex-row justify-content-between">
     <ul class="list-group list-group-horizontal">
-      <li class="list-group-item" onclick="viewTotal()"><a href="#">전체</a></li>
+      <li class="list-group-item" onclick="viewTotal()" id="total"><a href="#">전체</a></li>
       <li class="list-group-item" onclick="viewPart(this)" id="restaurant"><a href="#">식당</a></li>
       <li class="list-group-item" onclick="viewPart(this)" id="cafe"><a href="#">카페</a></li>
     </ul>
@@ -37,6 +49,7 @@ function callMap() {
 
   return map;
 }
+
 
 function viewTotal() {
   var map = callMap();
@@ -83,9 +96,8 @@ function makeMarker(map, stores) {
           content: `
           <div class="wrap">
             <div class="info">
-            <h3>${store.name}</h3>
-            <p style="font-size: 16px;">${store.review}</p>
-            <p style="visibility: hidden;">${store.addr}</p>
+            <h3>${store.name} <a href="${store.nLink}" style="color:green;">N</a></h3>
+            <span style="font-size: 16px;">${store.review}</span>
             </div>
           </div>`,
           position: marker.getPosition()
@@ -162,8 +174,8 @@ function callTab() {
   main.innerHTML = `
   <div class="mb-3">
     <ul class="list-group list-group-horizontal d-flex justify-content-end">
-      <li class="list-group-item" type="button" onclick="callMap()">map</li>
-      <li class="list-group-item" type="button" onclick="callTab()">tab</li>
+      <li class="list-group-item" onclick="callMap()">map</li>
+      <li class="list-group-item" onclick="callTab()">tab</li>
     </ul>
   </div>
   <div class="d-flex flex-row">
