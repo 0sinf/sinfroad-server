@@ -157,15 +157,7 @@ function callTab() {
   main.classList.replace('flex-row', 'flex-column');
   main.innerHTML = `
   <div class="d-flex flex-row">
-    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</button>
-    <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="#">Action</a></li>
-      <li><a class="dropdown-item" href="#">Another action</a></li>
-      <li><a class="dropdown-item" href="#">Something else here</a></li>
-      <li><hr class="dropdown-divider"></li>
-      <li><a class="dropdown-item" href="#">Separated link</a></li>
-    </ul>
-    <input type="text" class="form-control" id="input">
+    <input type="text" class="form-control" id="input" placeholder="search">
   </div>
   `;
   // table 검색기능, 페이징 기능
