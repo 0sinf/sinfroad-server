@@ -35,12 +35,16 @@ a {
 }
 
 @media screen and (max-width: 576px) {
-  /* .container {
+  /* .content {
     display: flex;
     flex-direction: column;
   }
 
-  .list-group {
+  #main {
+    flex-direction: column;
+  }
+
+  .sidebar {
     display: flex;
     flex-direction: row;
   }

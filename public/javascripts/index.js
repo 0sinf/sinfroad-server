@@ -5,18 +5,22 @@ var map = callMap();
 // 함수로 맵을 불러오니 지도 다시 안불러오고 마커만 변경된다. 뭐지?
 function callMap() {
   var main = document.getElementById('main');
-  main.classList.replace('flex-column', 'flex-row');
+  // main.classList.replace('flex-column', 'flex-row');
   main.innerHTML = `
   <!--  side bar -->
-  <div class="sidebar d-flex d-flex-column">
-    <ul class="list-group">
+  <div class="sidebar d-flex flex-row justify-content-between">
+    <ul class="list-group list-group-horizontal">
       <li class="list-group-item" onclick="viewTotal()"><a href="#">전체</a></li>
       <li class="list-group-item" onclick="viewPart(this)" id="restaurant"><a href="#">식당</a></li>
       <li class="list-group-item" onclick="viewPart(this)" id="cafe"><a href="#">카페</a></li>
     </ul>
+    <ul class="list-group list-group-horizontal d-flex justify-content-end">
+      <li class="list-group-item" type="button" onclick="callMap()">map</li>
+      <li class="list-group-item" type="button" onclick="callTab()">tab</li>
+    </ul>
   </div>
   <!-- map -->
-  <div id="map" style="width:100%; height: 75vh; border-radius: 4px;">
+  <div id="map" style="width:100%; height: 70vh; border-radius: 4px;">
 
   </div>
   `;
@@ -154,8 +158,14 @@ function makeOutListener(infowindow) {
 
 function callTab() {
   var main = document.getElementById('main');
-  main.classList.replace('flex-row', 'flex-column');
+  // main.classList.replace('flex-row', 'flex-column');
   main.innerHTML = `
+  <div class="mb-3">
+    <ul class="list-group list-group-horizontal d-flex justify-content-end">
+      <li class="list-group-item" type="button" onclick="callMap()">map</li>
+      <li class="list-group-item" type="button" onclick="callTab()">tab</li>
+    </ul>
+  </div>
   <div class="d-flex flex-row">
     <input type="text" class="form-control" id="input" placeholder="search">
   </div>
