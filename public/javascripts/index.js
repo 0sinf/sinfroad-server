@@ -4,6 +4,22 @@ var map = callMap();
 
 // 함수로 맵을 불러오니 지도 다시 안불러오고 마커만 변경된다. 뭐지?
 function callMap() {
+  var main = document.getElementById('main');
+  main.innerHTML = `
+  <!--  side bar -->
+  <div class="sidebar d-flex d-flex-column">
+    <ul class="list-group">
+      <li class="list-group-item" onclick="viewTotal()"><a href="#">전체</a></li>
+      <li class="list-group-item" onclick="viewPart(this)" id="restaurant"><a href="#">식당</a></li>
+      <li class="list-group-item" onclick="viewPart(this)" id="cafe"><a href="#">카페</a></li>
+    </ul>
+  </div>
+  <!-- map -->
+  <div id="map" style="width:100%; height: 75vh; border-radius: 4px;">
+
+  </div>
+  `;
+
   var container = document.getElementById('map');
   var options = {
     center: new kakao.maps.LatLng(33.37903821496581, 126.55043597716713),
@@ -134,3 +150,37 @@ function makeOutListener(infowindow) {
 //     infoBox.close();
 //   }
 // }
+
+function callTab() {
+  var container = document.getElementById('main');
+  container.innerHTML = '';
+  // table 검색기능, 페이징 기능
+  var table = document.createElement('table');
+  table.className = 'table';
+  table.id = 'table';
+
+  var thead = document.createElement('thead');
+  var tbody = document.createElement('tbody');
+
+  fetch(`http://${host}/api/stores`).then(data => {
+    return data.json();
+  }).then(stores => {
+
+    var tr = document.createElement('tr');
+    tr.innerHTML = `<th>NAME</th><th>Review</th>`;  
+    thead.appendChild(tr);
+
+    return stores;
+    
+  }).then(stores => {
+    stores.forEach(store => {
+      var tr = document.createElement('tr');
+      tr.innerHTML = `<td>${store.name}</td><td>${store.review}</td>`;
+      tbody.appendChild(tr);
+    })
+    table.appendChild(thead);
+    table.appendChild(tbody);
+    container.appendChild(table);
+
+  })
+}
