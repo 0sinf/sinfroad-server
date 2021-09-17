@@ -34,7 +34,6 @@ function callMap() {
   <!-- map -->
   <div id="map" style="width:100%; height: 70vh; border-radius: 4px;">
     <button class="btn btn-secondary list-group-item" id="myLocation" style="z-index:2; margin:4px;">현재 위치</button>
-
   </div>
   `;
 
@@ -57,17 +56,28 @@ function callMap() {
   myLocation.addEventListener('click', () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
+        // 현재 위치의 위도 경도 받아옴.
         var lat = position.coords.latitude;
         var lng = position.coords.longitude;
 
         var locPosition = new kakao.maps.LatLng(lat, lng);
 
+        // 마커 생성
         var marker = new kakao.maps.Marker({
           map: map,
           position: locPosition,
+          clickable: true,
+          // image: `http://localhost:3000/images/myLocation.png`
         })
 
+        // 맵 마커 중심으로 옮김
         map.setCenter(locPosition);
+
+        // 클릭 시 마커 사라짐
+        kakao.maps.event.addListener(marker, 'click', function() {
+          marker.setMap(null);
+        })
+
       })
     } else {
       console.log('cannot use geolocation');
