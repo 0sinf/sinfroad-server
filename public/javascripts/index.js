@@ -33,7 +33,7 @@ function callMap() {
   </div>
   <!-- map -->
   <div id="map" style="width:100%; height: 70vh; border-radius: 4px;">
-    <button class="btn btn-secondary list-group-item" id="myLocation" style="z-index:2; margin:4px;">현재 위치</button>
+    <button class="btn btn-secondary list-group-item" id="myLocation" style="z-index:2; margin:4px;"><i class="fas fa-crosshairs"></i></button>
   </div>
   `;
 
@@ -62,12 +62,17 @@ function callMap() {
 
         var locPosition = new kakao.maps.LatLng(lat, lng);
 
+        // 마커 이미지 옵션
+        var imageSrc = `${host}/images/myLocation_marker.png`;
+        var imageSize = new kakao.maps.Size(48, 50);
+        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
         // 마커 생성
         var marker = new kakao.maps.Marker({
           map: map,
           position: locPosition,
           clickable: true,
-          // image: `http://localhost:3000/images/myLocation.png`
+          image: markerImage
         })
 
         // 맵 마커 중심으로 옮김
