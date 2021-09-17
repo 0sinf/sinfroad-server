@@ -54,7 +54,7 @@ function callMap() {
 function viewTotal() {
   var map = callMap();
 
-  fetch(`http://${host}/api/stores`).then(data => {
+  fetch(`https://${host}/api/stores`).then(data => {
     return data.json();
   }).then(stores => {
     makeMarker(map, stores);
@@ -67,7 +67,7 @@ function viewTotal() {
 function viewPart(e) {
   var map = callMap();
 
-  fetch(`http://${host}/api/stores/${e.id}`).then(data => {
+  fetch(`https://${host}/api/stores/${e.id}`).then(data => {
     return data.json();
   }).then(stores => {
     makeMarker(map, stores);
@@ -174,6 +174,8 @@ function makeOutListener(infowindow) {
 //   }
 // }
 
+
+
 function callTab() {
   var main = document.getElementById('main');
   // main.classList.replace('flex-row', 'flex-column');
@@ -196,7 +198,7 @@ function callTab() {
   var thead = document.createElement('thead');
   var tbody = document.createElement('tbody');
 
-  fetch(`http://${host}/api/stores`).then(data => {
+  fetch(`https://${host}/api/stores`).then(data => {
     return data.json();
   }).then(stores => {
 
