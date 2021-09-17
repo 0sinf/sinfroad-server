@@ -1,4 +1,4 @@
-var host = 'localhost:3000';
+var host = 'http://localhost:3000';
 
 
 var map = callMap();
@@ -54,7 +54,7 @@ function callMap() {
 function viewTotal() {
   var map = callMap();
 
-  fetch(`https://${host}/api/stores`).then(data => {
+  fetch(`${host}/api/stores`).then(data => {
     return data.json();
   }).then(stores => {
     makeMarker(map, stores);
@@ -67,7 +67,7 @@ function viewTotal() {
 function viewPart(e) {
   var map = callMap();
 
-  fetch(`https://${host}/api/stores/${e.id}`).then(data => {
+  fetch(`${host}/api/stores/${e.id}`).then(data => {
     return data.json();
   }).then(stores => {
     makeMarker(map, stores);
@@ -198,7 +198,7 @@ function callTab() {
   var thead = document.createElement('thead');
   var tbody = document.createElement('tbody');
 
-  fetch(`https://${host}/api/stores`).then(data => {
+  fetch(`${host}/api/stores`).then(data => {
     return data.json();
   }).then(stores => {
 
