@@ -33,6 +33,7 @@ function callMap() {
   </div>
   <!-- map -->
   <div id="map" style="width:100%; height: 70vh; border-radius: 4px;">
+    <button class="btn btn-secondary list-group-item" id="myLocation" style="z-index:2; margin:4px;">현재 위치</button>
 
   </div>
   `;
@@ -46,6 +47,32 @@ function callMap() {
 
   var zoomControl = new kakao.maps.ZoomControl();
   map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
+
+  // 맵 안에 버튼 만들기 어떻게 하지?
+  // 맵 컨테이너 안에 버튼 만들고 z-index 끌올
+
+  // 현재 위치 컨트롤러
+  var myLocation = document.getElementById('myLocation');
+  myLocation.addEventListener('click', () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var lat = position.coords.latitude;
+        var lng = position.coords.longitude;
+
+        var locPosition = new kakao.maps.LatLng(lat, lng);
+
+        var marker = new kakao.maps.Marker({
+          map: map,
+          position: locPosition,
+        })
+
+        map.setCenter(locPosition);
+      })
+    } else {
+      console.log('cannot use geolocation');
+    }
+  })
 
   return map;
 }
