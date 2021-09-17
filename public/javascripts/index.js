@@ -60,6 +60,11 @@ function callMap() {
         var lat = position.coords.latitude;
         var lng = position.coords.longitude;
 
+        if ((lat < 33.1138 || lat > 33.2854) && (lng < 126.1059 || lng > 126.5657)) {
+          alert('현재 위치가 제주도가 아닙니다.');
+          return false;
+        }
+
         var locPosition = new kakao.maps.LatLng(lat, lng);
 
         // 마커 이미지 옵션
