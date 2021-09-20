@@ -90,7 +90,7 @@ function callMap() {
 
       })
     } else {
-      console.log('cannot use geolocation');
+      alert('위치 정보 서비스를 사용할 수 없습니다.');
     }
   })
 
