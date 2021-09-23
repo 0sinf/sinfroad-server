@@ -60,6 +60,7 @@ function callMap() {
         var lat = position.coords.latitude;
         var lng = position.coords.longitude;
 
+        // 제주도 내에서 자신 위치 찾도록
         if ((lat < 33.1138 || lat > 33.2854) && (lng < 126.1059 || lng > 126.5657)) {
           alert('현재 위치가 제주도가 아닙니다.');
           return false;
@@ -68,8 +69,8 @@ function callMap() {
         var locPosition = new kakao.maps.LatLng(lat, lng);
 
         // 마커 이미지 옵션
-        var imageSrc = `${host}/images/myLocation_marker.png`;
-        var imageSize = new kakao.maps.Size(48, 50);
+        var imageSrc = `${host}/images/star_marker.png`;
+        var imageSize = new kakao.maps.Size(35, 40);
         var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
         // 마커 생성
@@ -132,10 +133,23 @@ function makeMarker(map, stores) {
     geocoder.addressSearch(store.addr, (result, status) => {
       if (status === kakao.maps.services.Status.OK) {
         var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+        // 식당과 카페 marker 다르게 한다. store의 part로 marker image 선택하도록 조건문
+        if (store.part === 'restaurant') {
+          var imageSrc = `${host}/images/green_marker.png`;
+          var imageSize = new kakao.maps.Size(35, 40);
+          var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+        } else if (store.part === 'cafe') {
+          var imageSrc = `${host}/images/blue_marker.png`;
+          var imageSize = new kakao.maps.Size(35, 40);
+          var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+        }
+
         var marker = new kakao.maps.Marker({
           map: map,
           position: coords,
-          clickable: true
+          clickable: true,
+          image: markerImage
         });
 
         var infowindow = new kakao.maps.InfoWindow({
