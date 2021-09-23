@@ -137,11 +137,11 @@ function makeMarker(map, stores) {
         // 식당과 카페 marker 다르게 한다. store의 part로 marker image 선택하도록 조건문
         if (store.part === 'restaurant') {
           var imageSrc = `${host}/images/green_marker.png`;
-          var imageSize = new kakao.maps.Size(35, 40);
+          var imageSize = new kakao.maps.Size(30, 35);
           var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
         } else if (store.part === 'cafe') {
           var imageSrc = `${host}/images/blue_marker.png`;
-          var imageSize = new kakao.maps.Size(35, 40);
+          var imageSize = new kakao.maps.Size(30, 35);
           var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
         }
 
