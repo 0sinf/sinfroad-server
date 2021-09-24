@@ -27,7 +27,7 @@ function callMap() {
 
   var container = document.getElementById('map');
   var options = {
-    center: new kakao.maps.LatLng(33.37903821496581, 126.55043597716713),
+    center: new kakao.maps.LatLng(33.499651057776916, 126.53123621834118),
     level: 9,
   };
   var map = new kakao.maps.Map(container, options);
