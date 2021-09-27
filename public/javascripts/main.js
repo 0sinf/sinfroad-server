@@ -13,6 +13,7 @@ function callMap() {
       <li class="list-group-item" onclick="viewTotal()" id="total">전체</li>
       <li class="list-group-item" onclick="viewPart(this)" id="restaurant">식당</li>
       <li class="list-group-item" onclick="viewPart(this)" id="cafe">카페</li>
+      <li class="list-group-item" onclick="viewPart(this)" id="goodPlace">명소</li>
     </ul>
     <ul class="list-group list-group-horizontal d-flex justify-content-end">
       <li class="list-group-item active" onclick="callMap()">map</li>
