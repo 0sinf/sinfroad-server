@@ -47,6 +47,8 @@ function makeMarker(map, stores) {
           var imageSrc = `${host}/images/blue_marker.png`;
           var imageSize = new kakao.maps.Size(30, 35);
           var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+        } else if (store.part === 'goodPlace') {
+          var markerImage = null;
         }
 
         var marker = new kakao.maps.Marker({
