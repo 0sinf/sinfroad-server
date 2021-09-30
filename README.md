@@ -34,6 +34,15 @@ Admin Page : 관리자 페이지로, 장소에 대한 CRUD를 구현한다.
 
 Client Page : 사용자 페이지로, 장소를 맵 혹은 테이블로 보여준다.
 
+## 프로젝트를 통해 배운 것
+
+Node.js와 Express.js를 이용해 백엔드를 구축할 수 있었습니다.<br>
+그리고 MySQL을 사용해 DB table을 구성하는 것부터 DB 쿼리를 통해 DB와 통신하는 것을 시도했습니다. <Br>
+Model, Service, Controller, View를 분리해 MVC 모델링을 시도했습니다.<br>
+CRUD에 있어 RESTful API를 시도했습니다.<br>
+Vanilla JS로 api를 호출해 사용할 수 있게 되었습니다.<br>
+AWS로 배포하였고, 배포할 때 반복되는 작업에 대해 shell script로 작성해 시도했습니다.<br>
+
 ## 관련 URL
 
 배포 도메인 : [씬스픽](https://scenespick.tk) <br>
