@@ -45,5 +45,4 @@ AWS로 배포하였고, 배포할 때 반복되는 작업에 대해 shell script
 
 ## 관련 URL
 
-배포 도메인 : [씬스픽](https://scenespick.tk) <br>
 github : [Github](https://github.com/younGsse/scenespick)
