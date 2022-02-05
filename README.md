@@ -1,48 +1,14 @@
-# 제주 관광지도 씬스픽
+# 씬프로드 (구 씬스픽)
 
-## 프로젝트 진행 이유
-
-계획적이지 않은 사람이 제주도에 여행갔을 때, 지금 나의 위치에서 어딜 가야할 지 고민될 때, <br>
-혹은 즉흥적인 여행으로 준비되지 않은 제주도 여행을 갔을 때,<br>
-내 주변에 유튜브에 소개된 장소와 제주도민이 추천한 장소를 보고 싶었습니다.<br>
-
-제주 여행객들이 많아지면서 많은 소개 영상이나 블로그들이 생겼지만<br>
-지금 내가 있는 곳에서 가까운 곳은 어디가 있을지 바로 확인할 수 있습니다.<br>
-
-## 프로젝트 계획
-
-프로젝트는 9월 3일부터 시작하여, 9월 25일 이전 서비스를 시작하는 것이 목표입니다.<br>
-추후 리팩토링, 서비스 관리는 지속되어야 하지만, 서비스의 시작은 26일로 목표합니다.<br>
-
-9월 30일 현재 진행 중
+씬스픽이 리뉴얼됩니다. 기존의 형식과 다르게 맛집 기록 블로그로 운영할 계획입니다.
 
 ## 기술 스택
 
-| Part               | Stack                         |
-| ------------------ | ----------------------------- |
-| Server             | Node.js, Express.js, nginx    |
-| Client             | HTML, Bootstrap 5, Vanilla JS |
-| DB                 | MySQL                         |
-| Version management | Git, Github                   |
-| Project management | Notion                        |
-| Deployment         | AWS Ubuntu                    |
-| etc                | Kakao maps API                |
-
-## 프로젝트 구성
-
-Admin Page : 관리자 페이지로, 장소에 대한 CRUD를 구현한다.
-
-Client Page : 사용자 페이지로, 장소를 맵 혹은 테이블로 보여준다.
-
-## 프로젝트를 통해 배운 것
-
-Node.js와 Express.js를 이용해 백엔드를 구축할 수 있었습니다.<br>
-그리고 MySQL을 사용해 DB table을 구성하는 것부터 DB 쿼리를 통해 DB와 통신하는 것을 시도했습니다. <Br>
-Model, Service, Controller, View를 분리해 MVC 모델링을 시도했습니다.<br>
-CRUD에 있어 RESTful API를 시도했습니다.<br>
-Vanilla JS로 api를 호출해 사용할 수 있게 되었습니다.<br>
-AWS로 배포하였고, 배포할 때 반복되는 작업에 대해 shell script로 작성해 시도했습니다.<br>
-
-## 관련 URL
-
-github : [Github](https://github.com/younGsse/scenespick)
+| Part     | Skills                  |
+| -------- | ----------------------- |
+| Frontend | React                   |
+| Backend  | Express with Typescript |
+| DB       | Postgresql              |
+| Test     | Jest                    |
+| Server   | Nginx, AWS              |
+| tools    | Notion                  |
