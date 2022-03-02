@@ -16,15 +16,15 @@ export class UsersService {
   }
 
   async getUserInfo(userId: string) {
-    const user = this.usersModel.findById(userId);
+    const user = await this.usersModel.findById(userId);
     return user;
   }
 
   async updateUser(userId: string, name: string, password: string) {
-    throw new Error('Not implemented');
+    await this.usersModel.findByIdAndUpdate(userId, name, password);
   }
 
   async deleteUser(userId: string) {
-    throw new Error('Not implemented');
+    await this.usersModel.findByIdAndDelete(userId);
   }
 }

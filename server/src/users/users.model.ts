@@ -42,4 +42,23 @@ export class UsersModel {
     }
     return user;
   }
+
+  async findByIdAndUpdate(userId: string, name: string, password: string) {
+    const user = this.users.find((user) => user.userId === parseInt(userId));
+    if (name) {
+      user.name = name;
+    }
+    if (password) {
+      user.password = password;
+    }
+    return;
+  }
+
+  async findByIdAndDelete(userId: string) {
+    const user = this.users.find((user) => {
+      user.userId === parseInt(userId);
+    });
+    const idx = this.users.indexOf(user);
+    this.users.splice(idx, 1);
+  }
 }
