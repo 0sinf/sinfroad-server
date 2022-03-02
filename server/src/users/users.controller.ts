@@ -10,47 +10,51 @@ import {
 import { CreateUserRequest } from './dto/create-user.dto';
 import { UpdateUserRequest } from './dto/update-user.dto';
 import { UserLoginRequest } from './dto/user-login.dto';
+import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
+  constructor(private usersService: UsersService) {}
   /**
    * 회원 가입, 로그인, 회원 정보, 회원 정보 수정, 로그아웃, 회원 탈퇴
    */
   @Post()
-  async createUser(@Body() dto: CreateUserRequest): Promise<string> {
-    console.log(dto);
-    return 'create user api';
+  async createUser(@Body() dto: CreateUserRequest): Promise<void> {
+    const { name, email, password } = dto;
+    await this.usersService.createUser(name, email, password);
+    return;
   }
 
   @Post('login')
-  async login(@Body() dto: UserLoginRequest): Promise<string> {
-    console.log(dto);
-    return 'login api';
+  async login(@Body() dto: UserLoginRequest): Promise<void> {
+    const { email, password } = dto;
+    await this.usersService.login(email, password);
+    return;
   }
 
   @Get(':id')
-  async getUserInfo(@Param('id') userId: string): Promise<string> {
-    console.log(userId);
-    return `get ${userId} user infomation`;
+  async getUserInfo(@Param('id') userId: string): Promise<void> {
+    return await this.usersService.getUserInfo(userId);
   }
 
   @Patch(':id')
   async updateUser(
     @Param('id') userId: string,
     @Body() dto: UpdateUserRequest,
-  ): Promise<string> {
-    console.log(dto);
-    return `update ${userId} user api`;
+  ): Promise<void> {
+    const { name, password } = dto;
+    await this.usersService.updateUser(userId, name, password);
+    return;
   }
 
   @Post('logout')
-  async logout(): Promise<string> {
-    return 'logout api';
+  async logout(): Promise<void> {
+    return;
   }
 
   @Delete(':id')
-  async deleteUser(@Param('id') userId: string): Promise<string> {
-    console.log(userId);
-    return `delete ${userId} user`;
+  async deleteUser(@Param('id') userId: string): Promise<void> {
+    await this.usersService.deleteUser(userId);
+    return;
   }
 }
