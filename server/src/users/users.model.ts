@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-interface IUserInfo {
+export interface IUserInfo {
   userId: number;
   name: string;
   email: string;
@@ -28,5 +28,18 @@ export class UsersModel {
     this.seq += 1;
 
     return this.seq - 1;
+  }
+
+  async checkUser(email: string, password: string) {
+    const user = this.users.find((user) => user.email === email);
+    return user.password === password;
+  }
+
+  async findById(userId: string) {
+    const user = this.users.find((user) => user.userId === parseInt(userId));
+    if (!user) {
+      throw new Error('Not exists user');
+    }
+    return user;
   }
 }

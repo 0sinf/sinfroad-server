@@ -11,6 +11,7 @@ import { CreateUserRequest } from './dto/create-user.dto';
 import { UpdateUserRequest } from './dto/update-user.dto';
 import { UserLoginRequest } from './dto/user-login.dto';
 import { UsersService } from './users.service';
+import { IUserInfo } from './users.model';
 
 @Controller('users')
 export class UsersController {
@@ -26,14 +27,17 @@ export class UsersController {
   }
 
   @Post('login')
-  async login(@Body() dto: UserLoginRequest): Promise<void> {
+  async login(@Body() dto: UserLoginRequest): Promise<string> {
     const { email, password } = dto;
-    await this.usersService.login(email, password);
-    return;
+    const isLogined = await this.usersService.login(email, password);
+    if (isLogined) {
+      return 'login success';
+    }
+    return 'login failure';
   }
 
   @Get(':id')
-  async getUserInfo(@Param('id') userId: string): Promise<void> {
+  async getUserInfo(@Param('id') userId: string): Promise<IUserInfo> {
     return await this.usersService.getUserInfo(userId);
   }
 

@@ -11,11 +11,13 @@ export class UsersService {
   }
 
   async login(email: string, password: string) {
-    throw new Error('Not implemented');
+    const isLogined = this.usersModel.checkUser(email, password);
+    return isLogined;
   }
 
   async getUserInfo(userId: string) {
-    throw new Error('Not implemented');
+    const user = this.usersModel.findById(userId);
+    return user;
   }
 
   async updateUser(userId: string, name: string, password: string) {
