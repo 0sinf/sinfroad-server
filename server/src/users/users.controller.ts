@@ -19,10 +19,10 @@ export class UsersController {
    * 회원 가입, 로그인, 회원 정보, 회원 정보 수정, 로그아웃, 회원 탈퇴
    */
   @Post()
-  async createUser(@Body() dto: CreateUserRequest): Promise<void> {
+  async createUser(@Body() dto: CreateUserRequest): Promise<object> {
     const { name, email, password } = dto;
-    await this.usersService.createUser(name, email, password);
-    return;
+    const userId = await this.usersService.createUser(name, email, password);
+    return { userId };
   }
 
   @Post('login')

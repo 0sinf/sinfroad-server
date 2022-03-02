@@ -1,9 +1,13 @@
 import { Injectable } from '@nestjs/common';
+import { UsersModel } from './users.model';
 
 @Injectable()
 export class UsersService {
+  constructor(private usersModel: UsersModel) {}
+
   async createUser(name: string, email: string, password: string) {
-    throw new Error('Not implemented');
+    const userId = await this.usersModel.create(name, email, password);
+    return userId;
   }
 
   async login(email: string, password: string) {
