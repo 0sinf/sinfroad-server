@@ -5,12 +5,12 @@ import { PostsModule } from './posts/posts.module';
 
 @Module({
   imports: [
-    PostsModule,
     ConfigModule.forRoot({
       envFilePath: [`${__dirname}/config/env/.${process.env.NODE_ENV}.env`],
       isGlobal: true,
     }),
     TypeOrmModule.forRoot(),
+    PostsModule,
   ],
 })
 export class AppModule {}

@@ -2,12 +2,14 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { PhotoEntity } from '../photos/photos.entity';
 
 @Entity('Post')
-export class Post {
+export class PostEntity {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
@@ -25,4 +27,7 @@ export class Post {
 
   @UpdateDateColumn()
   updated: Date;
+
+  @OneToMany(() => PhotoEntity, (photo) => photo.post)
+  photos: PhotoEntity[];
 }

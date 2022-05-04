@@ -1,14 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Post } from './posts.entity';
+import { PostEntity } from './posts.entity';
 
 @Injectable()
 export class PostsService {
   constructor(
-    @InjectRepository(Post)
-    private postsRepository: Repository<Post>,
+    @InjectRepository(PostEntity)
+    private postsRepository: Repository<PostEntity>,
   ) {}
 
-  async createPost() {}
+  async createPost() {
+    return;
+  }
 }

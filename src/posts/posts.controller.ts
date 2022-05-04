@@ -1,9 +1,12 @@
-import { Controller, Inject } from '@nestjs/common';
+import { Controller, Post } from '@nestjs/common';
 import { PostsService } from './posts.service';
 
 @Controller('posts')
 export class PostsController {
-  constructor(@Inject() private postsService: PostsService) {}
+  constructor(private postsService: PostsService) {}
 
-  async createPost() {}
+  @Post()
+  async createPost() {
+    return;
+  }
 }
