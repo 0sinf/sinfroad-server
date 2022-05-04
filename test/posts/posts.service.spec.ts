@@ -1,21 +1,38 @@
-import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { mock, instance } from 'ts-mockito';
+import { mock, instance, verify, anyOfClass, when } from 'ts-mockito';
 import { PostEntity } from '../../src/posts/posts.entity';
 import { PostsService } from '../../src/posts/posts.service';
 
 describe('PostsService', () => {
-  let mockPostRepository: Repository<PostEntity>;
   let postsService: PostsService;
+  let postsRepository: Repository<PostEntity>;
 
   beforeEach(() => {
-    mockPostRepository = mock(getRepositoryToken(PostEntity));
-    postsService = new PostsService(instance(mockPostRepository));
+    postsRepository = mock();
+
+    when(postsRepository.save(anyOfClass(PostEntity))).thenResolve();
+
+    postsService = new PostsService(instance(postsRepository));
   });
 
-  describe('PostsService createPost', () => {
-    it('should be defined', () => {
-      expect(postsService.createPost).toBeDefined();
-    });
+  it('should be defined', () => {
+    expect(postsService).toBeDefined();
+    expect(postsRepository).toBeDefined();
+    expect(postsService.createPost).toBeDefined();
+  });
+
+  it('should call postsRepository.save', async () => {
+    // given
+    const post = {
+      title: 'title',
+      contents: 'contents',
+      address: 'address',
+    };
+
+    // when
+    await postsService.createPost(post);
+
+    // then
+    verify(postsRepository.save(anyOfClass(PostEntity))).called();
   });
 });

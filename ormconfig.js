@@ -6,5 +6,5 @@ module.exports = {
   password: process.env.DATABASE_PASSWORD,
   database: 'test',
   entities: ['dist/**/*.entity{.ts,.js}'],
-  synchronize: false,
+  synchronize: true,
 };
