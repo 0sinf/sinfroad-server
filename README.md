@@ -4,11 +4,10 @@
 
 ## 기술 스택
 
-| Part     | Skills                  |
-| -------- | ----------------------- |
-| Frontend | React                   |
-| Backend  | Express with Typescript |
-| DB       | Postgresql              |
-| Test     | Jest                    |
-| Server   | Nginx, AWS              |
-| tools    | Notion                  |
+| Part    | Skills        |
+| ------- | ------------- |
+| Backend | NestJS        |
+| DB      | Postgresql    |
+| Test    | Jest          |
+| Server  | Nginx, Ubuntu |
+| tools   | Notion        |
