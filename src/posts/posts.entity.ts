@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { PhotoEntity } from '../photos/photos.entity';
+import { ImageEntity } from '../images/image.entity';
 
 @Entity('Post')
 export class PostEntity {
@@ -28,6 +28,6 @@ export class PostEntity {
   @UpdateDateColumn()
   updated: Date;
 
-  @OneToMany(() => PhotoEntity, (photo) => photo.post)
-  photos: PhotoEntity[];
+  @OneToMany(() => ImageEntity, (photo) => photo.post)
+  photos: ImageEntity[];
 }

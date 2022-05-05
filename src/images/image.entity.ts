@@ -1,11 +1,11 @@
 import { Entity, ManyToOne, PrimaryColumn } from 'typeorm';
 import { PostEntity } from '../posts/posts.entity';
 
-@Entity('Photo')
-export class PhotoEntity {
+@Entity('Images')
+export class ImageEntity {
   @PrimaryColumn()
   url: string;
 
-  @ManyToOne(() => PostEntity, { cascade: true })
+  @ManyToOne(() => PostEntity)
   post: PostEntity;
 }
