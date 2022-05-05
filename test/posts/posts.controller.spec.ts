@@ -22,8 +22,9 @@ describe('PostsController', () => {
         contents: 'contents',
         address: 'address',
       };
+      const images: Express.Multer.File[] = [];
 
-      await postsController.createPost(post);
+      await postsController.createPost(post, images);
 
       verify(mockPostService.createPost(post)).called();
     });
