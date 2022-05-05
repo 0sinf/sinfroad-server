@@ -16,4 +16,14 @@ export class PostsService {
     const post = new PostEntity().builder(title, contents, address);
     return await this.postsRepository.save(post);
   }
+
+  async getPost(postId: string) {
+    const post = await this.postsRepository
+      .createQueryBuilder('post')
+      .leftJoinAndSelect('post.images', 'image')
+      .where('id = :id', { id: postId })
+      .getOne();
+
+    return post;
+  }
 }

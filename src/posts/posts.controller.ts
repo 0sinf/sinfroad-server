@@ -1,6 +1,8 @@
 import {
   Body,
   Controller,
+  Get,
+  Param,
   Post,
   UploadedFiles,
   UseInterceptors,
@@ -26,6 +28,20 @@ export class PostsController {
   ) {
     const post = await this.postsService.createPost(dto);
     await this.imagesService.saveImage(post, images);
-    return;
+    return {
+      statusCode: 201,
+      data: {
+        postId: post.id,
+      },
+    };
+  }
+
+  @Get(':id')
+  async getPost(@Param('id') postId: string) {
+    const post = await this.postsService.getPost(postId);
+    return {
+      statusCode: 200,
+      data: post,
+    };
   }
 }
