@@ -4,7 +4,7 @@ module.exports = {
   port: 5432,
   username: process.env.DATABASE_USERNAME,
   password: process.env.DATABASE_PASSWORD,
-  database: 'nest',
+  database: 'test',
   entities: ['dist/**/*.entity{.ts,.js}'],
   synchronize: true,
 };
