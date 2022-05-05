@@ -1,14 +1,21 @@
 import { mock, instance, verify } from 'ts-mockito';
 import { PostsService } from '../../src/posts/posts.service';
 import { PostsController } from '../../src/posts/posts.controller';
+import { ImagesService } from '../../src/images/images.service';
 
 describe('PostsController', () => {
   let mockPostService: PostsService;
+  let mockImageService: ImagesService;
   let postsController: PostsController;
 
   beforeEach(() => {
     mockPostService = mock(PostsService);
-    postsController = new PostsController(instance(mockPostService));
+    mockImageService = mock(ImagesService);
+
+    postsController = new PostsController(
+      instance(mockPostService),
+      instance(mockImageService),
+    );
   });
 
   describe('PostsConroller createPost', () => {

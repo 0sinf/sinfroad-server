@@ -15,6 +15,6 @@ describe('ImagesService', () => {
   });
 
   it('should be defined', () => {
-    expect(imagesService.save).toBeDefined();
+    expect(imagesService.saveImage).toBeDefined();
   });
 });
