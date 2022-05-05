@@ -12,8 +12,12 @@ export class ImagesService {
   ) {}
 
   async saveImage(post: PostEntity, images: Express.Multer.File[]) {
-    //TODO: save post, image url
-    console.log(post, images);
-    return;
+    for (const i of images) {
+      const url = `${process.env.SERVER_DOMAIN}/public/${i.filename}`;
+      const image = new ImageEntity();
+      image.post = post;
+      image.url = url;
+      await this.imageRepository.save(image);
+    }
   }
 }
