@@ -13,15 +13,7 @@ export class PostsService {
 
   async createPost(dto: CreatePostReq) {
     const { title, contents, address } = dto;
-    const post = this.buildPost(title, contents, address);
-    await this.postsRepository.save(post);
-  }
-
-  private buildPost(title: string, contents: string, address: string) {
-    const post = new PostEntity();
-    post.title = title;
-    post.contents = contents;
-    post.address = address;
-    return post;
+    const post = new PostEntity().builder(title, contents, address);
+    return await this.postsRepository.save(post);
   }
 }

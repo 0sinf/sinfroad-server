@@ -30,4 +30,11 @@ export class PostEntity {
 
   @OneToMany(() => ImageEntity, (photo) => photo.post)
   photos: ImageEntity[];
+
+  builder(title: string, contents: string, address: string) {
+    this.title = title;
+    this.contents = contents;
+    this.address = address;
+    return this;
+  }
 }
