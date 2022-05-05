@@ -28,8 +28,8 @@ export class PostEntity {
   @UpdateDateColumn()
   updated: Date;
 
-  @OneToMany(() => ImageEntity, (photo) => photo.post)
-  photos: ImageEntity[];
+  @OneToMany(() => ImageEntity, (image) => image.post)
+  images: ImageEntity[];
 
   builder(title: string, contents: string, address: string) {
     this.title = title;
