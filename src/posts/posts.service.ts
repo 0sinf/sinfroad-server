@@ -26,4 +26,9 @@ export class PostsService {
 
     return post;
   }
+
+  async getPosts() {
+    const posts = await this.postsRepository.find();
+    return posts;
+  }
 }

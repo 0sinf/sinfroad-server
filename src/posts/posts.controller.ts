@@ -36,6 +36,15 @@ export class PostsController {
     };
   }
 
+  @Get()
+  async getPosts() {
+    const posts = await this.postsService.getPosts();
+    return {
+      statusCode: 200,
+      data: posts,
+    };
+  }
+
   @Get(':id')
   async getPost(@Param('id') postId: string) {
     const post = await this.postsService.getPost(postId);
