@@ -42,7 +42,14 @@ export class PostsService {
   }
 
   async getPosts() {
-    const posts = await this.postsRepository.find();
-    return posts;
+    const posts = await this.postsRepository
+      .createQueryBuilder('post')
+      .leftJoinAndSelect('post.images', 'image')
+      .getMany();
+
+    return posts.map(({ images, ...rest }) => ({
+      ...rest,
+      image: images[0].url,
+    }));
   }
 }
