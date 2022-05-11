@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
+import { PostDocument } from "post";
 import config from "../config";
 import { Post } from "../model";
-import { PostDocument } from "post";
 
 export async function createPost(
   req: Request,
