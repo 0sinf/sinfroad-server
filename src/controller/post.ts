@@ -8,22 +8,26 @@ export async function createPost(
   res: Response,
   next: NextFunction
 ) {
-  const { title, contents, address } = req.body;
+  try {
+    const { title, contents, address } = req.body;
 
-  const images = (req.files as Express.Multer.File[]).map(
-    (file: Express.Multer.File) => {
-      return `${config.domain}/${file.path}`;
-    }
-  );
+    const images = (req.files as Express.Multer.File[]).map(
+      (file: Express.Multer.File) => {
+        return `${config.domain}/${file.path}`;
+      }
+    );
 
-  const post = await Post.create({
-    title,
-    contents,
-    address,
-    images,
-  });
+    const post = await Post.create({
+      title,
+      contents,
+      address,
+      images,
+    });
 
-  res.status(201).json({ postId: post.id });
+    res.status(201).json({ postId: post.id });
+  } catch (error) {
+    next(error);
+  }
 }
 
 export async function getPosts(
@@ -31,11 +35,15 @@ export async function getPosts(
   res: Response,
   next: NextFunction
 ) {
-  const posts = await Post.find();
+  try {
+    const posts = await Post.find();
 
-  res.status(200).json({
-    posts: parsePost(posts),
-  });
+    res.status(200).json({
+      posts: parsePost(posts),
+    });
+  } catch (error) {
+    next(error);
+  }
 }
 
 function parsePost(posts: PostDocument[]) {
