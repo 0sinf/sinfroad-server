@@ -18,7 +18,8 @@
     "mongoose": "^6.3.3",
     "multer": "^1.4.4",
     "pino": "^7.11.0",
-    "pino-pretty": "^7.6.1"
+    "pino-pretty": "^7.6.1",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
@@ -28,6 +29,7 @@
     "@types/multer": "^1.4.7",
     "@types/node": "^17.0.32",
     "@types/pino": "^7.0.5",
+    "@types/uuid": "^8.3.4",
     "jest": "^28.1.0",
     "node-mocks-http": "^1.11.0",
     "nodemon": "^2.0.16",

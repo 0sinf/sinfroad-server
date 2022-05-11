@@ -6,6 +6,5 @@ export async function createPost(
   res: Response,
   next: NextFunction
 ) {
-  const posts = await Post.find();
-  res.json({ posts });
+  res.json({});
 }
