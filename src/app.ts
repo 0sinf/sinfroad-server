@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import path from "path";
 import cors from "cors";
 import config from "./config";
-import { Exception } from "error";
+import { Exception } from "response";
 import { NotFoundException } from "./error";
 
 const app = express();
