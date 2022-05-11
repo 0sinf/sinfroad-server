@@ -6,7 +6,7 @@ import pino from "pino";
 import config from "./config";
 import { Exception } from "response";
 import { NotFoundException } from "./error";
-import routes from "./routes";
+import postRouter from "./routes/post";
 
 const app = express();
 const logger = pino({
@@ -24,7 +24,7 @@ app.use(cors());
 
 app.use("/public", express.static(path.join(__dirname, "../public")));
 
-app.use("/api", routes);
+app.use("/api/posts", postRouter);
 
 mongoose.connect(config.mongoUri, () => {
   logger.info("💾 DB connected");
