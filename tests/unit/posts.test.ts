@@ -14,6 +14,8 @@ beforeEach(() => {
 });
 
 describe("Post create test", () => {
+  beforeEach(() => {});
+
   it("should be defined createPost", () => {
     expect(postController.createPost).toBeDefined();
   });
