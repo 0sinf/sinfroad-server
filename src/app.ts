@@ -1,8 +1,10 @@
-import express from "express";
+import express, { Request, Response, NextFunction } from "express";
 import mongoose from "mongoose";
 import path from "path";
 import cors from "cors";
 import config from "./config";
+import { Exception } from "error";
+import { NotFoundException } from "./error";
 
 const app = express();
 
@@ -14,6 +16,17 @@ app.use("/public", express.static(path.join(__dirname, "../public")));
 
 mongoose.connect(config.mongoUri, () => {
   console.log("Start DB");
+});
+
+app.use((req, res, next) => {
+  next(new NotFoundException("404 NOT FOUND"));
+});
+
+app.use((err: Exception, req: Request, res: Response, next: NextFunction) => {
+  res.json({
+    statusCode: err.statusCode,
+    message: err.message,
+  });
 });
 
 app.listen(config.port, () => {
