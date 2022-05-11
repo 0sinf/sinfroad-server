@@ -42,6 +42,10 @@ app.use((error: Exception, req: Request, res: Response, next: NextFunction) => {
   });
 });
 
-app.listen(config.port, () => {
-  logger.info(`🚀 Start App at ${config.port}`);
-});
+if (process.env.NODE_ENV !== "test") {
+  app.listen(config.port, () => {
+    logger.info(`🚀 Start App at ${config.port}`);
+  });
+}
+
+export default app;
