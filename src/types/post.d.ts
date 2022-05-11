@@ -7,6 +7,9 @@ export interface Post {
   images: string[];
 }
 
-export interface PostDocument extends Post, Document {}
+export interface PostDocument extends Post, Document {
+  createdAt: Date;
+  updatedAt: Date;
+}
 
 export interface PostModel extends Model<PostDocument> {}

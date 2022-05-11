@@ -5,7 +5,9 @@ import { rmSync } from "fs";
 import app from "../../src/app";
 
 describe("Post integration test", () => {
-  it("POST /posts", async () => {
+  let postId: string;
+
+  it("POST /api/posts", async () => {
     const response = await request(app)
       .post("/api/posts")
       .field("title", "title")
@@ -15,6 +17,22 @@ describe("Post integration test", () => {
 
     expect(response.statusCode).toEqual(201);
     expect(response.body.postId).toBeDefined();
+
+    postId = response.body.postId;
+  });
+
+  it("GET /api/posts", async () => {
+    const response = await request(app).get("/api/posts").send();
+
+    expect(response.statusCode).toEqual(200);
+    expect(response.body.posts).toBeDefined();
+  });
+
+  it("GET /api/posts/:id", async () => {
+    const response = await request(app).get(`/api/posts/${postId}`).send();
+
+    expect(response.statusCode).toEqual(200);
+    expect(response.body.post).toBeDefined();
   });
 
   afterAll(async () => {
