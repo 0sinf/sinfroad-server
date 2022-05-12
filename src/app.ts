@@ -38,6 +38,7 @@ app.use((error: Exception, req: Request, res: Response, next: NextFunction) => {
   logger.error(`${error.message}`);
   res.json({
     statusCode: error.statusCode,
+    name: error.name,
     message: error.message,
   });
 });
