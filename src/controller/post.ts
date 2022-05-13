@@ -61,7 +61,7 @@ export async function getPost(req: Request, res: Response, next: NextFunction) {
     const { id } = req.params;
 
     const post = await Post.findById(id);
-    console.log(id);
+
     res.status(200).json({ post });
   } catch (error) {
     next(error);
