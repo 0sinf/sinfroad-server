@@ -60,8 +60,8 @@ export async function getPost(req: Request, res: Response, next: NextFunction) {
   try {
     const { id } = req.params;
 
-    const post = await Post.findOne({ id });
-
+    const post = await Post.findById(id);
+    console.log(id);
     res.status(200).json({ post });
   } catch (error) {
     next(error);
