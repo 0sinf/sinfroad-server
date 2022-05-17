@@ -12,4 +12,6 @@ export interface PostDocument extends Post, Document {
   updatedAt: Date;
 }
 
-export interface PostModel extends Model<PostDocument> {}
+export interface PostModel extends Model<PostDocument> {
+  findAllByPagination: (page: number) => Promise<PostDocument[]>;
+}
