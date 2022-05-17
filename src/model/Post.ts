@@ -1,5 +1,6 @@
 import { Schema, model } from "mongoose";
 import { PostDocument, PostModel } from "post";
+import config from "../config";
 
 const postSchema = new Schema<PostDocument>(
   {
@@ -27,6 +28,19 @@ const postSchema = new Schema<PostDocument>(
     versionKey: false,
   }
 );
+
+postSchema.statics.findAllByPagination = async (page: number) => {
+  const total = await PostModel.countDocuments();
+  const { perPage } = config;
+  const lastPage = Math.ceil(total / perPage);
+
+  const posts = await PostModel.find()
+    .sort({ createdAt: -1 })
+    .skip((page - 1) * perPage)
+    .limit(perPage);
+
+  return [posts, { page, lastPage }];
+};
 
 const PostModel = model<PostDocument, PostModel>("Post", postSchema);
 

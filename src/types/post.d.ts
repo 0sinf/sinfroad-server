@@ -1,5 +1,10 @@
 import { Document, Model } from "mongoose";
 
+interface Pagination {
+  page: number;
+  lastPage: number;
+}
+
 export interface Post {
   title: string;
   contents: string;
@@ -12,4 +17,6 @@ export interface PostDocument extends Post, Document {
   updatedAt: Date;
 }
 
-export interface PostModel extends Model<PostDocument> {}
+export interface PostModel extends Model<PostDocument> {
+  findAllByPagination: (page: number) => Promise<[PostDocument[], Pagination]>;
+}
