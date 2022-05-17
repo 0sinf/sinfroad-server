@@ -36,10 +36,12 @@ export async function getPosts(
   next: NextFunction
 ) {
   try {
-    const posts = await Post.find().sort({ createdAt: -1 });
+    const page = Number(req.query.page) || 1;
+    const [posts, pagination] = await Post.findAllByPagination(page);
 
     res.status(200).json({
       posts: parsePost(posts),
+      pagination,
     });
   } catch (error) {
     next(error);
