@@ -1,5 +1,6 @@
 import { Schema, model } from "mongoose";
-import { PostDocument, PostModel } from "post";
+import { PostDocument, PostModel } from "../@types/post";
+
 import config from "../config";
 
 const postSchema = new Schema<PostDocument>(
