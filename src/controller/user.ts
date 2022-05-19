@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { User } from "../model";
-import { BadRequestException, UnauthorizedException } from "../error/index";
+import { BadRequestException } from "../error/index";
 import { compareSync, genSaltSync, hashSync } from "bcrypt";
 import config from "../config";
 import { genToken } from "../utils/jwt";
