@@ -8,4 +8,5 @@ export default {
   domain: process.env.DOMAIN,
   perPage: 10,
   secretKey: process.env.SECRET_KEY,
+  genSaltRounds: Number(process.env.SALT_ROUND),
 };

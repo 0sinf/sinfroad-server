@@ -5,10 +5,12 @@ import {
   MockRequest,
   MockResponse,
 } from "node-mocks-http";
+import { hashSync, genSaltSync } from "bcrypt";
 import * as userController from "../../src/controller/user";
 import { User } from "../../src/model";
 import { CreateUserReq } from "../../src/@types/user";
 import { BadRequestException } from "../../src/error/index";
+import config from "../../src/config";
 
 let req: MockRequest<Request>, res: MockResponse<Response>, next: NextFunction;
 
@@ -41,11 +43,7 @@ describe("User create test", () => {
   it("should be call User.create", async () => {
     await userController.createUser(req, res, next);
 
-    expect(User.create).toBeCalledWith({
-      email: user.email,
-      password: user.password,
-      nickname: user.nickname,
-    });
+    expect(User.create).toBeCalledTimes(1);
   });
 
   it("should be equal password and passwordConfirm", async () => {

@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import { User } from "../model";
 import { BadRequestException } from "../error/index";
+import { genSaltSync, hashSync } from "bcrypt";
+import config from "../config";
 
 export async function createUser(
   req: Request,
@@ -16,7 +18,7 @@ export async function createUser(
 
     const user = await User.create({
       email,
-      password,
+      password: generateHashPassword(password),
       nickname,
     });
 
@@ -24,4 +26,8 @@ export async function createUser(
   } catch (error) {
     next(error);
   }
+}
+
+function generateHashPassword(password: string) {
+  return hashSync(password, genSaltSync(config.genSaltRounds));
 }
