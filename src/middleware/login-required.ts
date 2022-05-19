@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { JwtPayload } from "jsonwebtoken";
-import { UnauthorizedException } from "../error/index";
+import { UnauthorizedException, BadRequestException } from "../error/index";
 import { verifyToken } from "../utils/jwt";
 import { User } from "../model";
 
@@ -24,6 +24,10 @@ export default async function loginRequired(
       "email nickname"
     );
 
+    if (!u) {
+      return next(new BadRequestException("존재하지 않는 유저입니다."));
+    }
+
     req.user = {
       email: u.email,
       nickname: u.nickname,
@@ -31,8 +35,4 @@ export default async function loginRequired(
 
     next();
   });
-
-  // TODO: token verify
-  // TODO: payload - get user info
-  // TODO: user info to req.user
 }
