@@ -8,6 +8,7 @@ import {
 import * as userController from "../../src/controller/user";
 import { User } from "../../src/model";
 import { CreateUserReq } from "../../src/@types/user";
+import { BadRequestException } from "../../src/error/index";
 
 let req: MockRequest<Request>, res: MockResponse<Response>, next: NextFunction;
 
@@ -45,6 +46,21 @@ describe("User create test", () => {
       password: user.password,
       nickname: user.nickname,
     });
+  });
+
+  it("should be equal password and passwordConfirm", async () => {
+    req.body = {
+      email: "email@email.com",
+      password: "password",
+      passwordConfirm: "passwordaa",
+      nickname: "nickname",
+    };
+
+    await userController.createUser(req, res, next);
+
+    expect(next).toBeCalledWith(
+      new BadRequestException("비밀번호를 확인하세요.")
+    );
   });
 
   it("should be returned status", async () => {
