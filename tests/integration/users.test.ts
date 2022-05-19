@@ -9,15 +9,15 @@ describe("user login test", () => {
   let password: string = "password";
 
   beforeAll(async () => {
-    await mongoose.connection.collection("users").insertOne({
-      email,
-      password: hashSync(password, genSaltSync(config.genSaltRounds)),
-      nickname: "nickname",
-    });
+    // await mongoose.connection.collection("users").insertOne({
+    //   email,
+    //   password: hashSync(password, genSaltSync(config.genSaltRounds)),
+    //   nickname: "nickname",
+    // });
   });
 
   afterAll(async () => {
-    await mongoose.connection.collection("users").deleteMany({});
+    // await mongoose.connection.collection("users").deleteMany({});
   });
 
   it("POST /api/users/login", async () => {

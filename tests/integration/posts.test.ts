@@ -3,6 +3,7 @@ import request from "supertest";
 import mongoose from "mongoose";
 import { rmSync } from "fs";
 import app from "../../src/app";
+import config from "../../src/config";
 
 describe("Post integration test", () => {
   let postId: string;
@@ -10,7 +11,7 @@ describe("Post integration test", () => {
   it("POST /api/posts", async () => {
     const response = await request(app)
       .post("/api/posts")
-      // .set("authorization", "Bearer " + config.secretKey)
+      .set("authorization", "Bearer " + config.token)
       .field("title", "title")
       .field("contents", "contents")
       .field("address", "seoul")
