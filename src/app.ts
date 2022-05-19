@@ -4,7 +4,7 @@ import path from "path";
 import cors from "cors";
 import pino from "pino";
 import config from "./config";
-import { Exception } from "response";
+import { Exception } from "./@types/response";
 import { NotFoundException } from "./error";
 import postRouter from "./routes/post";
 import userRouter from "./routes/user";

@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { PostDocument } from "post";
+import { PostDocument } from "../@types/post";
 import config from "../config";
 import { Post } from "../model";
 
