@@ -58,7 +58,25 @@ describe("user login test", () => {
     expect(res._isEndCalled).toBeTruthy();
   });
 
-  it("should handle error", async () => {});
+  it("should handle error", async () => {
+    User.findOne = jest.fn().mockReturnValue(null);
+
+    await userController.loginUser(req, res, next);
+
+    expect(next).toBeCalledWith(
+      new BadRequestException("아이디와 비밀번호가 맞지 않습니다.")
+    );
+  });
+
+  it("should be error incorrect password", async () => {
+    req.body.password = "aaaaa";
+
+    await userController.loginUser(req, res, next);
+
+    expect(next).toBeCalledWith(
+      new BadRequestException("아이디와 비밀번호가 맞지 않습니다.")
+    );
+  });
 });
 
 describe("User create test", () => {
