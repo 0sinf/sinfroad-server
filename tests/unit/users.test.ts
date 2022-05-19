@@ -5,12 +5,10 @@ import {
   MockRequest,
   MockResponse,
 } from "node-mocks-http";
-import { hashSync, genSaltSync } from "bcrypt";
 import * as userController from "../../src/controller/user";
 import { User } from "../../src/model";
 import { CreateUserReq } from "../../src/@types/user";
 import { BadRequestException } from "../../src/error/index";
-import config from "../../src/config";
 
 let req: MockRequest<Request>, res: MockResponse<Response>, next: NextFunction;
 
