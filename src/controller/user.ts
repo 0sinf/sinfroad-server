@@ -47,11 +47,8 @@ export async function loginUser(
     }
 
     const token = genToken(user);
-    res.cookie("token", token, {
-      maxAge: config.COOKIE_MAX_AGE,
-    });
 
-    res.status(200).json({});
+    res.status(200).json({ token });
   } catch (error) {
     next(error);
   }
