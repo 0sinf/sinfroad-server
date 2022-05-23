@@ -26,6 +26,6 @@ describe("user login test", () => {
       .send({ email, password });
 
     expect(response.statusCode).toEqual(200);
-    expect(response.get("Set-Cookie")[0]).toContain("token");
+    expect(response.body.token).toBeDefined();
   });
 });
