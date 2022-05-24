@@ -1,37 +1,19 @@
-# Sinfroad Server
+# Sinfroad
 
-## Domain
+## 프로젝트 개요
 
-### Post
+개인적으로 서비스 운영 경험을 위한 프로젝트 \
+맛있는 음식을 먹으러 돌아다니는 것을 좋아하는데 \
+나의 경험을 기록하고 공유하기 위한 블로그 형태의 서비스
 
-```ts
-{
-  title: string;
-  contents: string;
-  address: string;
-  images: [
-    url: string;
-  ];
-  created: Date;
-  updated: Date;
-}
-```
+## 기술 스택
 
-## 기능 요구사항
+Front: React
+Back: Express (To be NestJS)
+DB: MongoDB (To be Postgresql)
+Server: Ubuntu, Nginx
+Version: Git
 
-1. 포스트 리스트
+## Page
 
-   - 포스트 전체 리스트
-   - 페이지네이션 10개 단위
-   - 타이틀 검색 기능
-   - 타이틀, 이미지 1개, created
-
-2. 포스트 상세 조회
-
-   - 포스트 상세 조회
-   - 이미지, 타이틀, 내용, 주소, created
-
-3. 포스트 생성
-   - 포스트 생성
-   - Sinf만 작성할 수 있도록 제한
-   - 타이틀, 내용, 주소, 이미지 제출(이미지 최소 1개, 최대 4개)
+[씬프로드](https://sinf.dev)
