@@ -69,3 +69,24 @@ export async function getPost(req: Request, res: Response, next: NextFunction) {
     next(error);
   }
 }
+
+export async function updatePost(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { id } = req.params;
+    const { title, contents, address } = req.body;
+
+    const updatedPost = await Post.findByIdAndUpdate(
+      id,
+      { title, contents, address },
+      { new: true }
+    );
+
+    res.status(200).json({ post: updatedPost });
+  } catch (error) {
+    next(error);
+  }
+}
