@@ -8,6 +8,15 @@ import config from "../../src/config";
 describe("Post integration test", () => {
   let postId: string;
 
+  afterAll(async () => {
+    await mongoose.connection.collection("posts").deleteMany({});
+
+    rmSync(path.join(__dirname, "../../public"), {
+      force: true,
+      recursive: true,
+    });
+  });
+
   it("POST /api/posts", async () => {
     const response = await request(app)
       .post("/api/posts")
@@ -37,12 +46,17 @@ describe("Post integration test", () => {
     expect(response.body.post).toBeDefined();
   });
 
-  afterAll(async () => {
-    await mongoose.connection.collection("posts").deleteMany({});
-
-    rmSync(path.join(__dirname, "../../public"), {
-      force: true,
-      recursive: true,
+  it("PATCH /api/posts/:id", async () => {
+    const response = await request(app).patch(`/api/posts/${postId}`).send({
+      title: "updated title",
+      contents: "updated contents",
+      address: "updated address",
     });
+
+    expect(response.statusCode).toEqual(200);
+    expect(response.body.post).toBeDefined();
+    expect(response.body.post.title).toEqual("updated title");
+    expect(response.body.post.contents).toEqual("updated contents");
+    expect(response.body.post.address).toEqual("updated address");
   });
 });
