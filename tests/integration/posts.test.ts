@@ -47,11 +47,14 @@ describe("Post integration test", () => {
   });
 
   it("PATCH /api/posts/:id", async () => {
-    const response = await request(app).patch(`/api/posts/${postId}`).send({
-      title: "updated title",
-      contents: "updated contents",
-      address: "updated address",
-    });
+    const response = await request(app)
+      .patch(`/api/posts/${postId}`)
+      .set("authorization", "Bearer " + config.token)
+      .send({
+        title: "updated title",
+        contents: "updated contents",
+        address: "updated address",
+      });
 
     expect(response.statusCode).toEqual(200);
     expect(response.body.post).toBeDefined();
@@ -61,7 +64,10 @@ describe("Post integration test", () => {
   });
 
   it("DELETE /api/posts/:id", async () => {
-    const response = await request(app).delete(`/api/posts/${postId}`).send();
+    const response = await request(app)
+      .delete(`/api/posts/${postId}`)
+      .set("authorization", "Bearer " + config.token)
+      .send();
 
     expect(response.statusCode).toEqual(200);
   });
