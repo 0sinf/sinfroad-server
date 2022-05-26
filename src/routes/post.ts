@@ -13,6 +13,7 @@ postRouter.post(
 );
 postRouter.get("/", postController.getPosts);
 postRouter.get("/:id", postController.getPost);
-postRouter.patch("/:id", postController.updatePost);
+postRouter.patch("/:id", loginRequired, postController.updatePost);
+postRouter.delete("/:id", loginRequired, postController.deletePost);
 
 export default postRouter;

@@ -90,3 +90,19 @@ export async function updatePost(
     next(error);
   }
 }
+
+export async function deletePost(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { id } = req.params;
+
+    await Post.findByIdAndDelete(id);
+
+    res.status(200).json();
+  } catch (error) {
+    next(error);
+  }
+}

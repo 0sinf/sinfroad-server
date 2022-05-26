@@ -47,16 +47,28 @@ describe("Post integration test", () => {
   });
 
   it("PATCH /api/posts/:id", async () => {
-    const response = await request(app).patch(`/api/posts/${postId}`).send({
-      title: "updated title",
-      contents: "updated contents",
-      address: "updated address",
-    });
+    const response = await request(app)
+      .patch(`/api/posts/${postId}`)
+      .set("authorization", "Bearer " + config.token)
+      .send({
+        title: "updated title",
+        contents: "updated contents",
+        address: "updated address",
+      });
 
     expect(response.statusCode).toEqual(200);
     expect(response.body.post).toBeDefined();
     expect(response.body.post.title).toEqual("updated title");
     expect(response.body.post.contents).toEqual("updated contents");
     expect(response.body.post.address).toEqual("updated address");
+  });
+
+  it("DELETE /api/posts/:id", async () => {
+    const response = await request(app)
+      .delete(`/api/posts/${postId}`)
+      .set("authorization", "Bearer " + config.token)
+      .send();
+
+    expect(response.statusCode).toEqual(200);
   });
 });
