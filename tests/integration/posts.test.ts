@@ -59,4 +59,10 @@ describe("Post integration test", () => {
     expect(response.body.post.contents).toEqual("updated contents");
     expect(response.body.post.address).toEqual("updated address");
   });
+
+  it("DELETE /api/posts/:id", async () => {
+    const response = await request(app).delete(`/api/posts/${postId}`).send();
+
+    expect(response.statusCode).toEqual(200);
+  });
 });
