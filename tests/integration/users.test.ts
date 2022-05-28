@@ -28,4 +28,13 @@ describe("user login test", () => {
     expect(response.statusCode).toEqual(200);
     expect(response.body.token).toBeDefined();
   });
+
+  it("POST /api/users/login", async () => {
+    const response = await request(app)
+      .post("/api/users/login")
+      .send({ email: "sdfsdf", password });
+
+    expect(response.statusCode).toEqual(400);
+    expect(response.body.message).toEqual("잘못된 요청입니다.");
+  });
 });
