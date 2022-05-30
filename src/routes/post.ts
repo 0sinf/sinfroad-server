@@ -13,9 +13,18 @@ postRouter.post(
   validator("createPost"),
   postController.createPost
 );
+
 postRouter.get("/", postController.getPosts);
+
 postRouter.get("/:id", postController.getPost);
-postRouter.patch("/:id", loginRequired, postController.updatePost);
+
+postRouter.patch(
+  "/:id",
+  loginRequired,
+  validator("updatePost"),
+  postController.updatePost
+);
+
 postRouter.delete("/:id", loginRequired, postController.deletePost);
 
 export default postRouter;
