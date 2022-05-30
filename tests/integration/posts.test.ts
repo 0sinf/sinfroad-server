@@ -63,6 +63,19 @@ describe("Post integration test", () => {
     expect(response.body.post.address).toEqual("updated address");
   });
 
+  it("PATCH /api/posts/:id 400", async () => {
+    const response = await request(app)
+      .patch(`/api/posts/${postId}`)
+      .set("authorization", "Bearer " + config.token)
+      .send({
+        contents: "updated contents",
+        address: "updated address",
+      });
+
+    expect(response.statusCode).toEqual(400);
+    expect(response.body.message).toEqual("잘못된 요청입니다.");
+  });
+
   it("DELETE /api/posts/:id", async () => {
     const response = await request(app)
       .delete(`/api/posts/${postId}`)
