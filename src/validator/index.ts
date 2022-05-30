@@ -7,8 +7,15 @@ const loginSchema = Joi.object({
   password: Joi.string().required(),
 });
 
+const createPostSchema = Joi.object({
+  title: Joi.string().required().min(2),
+  contents: Joi.string().required().min(2),
+  address: Joi.string().required(),
+});
+
 const validators = {
   loginUser: loginSchema,
+  createPost: createPostSchema,
 };
 
 export default function validator(schema: string) {
