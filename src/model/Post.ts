@@ -40,7 +40,7 @@ postSchema.statics.findAllByPagination = async (page: number) => {
     .skip((page - 1) * perPage)
     .limit(perPage);
 
-  return [posts, { page, lastPage }];
+  return [posts, { page, nextPage: page < lastPage }];
 };
 
 const PostModel = model<PostDocument, PostModel>("Post", postSchema);
