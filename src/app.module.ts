@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     ConfigModule.forRoot({
       envFilePath: `.env.${process.env.NODE_ENV}`,
     }),
+    //TODO: Move to ormconfig.js
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DB_HOST,
