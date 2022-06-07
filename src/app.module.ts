@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -16,8 +17,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
       entities: ['dist/**/*.entity{.ts,.js}'],
-      synchronize: Boolean(process.env.DB_SYNC),
+      synchronize: !!process.env.DB_SYNC,
     }),
+    UserModule,
   ],
   controllers: [],
   providers: [],
