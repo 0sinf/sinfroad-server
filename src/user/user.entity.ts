@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryColumn } from 'typeorm';
 
-@Entity()
+@Entity('User')
 export class UserEntity {
   @PrimaryColumn({ generated: 'uuid' })
   id: string;
@@ -11,8 +11,6 @@ export class UserEntity {
   @Column()
   password: string;
 
-  isValidPassword(passwordInput: string) {
-    // TODO: Need to encrypt by bcrypt
-    return this.password === passwordInput;
-  }
+  @Column({ default: 1 })
+  grade: number;
 }
