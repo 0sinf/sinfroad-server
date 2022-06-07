@@ -1,7 +1,7 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import bcrypt from 'bcrypt';
+import * as bcrypt from 'bcrypt';
 import { UserEntity } from './user.entity';
 import { CreateUserReq } from './dto/create-user.dto';
 
@@ -16,7 +16,8 @@ export class UserService {
     const { email, password, passwordConfirm } = dto;
 
     const user = await this.findByEmail(email);
-    if (!user) {
+
+    if (user) {
       throw new BadRequestException('이미 존재하는 이메일입니다.');
     }
 
@@ -43,7 +44,6 @@ export class UserService {
 
   private getHashPassword(password: string) {
     const rounds = Number(process.env.BCRYPT_ROUNDS);
-    const salt = bcrypt.genSaltSync(rounds);
-    return bcrypt.hashSync(password, salt);
+    return bcrypt.hashSync(password, rounds);
   }
 }
