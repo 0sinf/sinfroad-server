@@ -7,7 +7,7 @@ describe('User Controller test', () => {
   let app: INestApplication;
   let user: { email: string; password: string };
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
@@ -19,6 +19,10 @@ describe('User Controller test', () => {
       email: 'email@eee.com',
       password: 'password',
     };
+  });
+
+  afterAll(async () => {
+    await app.close();
   });
 
   it('/users (POST)', async () => {
