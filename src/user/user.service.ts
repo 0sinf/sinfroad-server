@@ -5,12 +5,14 @@ import * as bcrypt from 'bcrypt';
 import { UserEntity } from './user.entity';
 import { CreateUserReq } from './dto/create-user.dto';
 import { LoginUserReq } from './dto/login-user.dto';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(UserEntity)
     private userRepository: Repository<UserEntity>,
+    private authService: AuthService,
   ) {}
 
   async createUser(dto: CreateUserReq): Promise<UserEntity> {
@@ -56,9 +58,8 @@ export class UserService {
       throw new BadRequestException('아이디나 비밀번호를 확인해주세요.');
     }
 
-    // TODO: authService로 부터 토큰 발급
-
-    return '';
+    const token = this.authService.getToken(u.id);
+    return token;
   }
 
   private isEqualPassword(
