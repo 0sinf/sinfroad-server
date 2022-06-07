@@ -13,7 +13,7 @@ export class UserService {
     private userRepository: Repository<UserEntity>,
   ) {}
 
-  async createUser(dto: CreateUserReq) {
+  async createUser(dto: CreateUserReq): Promise<UserEntity> {
     const { email, password, passwordConfirm } = dto;
 
     const user = await this.findByEmail(email);
@@ -34,7 +34,7 @@ export class UserService {
     return result;
   }
 
-  private async findByEmail(email: string) {
+  private async findByEmail(email: string): Promise<UserEntity> {
     const user = await this.userRepository.findOne({ where: { email } });
     return user;
   }
@@ -43,12 +43,12 @@ export class UserService {
     return password === passwordConfirm;
   }
 
-  private getHashPassword(password: string) {
+  private getHashPassword(password: string): string {
     const rounds = Number(process.env.BCRYPT_ROUNDS);
     return bcrypt.hashSync(password, rounds);
   }
 
-  async loginUser(dto: LoginUserReq) {
+  async loginUser(dto: LoginUserReq): Promise<string> {
     const { email, password } = dto;
 
     const u = await this.findByEmail(email);
@@ -61,7 +61,10 @@ export class UserService {
     return '';
   }
 
-  private isEqualPassword(encryptedPassword: string, password: string) {
+  private isEqualPassword(
+    encryptedPassword: string,
+    password: string,
+  ): boolean {
     return bcrypt.compareSync(password, encryptedPassword);
   }
 }
