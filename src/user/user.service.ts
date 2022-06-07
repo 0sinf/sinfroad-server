@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { UserEntity } from './user.entity';
 import { CreateUserReq } from './dto/create-user.dto';
+import { LoginUserReq } from './dto/login-user.dto';
 
 @Injectable()
 export class UserService {
@@ -21,7 +22,7 @@ export class UserService {
       throw new BadRequestException('이미 존재하는 이메일입니다.');
     }
 
-    if (!this.isEqualPassword(password, passwordConfirm)) {
+    if (!this.checkPassword(password, passwordConfirm)) {
       throw new BadRequestException('비밀번호를 확인하세요.');
     }
 
@@ -38,12 +39,29 @@ export class UserService {
     return user;
   }
 
-  private isEqualPassword(password: string, passwordConfirm: string) {
+  private checkPassword(password: string, passwordConfirm: string) {
     return password === passwordConfirm;
   }
 
   private getHashPassword(password: string) {
     const rounds = Number(process.env.BCRYPT_ROUNDS);
     return bcrypt.hashSync(password, rounds);
+  }
+
+  async loginUser(dto: LoginUserReq) {
+    const { email, password } = dto;
+
+    const u = await this.findByEmail(email);
+    if (!u || !this.isEqualPassword(u.password, password)) {
+      throw new BadRequestException('아이디나 비밀번호를 확인해주세요.');
+    }
+
+    // TODO: authService로 부터 토큰 발급
+
+    return '';
+  }
+
+  private isEqualPassword(encryptedPassword: string, password: string) {
+    return bcrypt.compareSync(password, encryptedPassword);
   }
 }
