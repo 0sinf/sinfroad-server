@@ -37,4 +37,15 @@ describe('Post Controller test', () => {
     expect(response.statusCode).toEqual(201);
     expect(response.body.id).toBeDefined();
   });
+
+  it('/posts (POST) Unauthorization', async () => {
+    const response = await request(app.getHttpServer())
+      .post('/posts')
+      .field('title', 'title')
+      .field('contents', 'contents')
+      .field('address', 'address')
+      .attach('images', join(__dirname, 'images/test.jpg'));
+
+    expect(response.statusCode).toEqual(403);
+  });
 });
