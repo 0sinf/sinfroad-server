@@ -14,14 +14,15 @@ import multerOptions from '../utils/upload-options';
 export class PostController {
   constructor(private postService: PostService) {}
 
-  //TODO: body(title, contents, address), images (multer)
   @Post()
   @UseInterceptors(FilesInterceptor('images', 4, multerOptions))
   async createPost(
     @UploadedFiles() images: Array<Express.Multer.File>,
     @Body() dto: CreatePostReq,
   ) {
-    console.log(images);
-    console.log(dto);
+    const post = await this.postService.createPost(images, dto);
+    return {
+      id: post.id,
+    };
   }
 }
