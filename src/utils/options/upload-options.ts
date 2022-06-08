@@ -2,7 +2,7 @@ import { BadRequestException } from '@nestjs/common';
 import * as multer from 'multer';
 import { v4 as uuid } from 'uuid';
 import { existsSync, mkdirSync } from 'fs';
-import { extname } from 'path';
+import { extname, join } from 'path';
 import { MulterOptions } from '@nestjs/platform-express/multer/interfaces/multer-options.interface';
 
 const multerOptions: MulterOptions = {
@@ -17,7 +17,13 @@ const multerOptions: MulterOptions = {
   },
   storage: multer.diskStorage({
     destination: (req, file, cb) => {
-      const uploadPath = 'public';
+      const staticPath = 'static';
+
+      if (!existsSync(staticPath)) {
+        mkdirSync(staticPath);
+      }
+
+      const uploadPath = join('static', 'public');
 
       if (!existsSync(uploadPath)) {
         mkdirSync(uploadPath);

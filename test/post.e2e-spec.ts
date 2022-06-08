@@ -21,7 +21,10 @@ describe('Post Controller test', () => {
   });
 
   afterAll(async () => {
-    rmSync(join(__dirname, '../public'), { force: true, recursive: true });
+    rmSync(join(__dirname, '../static/public'), {
+      force: true,
+      recursive: true,
+    });
     app.close();
   });
 
