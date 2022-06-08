@@ -1,7 +1,9 @@
+import { ImageEntity } from './image.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -20,7 +22,7 @@ export class PostEntity {
   @Column()
   address: string;
 
-  @Column()
+  @OneToMany(() => ImageEntity, (image) => image.post)
   images: string[];
 
   @CreateDateColumn()
