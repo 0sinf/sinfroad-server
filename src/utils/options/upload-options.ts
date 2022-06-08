@@ -17,6 +17,12 @@ const multerOptions: MulterOptions = {
   },
   storage: multer.diskStorage({
     destination: (req, file, cb) => {
+      const staticPath = 'static';
+
+      if (!existsSync(staticPath)) {
+        mkdirSync(staticPath);
+      }
+
       const uploadPath = join('static', 'public');
 
       if (!existsSync(uploadPath)) {
