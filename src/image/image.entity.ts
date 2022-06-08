@@ -9,6 +9,6 @@ export class ImageEntity {
   @Column()
   url: string;
 
-  @ManyToOne(() => PostEntity)
+  @ManyToOne(() => PostEntity, { onDelete: 'CASCADE' })
   post: PostEntity;
 }

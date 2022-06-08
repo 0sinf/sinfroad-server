@@ -30,9 +30,7 @@ export class PostService {
     p.address = address;
     const post = await this.postRepository.save(p);
 
-    urls.forEach((url) => {
-      this.imageService.saveImage(p, url);
-    });
+    await Promise.all(urls.map((url) => this.imageService.saveImage(p, url)));
 
     return post;
   }

@@ -16,6 +16,6 @@ export class ImageService {
     i.post = post;
     i.url = url;
 
-    this.imageRepository.save(i);
+    await this.imageRepository.save(i);
   }
 }
