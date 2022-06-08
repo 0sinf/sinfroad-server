@@ -8,15 +8,19 @@ export class AuthService {
     this.key = process.env.JWT_SECRET;
   }
 
-  getToken(payload: string): string {
-    const token = jwt.sign(payload, this.key);
+  getToken(payload: { userId: string }): string {
+    const token = jwt.sign(payload, this.key, { expiresIn: '7d' });
+
     return token;
   }
 
   verifyToken(token: string) {
     try {
-      const userId = jwt.verify(token, this.key) as jwt.JwtPayload | string;
-      return { userId };
+      const payload = jwt.verify(token, this.key) as
+        | jwt.JwtPayload
+        | (string & { userId: string });
+      const { userId } = payload;
+      return userId;
     } catch (e) {
       throw new UnauthorizedException();
     }

@@ -58,7 +58,7 @@ export class UserService {
       throw new BadRequestException('아이디나 비밀번호를 확인해주세요.');
     }
 
-    const token = this.authService.getToken(u.id);
+    const token = this.authService.getToken({ userId: u.id });
     return token;
   }
 
