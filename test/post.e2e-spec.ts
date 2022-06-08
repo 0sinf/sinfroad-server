@@ -7,6 +7,7 @@ import { join } from 'path';
 
 describe('Post Controller test', () => {
   let app: INestApplication;
+  let token = 'Bearer ';
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -15,10 +16,11 @@ describe('Post Controller test', () => {
 
     app = module.createNestApplication();
     await app.init();
+
+    token += process.env.TOKEN;
   });
 
   afterAll(async () => {
-    console.log(join(__dirname, '../../public'));
     rmSync(join(__dirname, '../public'), { force: true, recursive: true });
     app.close();
   });
@@ -26,6 +28,7 @@ describe('Post Controller test', () => {
   it('/posts (POST)', async () => {
     const response = await request(app.getHttpServer())
       .post('/posts')
+      .set('authorization', token)
       .field('title', 'title')
       .field('contents', 'contents')
       .field('address', 'address')
@@ -33,5 +36,16 @@ describe('Post Controller test', () => {
 
     expect(response.statusCode).toEqual(201);
     expect(response.body.id).toBeDefined();
+  });
+
+  it('/posts (POST) Unauthorization', async () => {
+    const response = await request(app.getHttpServer())
+      .post('/posts')
+      .field('title', 'title')
+      .field('contents', 'contents')
+      .field('address', 'address')
+      .attach('images', join(__dirname, 'images/test.jpg'));
+
+    expect(response.statusCode).toEqual(403);
   });
 });
