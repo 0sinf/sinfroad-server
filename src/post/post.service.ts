@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PostEntity } from './post.entity';
 import { Repository } from 'typeorm';
@@ -46,7 +46,7 @@ export class PostService {
       .execute();
 
     if (result.affected < 1) {
-      // TODO: affected < 1 ? post doesn't exist.
+      throw new BadRequestException('존재하지 않는 글입니다.');
     }
   }
 }
