@@ -1,4 +1,9 @@
-import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+import {
+  CanActivate,
+  ExecutionContext,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { Request } from 'express';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../auth/auth.service';
@@ -18,7 +23,7 @@ export class AuthGuard implements CanActivate {
     const token =
       request.headers.authorization?.split('Bearer ')[1] || undefined;
     if (!token) {
-      return false;
+      throw new UnauthorizedException('로그인이 필요합니다.');
     }
 
     this.authService.verifyToken(token);
