@@ -8,6 +8,7 @@ import { join } from 'path';
 describe('Post Controller test', () => {
   let app: INestApplication;
   let token = 'Bearer ';
+  let postId: string;
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -39,6 +40,8 @@ describe('Post Controller test', () => {
 
     expect(response.statusCode).toEqual(201);
     expect(response.body.id).toBeDefined();
+
+    postId = response.body.id;
   });
 
   it('/posts (POST) Unauthorization', async () => {
@@ -49,6 +52,45 @@ describe('Post Controller test', () => {
       .field('address', 'address')
       .attach('images', join(__dirname, 'images/test.jpg'));
 
-    expect(response.statusCode).toEqual(403);
+    expect(response.statusCode).toEqual(401);
+  });
+
+  it('/posts/:id (PATCH)', async () => {
+    const response = await request(app.getHttpServer())
+      .patch(`/posts/${postId}`)
+      .set('authorization', token)
+      .send({
+        title: 'updated title',
+        contents: 'updated contents',
+        address: 'updated address',
+      });
+
+    expect(response.statusCode).toEqual(200);
+  });
+
+  it('/posts/:id (PATCH) Unauthorization', async () => {
+    const response = await request(app.getHttpServer())
+      .patch(`/posts/${postId}`)
+      .send({
+        title: 'updated title',
+        contents: 'updated contents',
+        address: 'updated address',
+      });
+
+    expect(response.statusCode).toEqual(401);
+  });
+
+  it('/posts/:id (PATCH)', async () => {
+    const response = await request(app.getHttpServer())
+      .patch('/posts/sdfadfaljkasd')
+      .set('authorization', token)
+      .send({
+        title: 'updated title',
+        contents: 'updated contents',
+        address: 'updated address',
+      });
+
+    expect(response.statusCode).toEqual(400);
+    expect(response.body.message).toEqual('존재하지 않는 글입니다.');
   });
 });
