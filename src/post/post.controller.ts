@@ -9,10 +9,12 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
+import * as uuid from 'uuid';
 import { PostReq } from './dto/post.dto';
 import { PostService } from './post.service';
 import multerOptions from '../utils/options/upload-options';
 import { AuthGuard } from '../utils/guards/auth.guard';
+import { BadRequestException } from '@nestjs/common';
 
 @Controller('posts')
 export class PostController {
@@ -34,7 +36,9 @@ export class PostController {
   @Patch(':postId')
   @UseGuards(AuthGuard)
   async updatePost(@Param('postId') postId: string, @Body() dto: PostReq) {
-    // TODO: postId need to validate uuid
+    if (!uuid.validate(postId)) {
+      throw new BadRequestException('해당 글이 없습니다.');
+    }
     await this.postService.updatePost(postId, dto);
   }
 }
