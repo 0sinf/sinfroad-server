@@ -1,4 +1,4 @@
-export class CreatePostReq {
+export class PostReq {
   title: string;
   contents: string;
   address: string;

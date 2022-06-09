@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PostEntity } from './post.entity';
 import { Repository } from 'typeorm';
-import { CreatePostReq } from './dto/create-post.dto';
+import { PostReq } from './dto/post.dto';
 import { ImageService } from '../image/image.service';
 
 @Injectable()
@@ -19,7 +19,7 @@ export class PostService {
 
   async createPost(
     images: Array<Express.Multer.File>,
-    dto: CreatePostReq,
+    dto: PostReq,
   ): Promise<PostEntity> {
     const { title, contents, address } = dto;
     const urls = images.map((image) => `${this.domain}/${image.path}`);
@@ -33,5 +33,20 @@ export class PostService {
     await Promise.all(urls.map((url) => this.imageService.saveImage(p, url)));
 
     return post;
+  }
+
+  async updatePost(postId: string, dto: PostReq) {
+    const { title, contents, address } = dto;
+
+    const result = await this.postRepository
+      .createQueryBuilder()
+      .update()
+      .set({ title, contents, address })
+      .where('id = :id', { id: postId })
+      .execute();
+
+    if (result.affected < 1) {
+      throw new BadRequestException('존재하지 않는 글입니다.');
+    }
   }
 }
