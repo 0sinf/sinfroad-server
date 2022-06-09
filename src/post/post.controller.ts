@@ -37,7 +37,7 @@ export class PostController {
   @UseGuards(AuthGuard)
   async updatePost(@Param('postId') postId: string, @Body() dto: PostReq) {
     if (!uuid.validate(postId)) {
-      throw new BadRequestException('해당 글이 없습니다.');
+      throw new BadRequestException('존재하지 않는 글입니다.');
     }
     await this.postService.updatePost(postId, dto);
   }
