@@ -93,4 +93,13 @@ describe('Post Controller test', () => {
     expect(response.statusCode).toEqual(400);
     expect(response.body.message).toEqual('존재하지 않는 글입니다.');
   });
+
+  it('/post/:id (DELETE)', async () => {
+    const response = await request(app.getHttpServer())
+      .delete(`/posts/${postId}`)
+      .set('authorization', token)
+      .send();
+
+    expect(response.statusCode).toEqual(200);
+  });
 });
