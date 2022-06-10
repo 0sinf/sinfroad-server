@@ -49,4 +49,16 @@ export class PostService {
       throw new BadRequestException('존재하지 않는 글입니다.');
     }
   }
+
+  async deletePost(postId: string) {
+    const result = await this.postRepository
+      .createQueryBuilder()
+      .delete()
+      .where('id = :id', { id: postId })
+      .execute();
+
+    if (result.affected < 1) {
+      throw new BadRequestException('존재하지 않는 글입니다.');
+    }
+  }
 }

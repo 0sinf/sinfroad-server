@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Param,
   Patch,
   Post,
@@ -40,5 +41,14 @@ export class PostController {
       throw new BadRequestException('존재하지 않는 글입니다.');
     }
     await this.postService.updatePost(postId, dto);
+  }
+
+  @Delete(':postId')
+  @UseGuards(AuthGuard)
+  async deletePost(@Param('postId') postId: string) {
+    if (!uuid.validate(postId)) {
+      throw new BadRequestException('존재하지 않는 글입니다.');
+    }
+    await this.postService.deletePost(postId);
   }
 }
