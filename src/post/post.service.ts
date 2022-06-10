@@ -45,9 +45,7 @@ export class PostService {
       .where('id = :id', { id: postId })
       .execute();
 
-    if (result.affected < 1) {
-      throw new BadRequestException('존재하지 않는 글입니다.');
-    }
+    this.checkResult(result.affected);
   }
 
   async deletePost(postId: string) {
@@ -57,7 +55,11 @@ export class PostService {
       .where('id = :id', { id: postId })
       .execute();
 
-    if (result.affected < 1) {
+    this.checkResult(result.affected);
+  }
+
+  private checkResult(count: number) {
+    if (count < 1) {
       throw new BadRequestException('존재하지 않는 글입니다.');
     }
   }
