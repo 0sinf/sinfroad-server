@@ -37,18 +37,20 @@ export class PostController {
   @Patch(':postId')
   @UseGuards(AuthGuard)
   async updatePost(@Param('postId') postId: string, @Body() dto: PostReq) {
-    if (!uuid.validate(postId)) {
-      throw new BadRequestException('존재하지 않는 글입니다.');
-    }
+    this.validatePostId(postId);
     await this.postService.updatePost(postId, dto);
   }
 
   @Delete(':postId')
   @UseGuards(AuthGuard)
   async deletePost(@Param('postId') postId: string) {
+    this.validatePostId(postId);
+    await this.postService.deletePost(postId);
+  }
+
+  private validatePostId(postId: string) {
     if (!uuid.validate(postId)) {
       throw new BadRequestException('존재하지 않는 글입니다.');
     }
-    await this.postService.deletePost(postId);
   }
 }
