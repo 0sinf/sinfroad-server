@@ -80,7 +80,7 @@ describe('Post Controller test', () => {
     expect(response.statusCode).toEqual(401);
   });
 
-  it('/posts/:id (PATCH)', async () => {
+  it('/posts/:id (PATCH) not exist', async () => {
     const response = await request(app.getHttpServer())
       .patch('/posts/sdfadfaljkasd')
       .set('authorization', token)
@@ -101,5 +101,23 @@ describe('Post Controller test', () => {
       .send();
 
     expect(response.statusCode).toEqual(200);
+  });
+
+  it('/post/:id (DELETE) Unauthorization', async () => {
+    const response = await request(app.getHttpServer())
+      .delete(`/posts/${postId}`)
+      .set('authorization', 'asdlkjasdlk')
+      .send();
+
+    expect(response.statusCode).toEqual(401);
+  });
+
+  it('/post/:id (DELETE) not exist', async () => {
+    const response = await request(app.getHttpServer())
+      .delete('/posts/aslkdjlaksdj')
+      .set('authorization', token)
+      .send();
+
+    expect(response.statusCode).toEqual(400);
   });
 });
