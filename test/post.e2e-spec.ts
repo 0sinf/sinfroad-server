@@ -55,6 +55,18 @@ describe('Post Controller test', () => {
     expect(response.statusCode).toEqual(401);
   });
 
+  it('/posts (POST) Validation', async () => {
+    const response = await request(app.getHttpServer())
+      .post('/posts')
+      .set('authorization', token)
+      .field('title', '')
+      .field('contents', 'contents')
+      .field('address', 'address')
+      .attach('images', join(__dirname, 'images/test.jpg'));
+
+    expect(response.statusCode).toEqual(400);
+  });
+
   it('/posts/:id (PATCH)', async () => {
     const response = await request(app.getHttpServer())
       .patch(`/posts/${postId}`)
@@ -78,6 +90,19 @@ describe('Post Controller test', () => {
       });
 
     expect(response.statusCode).toEqual(401);
+  });
+
+  it('/posts/:id (PATCH)', async () => {
+    const response = await request(app.getHttpServer())
+      .patch(`/posts/${postId}`)
+      .set('authorization', token)
+      .send({
+        title: '',
+        contents: 'updated contents',
+        address: 'updated address',
+      });
+
+    expect(response.statusCode).toEqual(400);
   });
 
   it('/posts/:id (PATCH) not exist', async () => {
