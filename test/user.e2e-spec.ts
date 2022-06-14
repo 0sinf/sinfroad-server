@@ -7,6 +7,7 @@ import { UserService } from '../src/user/user.service';
 describe('User Controller test', () => {
   let app: INestApplication;
   let user: { email: string; password: string };
+
   const userService = {
     createUser: () => ({
       id: 'sdlfkjklsdfl',

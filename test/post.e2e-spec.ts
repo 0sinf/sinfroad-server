@@ -10,6 +10,7 @@ describe('Post Controller test', () => {
   let app: INestApplication;
   let token = 'Bearer ';
   let postId: string;
+
   const postService = {
     createPost: () => ({
       id: 'b62b6b94-bc13-451a-ac1d-27948df6a292',
@@ -23,6 +24,7 @@ describe('Post Controller test', () => {
     updatePost: () => ({}),
     deletePost: () => ({}),
   };
+
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
