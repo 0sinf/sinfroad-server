@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, ValidationPipe } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserReq } from './dto/create-user.dto';
 import { LoginUserReq } from './dto/login-user.dto';
@@ -8,7 +8,7 @@ export class UserController {
   constructor(private userService: UserService) {}
 
   @Post()
-  async createUser(@Body() dto: CreateUserReq) {
+  async createUser(@Body(ValidationPipe) dto: CreateUserReq) {
     const user = await this.userService.createUser(dto);
     return {
       id: user.id,
@@ -16,7 +16,7 @@ export class UserController {
   }
 
   @Post('login')
-  async loginUser(@Body() dto: LoginUserReq) {
+  async loginUser(@Body(ValidationPipe) dto: LoginUserReq) {
     const token = await this.userService.loginUser(dto);
     return {
       token,
