@@ -4,16 +4,32 @@ import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
 import { rmSync } from 'fs';
 import { join } from 'path';
+import { PostService } from '../src/post/post.service';
 
 describe('Post Controller test', () => {
   let app: INestApplication;
   let token = 'Bearer ';
   let postId: string;
-
+  const postService = {
+    createPost: () => ({
+      id: 'b62b6b94-bc13-451a-ac1d-27948df6a292',
+      title: 'title',
+      contents: 'contents',
+      address: 'address',
+      images: 'image.domain/url',
+      createdAt: new Date().toString(),
+      updatedAt: new Date().toString(),
+    }),
+    updatePost: () => ({}),
+    deletePost: () => ({}),
+  };
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
-    }).compile();
+    })
+      .overrideProvider(PostService)
+      .useValue(postService)
+      .compile();
 
     app = module.createNestApplication();
     await app.init();
