@@ -6,6 +6,7 @@ import {
   Patch,
   Post,
   UploadedFiles,
+  UseFilters,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
@@ -16,8 +17,10 @@ import { PostService } from './post.service';
 import multerOptions from '../utils/options/upload-options';
 import { AuthGuard } from '../utils/guards/auth.guard';
 import { BadRequestException, ValidationPipe } from '@nestjs/common';
+import { HttpExceptionFilter } from '../utils/filters/http-exception-filter';
 
 @Controller('posts')
+@UseFilters(HttpExceptionFilter)
 export class PostController {
   constructor(private postService: PostService) {}
 
