@@ -61,6 +61,15 @@ describe('Post Controller test', () => {
     expect(response.body.address).toBeDefined();
   });
 
+  it('/posts/:id (GET) Failure', async () => {
+    const response = await request(app.getHttpServer())
+      .get(`/posts/notnotnotexist`)
+      .send();
+
+    expect(response.statusCode).toEqual(400);
+    expect(response.body.message).toBeDefined();
+  });
+
   it('/posts (POST)', async () => {
     const response = await request(app.getHttpServer())
       .post('/posts')
