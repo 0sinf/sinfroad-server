@@ -11,16 +11,19 @@ describe('Post Controller test', () => {
   let token = 'Bearer ';
   let postId: string;
 
+  const post = {
+    id: 'b62b6b94-bc13-451a-ac1d-27948df6a292',
+    title: 'title',
+    contents: 'contents',
+    address: 'address',
+    images: 'image.domain/url',
+    createdAt: new Date().toString(),
+    updatedAt: new Date().toString(),
+  };
+
   const postService = {
-    createPost: () => ({
-      id: 'b62b6b94-bc13-451a-ac1d-27948df6a292',
-      title: 'title',
-      contents: 'contents',
-      address: 'address',
-      images: 'image.domain/url',
-      createdAt: new Date().toString(),
-      updatedAt: new Date().toString(),
-    }),
+    findPost: () => post,
+    createPost: () => post,
     updatePost: () => ({}),
     deletePost: () => ({}),
   };
@@ -45,6 +48,17 @@ describe('Post Controller test', () => {
       recursive: true,
     });
     app.close();
+  });
+
+  it('/posts/:id (GET)', async () => {
+    const response = await request(app.getHttpServer())
+      .get(`/posts/${post.id}`)
+      .send();
+
+    expect(response.statusCode).toEqual(200);
+    expect(response.body.title).toBeDefined();
+    expect(response.body.contents).toBeDefined();
+    expect(response.body.address).toBeDefined();
   });
 
   it('/posts (POST)', async () => {
