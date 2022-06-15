@@ -29,9 +29,7 @@ export class PostController {
   async getPost(@Param('postId') postId: string) {
     this.validatePostId(postId);
     const post = await this.postService.findPost(postId);
-    return {
-      post,
-    };
+    return post;
   }
 
   @Post()
