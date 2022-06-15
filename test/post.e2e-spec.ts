@@ -9,7 +9,6 @@ import { PostService } from '../src/post/post.service';
 describe('Post Controller test', () => {
   let app: INestApplication;
   let token = 'Bearer ';
-  let postId: string;
 
   const post = {
     id: 'b62b6b94-bc13-451a-ac1d-27948df6a292',
@@ -81,8 +80,6 @@ describe('Post Controller test', () => {
 
     expect(response.statusCode).toEqual(201);
     expect(response.body.id).toBeDefined();
-
-    postId = response.body.id;
   });
 
   it('/posts (POST) Unauthorization', async () => {
@@ -110,7 +107,7 @@ describe('Post Controller test', () => {
 
   it('/posts/:id (PATCH)', async () => {
     const response = await request(app.getHttpServer())
-      .patch(`/posts/${postId}`)
+      .patch(`/posts/${post.id}`)
       .set('authorization', token)
       .send({
         title: 'updated title',
@@ -123,7 +120,7 @@ describe('Post Controller test', () => {
 
   it('/posts/:id (PATCH) Unauthorization', async () => {
     const response = await request(app.getHttpServer())
-      .patch(`/posts/${postId}`)
+      .patch(`/posts/${post.id}`)
       .send({
         title: 'updated title',
         contents: 'updated contents',
@@ -135,7 +132,7 @@ describe('Post Controller test', () => {
 
   it('/posts/:id (PATCH)', async () => {
     const response = await request(app.getHttpServer())
-      .patch(`/posts/${postId}`)
+      .patch(`/posts/${post.id}`)
       .set('authorization', token)
       .send({
         title: '',
@@ -162,7 +159,7 @@ describe('Post Controller test', () => {
 
   it('/post/:id (DELETE)', async () => {
     const response = await request(app.getHttpServer())
-      .delete(`/posts/${postId}`)
+      .delete(`/posts/${post.id}`)
       .set('authorization', token)
       .send();
 
@@ -171,7 +168,7 @@ describe('Post Controller test', () => {
 
   it('/post/:id (DELETE) Unauthorization', async () => {
     const response = await request(app.getHttpServer())
-      .delete(`/posts/${postId}`)
+      .delete(`/posts/${post.id}`)
       .set('authorization', 'asdlkjasdlk')
       .send();
 

@@ -6,15 +6,15 @@ import { UserService } from '../src/user/user.service';
 
 describe('User Controller test', () => {
   let app: INestApplication;
-  let user: { email: string; password: string };
+  const user = {
+    id: 'sdlfkjklsdfl',
+    email: 'email@eee.com',
+    password: 'password',
+    grade: 1,
+  };
 
   const userService = {
-    createUser: () => ({
-      id: 'sdlfkjklsdfl',
-      email: 'email@eee.com',
-      password: 'password',
-      grade: 1,
-    }),
+    createUser: () => user,
     loginUser: () => 'token',
   };
 
@@ -28,11 +28,6 @@ describe('User Controller test', () => {
 
     app = moduleFixture.createNestApplication();
     await app.init();
-
-    user = {
-      email: 'email@eee.com',
-      password: 'password',
-    };
   });
 
   afterAll(async () => {
@@ -40,12 +35,11 @@ describe('User Controller test', () => {
   });
 
   it('/users (POST)', async () => {
-    const response = await request(app.getHttpServer())
-      .post('/users')
-      .send({
-        ...user,
-        passwordConfirm: 'password',
-      });
+    const response = await request(app.getHttpServer()).post('/users').send({
+      email: user.email,
+      password: user.password,
+      passwordConfirm: 'password',
+    });
 
     expect(response.statusCode).toEqual(201);
     expect(response.body.id).toBeDefined();
@@ -54,7 +48,7 @@ describe('User Controller test', () => {
   it('/users (POST) BadRequest', async () => {
     const response = await request(app.getHttpServer()).post('/users').send({
       email: '',
-      passowrd: 'password',
+      password: user.password,
       passwordConfirm: 'password',
     });
 
@@ -76,7 +70,7 @@ describe('User Controller test', () => {
       .post('/users/login')
       .send({
         email: '',
-        password: 'password',
+        password: user.password,
       });
 
     expect(response.statusCode).toEqual(400);
