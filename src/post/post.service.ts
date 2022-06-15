@@ -17,6 +17,11 @@ export class PostService {
     this.domain = process.env.DOMAIN;
   }
 
+  async findPost(postId: string) {
+    const post = await this.postRepository.findOne({ where: { id: postId } });
+    return post;
+  }
+
   async createPost(
     images: Array<Express.Multer.File>,
     dto: PostReq,
