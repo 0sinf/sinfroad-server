@@ -17,6 +17,11 @@ export class PostService {
     this.domain = process.env.DOMAIN;
   }
 
+  async findAll() {
+    const posts = await this.postRepository.find();
+    return posts;
+  }
+
   async findPost(postId: string) {
     const post = await this.postRepository.findOne({ where: { id: postId } });
     return post;

@@ -25,11 +25,17 @@ import { HttpExceptionFilter } from '../utils/filters/http-exception-filter';
 export class PostController {
   constructor(private postService: PostService) {}
 
+  @Get()
+  async getPosts() {
+    const posts = await this.postService.findAll();
+    return { posts };
+  }
+
   @Get(':postId')
   async getPost(@Param('postId') postId: string) {
     this.validatePostId(postId);
     const post = await this.postService.findPost(postId);
-    return post;
+    return { post };
   }
 
   @Post()
