@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   UploadedFiles,
   UseFilters,
   UseGuards,
@@ -26,9 +27,11 @@ export class PostController {
   constructor(private postService: PostService) {}
 
   @Get()
-  async getPosts() {
-    const posts = await this.postService.findAll();
-    return { posts };
+  async getPosts(@Query('page') p: string) {
+    const page = Number(p) || 1;
+    const [posts, pagination] = await this.postService.findAll(page);
+
+    return { posts, pagination };
   }
 
   @Get(':postId')
