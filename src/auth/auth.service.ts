@@ -4,6 +4,7 @@ import * as jwt from 'jsonwebtoken';
 @Injectable()
 export class AuthService {
   private key: string;
+
   constructor() {
     this.key = process.env.JWT_SECRET;
   }
