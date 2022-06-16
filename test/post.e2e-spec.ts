@@ -21,7 +21,7 @@ describe('Post Controller test', () => {
   };
 
   const postService = {
-    findAll: () => [post, post, post],
+    findAll: () => [[post, post, post], { page: 1, hasNext: false }],
     findPost: () => post,
     createPost: () => post,
     updatePost: () => ({}),
