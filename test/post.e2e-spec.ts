@@ -21,6 +21,7 @@ describe('Post Controller test', () => {
   };
 
   const postService = {
+    findAll: () => [post, post, post],
     findPost: () => post,
     createPost: () => post,
     updatePost: () => ({}),
@@ -55,9 +56,9 @@ describe('Post Controller test', () => {
       .send();
 
     expect(response.statusCode).toEqual(200);
-    expect(response.body.title).toBeDefined();
-    expect(response.body.contents).toBeDefined();
-    expect(response.body.address).toBeDefined();
+    expect(response.body.post.title).toBeDefined();
+    expect(response.body.post.contents).toBeDefined();
+    expect(response.body.post.address).toBeDefined();
   });
 
   it('/posts/:id (GET) Failure', async () => {
