@@ -17,9 +17,18 @@ export class PostService {
     this.domain = process.env.DOMAIN;
   }
 
-  async findAll() {
-    const posts = await this.postRepository.find();
-    return posts;
+  async findAll(page: number) {
+    const take = 10;
+    const skip = (page - 1) * take;
+
+    const [posts, total] = await this.postRepository.findAndCount({
+      take,
+      skip,
+    });
+
+    const hasNext = total > take * page;
+
+    return [posts, { page, hasNext }];
   }
 
   async findPost(postId: string) {
