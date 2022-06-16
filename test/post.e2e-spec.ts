@@ -70,6 +70,14 @@ describe('Post Controller test', () => {
     expect(response.body.message).toBeDefined();
   });
 
+  it('/posts (GET)', async () => {
+    const response = await request(app.getHttpServer()).get('/posts').send();
+
+    expect(response.statusCode).toEqual(200);
+    expect(response.body.posts).toBeDefined();
+    expect(response.body.posts.length).toEqual(3);
+  });
+
   it('/posts (POST)', async () => {
     const response = await request(app.getHttpServer())
       .post('/posts')
