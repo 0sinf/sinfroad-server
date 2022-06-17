@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm';
 
 @Entity('users')
 export class UserEntity {
@@ -13,4 +13,10 @@ export class UserEntity {
 
   @Column({ default: 1 })
   grade: number;
+
+  @CreateDateColumn()
+  created: Date;
+
+  @Column({ nullable: true })
+  hashedRefreshToken?: string;
 }
