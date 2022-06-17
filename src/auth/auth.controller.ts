@@ -26,7 +26,6 @@ export class AuthController {
       req.user as GoogleUser,
     );
 
-    // TODO: send Access token and Refresh Token
     const payload: JwtPayload = { sub: user.id, email: user.email };
 
     const { accessToken, refreshToken } = this.authService.getToken(payload);
