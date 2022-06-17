@@ -9,7 +9,13 @@ export class UserEntity {
   email: string;
 
   @Column()
-  password: string;
+  name: string;
+
+  @Column()
+  provider: string;
+
+  @Column()
+  providerId: string;
 
   @Column({ default: 1 })
   grade: number;
