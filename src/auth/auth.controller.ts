@@ -17,9 +17,10 @@ export class AuthController {
   @Get('google/callback')
   @UseGuards(AuthGuard('google'))
   async googleCallback(@Req() req: Request) {
-    // By req.user, find or save
     const user = await this.userService.findByProviderIdOrSave(
       req.user as GoogleUser,
     );
+
+    // TODO: send Access token and Refresh Token
   }
 }
