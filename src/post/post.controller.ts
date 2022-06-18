@@ -10,12 +10,12 @@ import {
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
+import { BadRequestException, ValidationPipe } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import * as uuid from 'uuid';
 import { PostReq } from './dto/post.dto';
 import { PostService } from './post.service';
 import multerOptions from '../utils/options/upload-options';
-import { BadRequestException, ValidationPipe } from '@nestjs/common';
 
 @Controller('posts')
 export class PostController {

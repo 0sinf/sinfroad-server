@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ServeStaticModule } from '@nestjs/serve-static';
 import { join, resolve } from 'path';
 import { UserModule } from './user/user.module';
 import { PostModule } from './post/post.module';
-import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
   imports: [
