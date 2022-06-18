@@ -42,16 +42,13 @@ export class AuthController {
   @Post('refresh')
   @UseGuards(AuthGuard('jwt-refresh'))
   async refreshToken(@Req() req: Request, @Res() res: Response) {
-    const { refreshToken, ...payload } = req.user as JwtPayload & {
+    const { refreshToken, sub, email } = req.user as JwtPayload & {
       refreshToken: string;
     };
 
-    const user = await this.userService.findByIdAndCheckRT(
-      payload.sub,
-      refreshToken,
-    );
+    const user = await this.userService.findByIdAndCheckRT(sub, refreshToken);
 
-    const token = this.authService.getToken(payload);
+    const token = this.authService.getToken({ sub, email });
 
     res.cookie('access-token', token.accessToken);
     res.cookie('refresh-token', token.refreshToken);
