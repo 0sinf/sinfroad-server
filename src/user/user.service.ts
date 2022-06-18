@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as argon2 from 'argon2';
@@ -39,5 +39,21 @@ export class UserService {
       .set({ hashedRefreshToken: hashedToken })
       .where('id=:id', { id: userId })
       .execute();
+  }
+
+  async findByIdAndCheckRT(userId: string, token: string) {
+    const user = await this.userRepository.findOne({ where: { id: userId } });
+
+    if (!user) {
+      throw new BadRequestException();
+    }
+
+    const isHashed = await argon2.verify(user.hashedRefreshToken, token);
+
+    if (!isHashed) {
+      throw new BadRequestException();
+    }
+
+    return user;
   }
 }

@@ -1,4 +1,4 @@
-import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Request, Response } from 'express';
 import { UserService } from '../user/user.service';
@@ -32,6 +32,29 @@ export class AuthController {
 
     res.cookie('access-token', accessToken);
     res.cookie('refresh-token', refreshToken);
+
+    await this.userService.updateHashedRefreshToken(user.id, refreshToken);
+
+    // FIXME: Fix redirect url
+    res.redirect('/');
+  }
+
+  @Post('refresh')
+  @UseGuards(AuthGuard('jwt-refresh'))
+  async refreshToken(@Req() req: Request, @Res() res: Response) {
+    const { refreshToken, ...payload } = req.user as JwtPayload & {
+      refreshToken: string;
+    };
+
+    const user = await this.userService.findByIdAndCheckRT(
+      payload.sub,
+      refreshToken,
+    );
+
+    const token = this.authService.getToken(payload);
+
+    res.cookie('access-token', token.accessToken);
+    res.cookie('refresh-token', token.refreshToken);
 
     await this.userService.updateHashedRefreshToken(user.id, refreshToken);
 
