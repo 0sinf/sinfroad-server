@@ -33,6 +33,8 @@ export class AuthController {
     res.cookie('access-token', accessToken);
     res.cookie('refresh-token', refreshToken);
 
+    await this.userService.updateHashedRefreshToken(user.id, refreshToken);
+
     // FIXME: Fix redirect url
     res.redirect('/');
   }

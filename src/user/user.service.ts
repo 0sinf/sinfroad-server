@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import * as argon2 from 'argon2';
 import { UserEntity } from './user.entity';
 import { GoogleUser } from '../@types/user';
 
@@ -27,5 +28,16 @@ export class UserService {
     newUser.name = name;
 
     return await this.userRepository.save(newUser);
+  }
+
+  async updateHashedRefreshToken(userId: string, token: string) {
+    const hashedToken = await argon2.hash(token);
+
+    await this.userRepository
+      .createQueryBuilder()
+      .update()
+      .set({ hashedRefreshToken: hashedToken })
+      .where('id=:id', { id: userId })
+      .execute();
   }
 }
