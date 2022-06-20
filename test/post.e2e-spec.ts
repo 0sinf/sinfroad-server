@@ -8,7 +8,7 @@ import { PostService } from '../src/post/post.service';
 
 describe('Post Controller test', () => {
   let app: INestApplication;
-  let token = 'Bearer ';
+  const token = process.env.TOKEN;
 
   const post = {
     id: 'b62b6b94-bc13-451a-ac1d-27948df6a292',
@@ -38,8 +38,6 @@ describe('Post Controller test', () => {
 
     app = module.createNestApplication();
     await app.init();
-
-    token += process.env.TOKEN;
   });
 
   afterAll(async () => {
