@@ -15,7 +15,7 @@ import { FilesInterceptor } from '@nestjs/platform-express';
 import * as uuid from 'uuid';
 import { PostReq } from './dto/post.dto';
 import { PostService } from './post.service';
-import multerOptions from '../utils/options/upload-options';
+import multerOptions from '../common/options/upload-options';
 
 @Controller('posts')
 export class PostController {
