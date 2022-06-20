@@ -17,7 +17,7 @@ import * as uuid from 'uuid';
 import { PostReq } from './dto/post.dto';
 import { PostService } from './post.service';
 import multerOptions from '../common/options/upload-options';
-import { AtGuard } from '../common/guards/at.guards';
+import { AtGuard } from '../common/guards/at.guard';
 import { Roles } from '../common/decorators/role.decorator';
 import { RolesGuard } from '../common/guards/role.guard';
 
