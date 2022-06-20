@@ -16,10 +16,9 @@ import { FilesInterceptor } from '@nestjs/platform-express';
 import * as uuid from 'uuid';
 import { PostReq } from './dto/post.dto';
 import { PostService } from './post.service';
-import multerOptions from '../common/options/upload-options';
-import { AtGuard } from '../common/guards/at.guard';
-import { Roles } from '../common/decorators/role.decorator';
-import { RolesGuard } from '../common/guards/role.guard';
+import { multerOptions } from '../common/options';
+import { AtGuard, RolesGuard } from '../common/guards';
+import { Roles } from '../common/decorators';
 
 @Controller('posts')
 export class PostController {
