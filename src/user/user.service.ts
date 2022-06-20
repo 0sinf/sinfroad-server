@@ -56,4 +56,14 @@ export class UserService {
 
     return user;
   }
+
+  async findById(userId: string) {
+    const user = await this.userRepository.findOne({ where: { id: userId } });
+
+    if (!user) {
+      throw new BadRequestException();
+    }
+
+    return user;
+  }
 }
