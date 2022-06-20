@@ -8,6 +8,7 @@ import {
   Post,
   Query,
   UploadedFiles,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { BadRequestException, ValidationPipe } from '@nestjs/common';
@@ -16,6 +17,7 @@ import * as uuid from 'uuid';
 import { PostReq } from './dto/post.dto';
 import { PostService } from './post.service';
 import multerOptions from '../common/options/upload-options';
+import { AtGuard } from '../common/guards/at.guards';
 
 @Controller('posts')
 export class PostController {
@@ -37,6 +39,7 @@ export class PostController {
   }
 
   @Post()
+  @UseGuards(AtGuard)
   @UseInterceptors(FilesInterceptor('images', 4, multerOptions))
   async createPost(
     @UploadedFiles() images: Array<Express.Multer.File>,
@@ -49,6 +52,7 @@ export class PostController {
   }
 
   @Patch(':postId')
+  @UseGuards(AtGuard)
   async updatePost(
     @Param('postId') postId: string,
     @Body(ValidationPipe) dto: PostReq,
@@ -58,6 +62,7 @@ export class PostController {
   }
 
   @Delete(':postId')
+  @UseGuards(AtGuard)
   async deletePost(@Param('postId') postId: string) {
     this.validatePostId(postId);
     await this.postService.deletePost(postId);
