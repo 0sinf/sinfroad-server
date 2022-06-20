@@ -17,8 +17,8 @@ export class UserEntity {
   @Column()
   providerId: string;
 
-  @Column({ default: 1 })
-  grade: number;
+  @Column({ default: 'GEUST' })
+  role: string;
 
   @CreateDateColumn()
   created: Date;
