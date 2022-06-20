@@ -18,6 +18,8 @@ import { PostReq } from './dto/post.dto';
 import { PostService } from './post.service';
 import multerOptions from '../common/options/upload-options';
 import { AtGuard } from '../common/guards/at.guards';
+import { Roles } from '../common/decorators/role.decorator';
+import { RolesGuard } from '../common/guards/role.guard';
 
 @Controller('posts')
 export class PostController {
@@ -39,7 +41,8 @@ export class PostController {
   }
 
   @Post()
-  @UseGuards(AtGuard)
+  @Roles('ADMIN')
+  @UseGuards(AtGuard, RolesGuard)
   @UseInterceptors(FilesInterceptor('images', 4, multerOptions))
   async createPost(
     @UploadedFiles() images: Array<Express.Multer.File>,
@@ -52,7 +55,8 @@ export class PostController {
   }
 
   @Patch(':postId')
-  @UseGuards(AtGuard)
+  @Roles('ADMIN')
+  @UseGuards(AtGuard, RolesGuard)
   async updatePost(
     @Param('postId') postId: string,
     @Body(ValidationPipe) dto: PostReq,
@@ -62,7 +66,8 @@ export class PostController {
   }
 
   @Delete(':postId')
-  @UseGuards(AtGuard)
+  @Roles('ADMIN')
+  @UseGuards(AtGuard, RolesGuard)
   async deletePost(@Param('postId') postId: string) {
     this.validatePostId(postId);
     await this.postService.deletePost(postId);
