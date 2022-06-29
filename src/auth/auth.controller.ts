@@ -35,8 +35,7 @@ export class AuthController {
 
     await this.userService.updateHashedRefreshToken(user.id, refreshToken);
 
-    // FIXME: Fix redirect url
-    res.redirect('/');
+    res.redirect(process.env.DOMAIN);
   }
 
   @Post('refresh')
