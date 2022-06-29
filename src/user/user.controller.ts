@@ -21,6 +21,13 @@ export class UserController {
       throw new UnauthorizedException();
     }
 
-    return { user: { id: user.id, email: user.email, name: user.name } };
+    return {
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        role: user.grade,
+      },
+    };
   }
 }
