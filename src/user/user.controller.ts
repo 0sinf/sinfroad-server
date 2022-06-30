@@ -1,9 +1,8 @@
 import {
   Controller,
+  ForbiddenException,
   Get,
-  Param,
   Req,
-  UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
 import { Request } from 'express';
@@ -12,13 +11,13 @@ import { User } from '../@types/user';
 
 @Controller('users')
 export class UserController {
-  @Get(':userId')
+  @Get()
   @UseGuards(AtGuard)
-  async getUser(@Req() req: Request, @Param('userId') userId: string) {
+  async getUser(@Req() req: Request) {
     const user = req.user as User;
 
-    if (user.id !== userId) {
-      throw new UnauthorizedException();
+    if (!user) {
+      throw new ForbiddenException();
     }
 
     return {
