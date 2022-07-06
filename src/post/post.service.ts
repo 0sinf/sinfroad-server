@@ -24,6 +24,7 @@ export class PostService {
     const [posts, total] = await this.postRepository.findAndCount({
       take,
       skip,
+      relations: ['images'],
     });
 
     const hasNext = total > take * page;
@@ -32,7 +33,10 @@ export class PostService {
   }
 
   async findPost(postId: string) {
-    const post = await this.postRepository.findOne({ where: { id: postId } });
+    const post = await this.postRepository.findOne({
+      where: { id: postId },
+      relations: ['images'],
+    });
     return post;
   }
 
@@ -41,7 +45,9 @@ export class PostService {
     dto: PostReq,
   ): Promise<PostEntity> {
     const { title, contents, address } = dto;
-    const urls = images.map((image) => `${this.domain}/${image.path}`);
+    const urls = images.map(
+      (image) => `${this.domain}/public/${image.filename}`,
+    );
 
     const p = new PostEntity();
     p.title = title;
