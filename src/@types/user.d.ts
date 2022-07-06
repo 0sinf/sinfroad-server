@@ -7,7 +7,7 @@ export interface GoogleUser {
 
 export interface User extends GoogleUser {
   id: string;
-  grade: number;
+  role: string;
   created: Date;
   hashedRefreshToken?: string;
 }
