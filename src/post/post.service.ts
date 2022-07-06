@@ -42,7 +42,9 @@ export class PostService {
     dto: PostReq,
   ): Promise<PostEntity> {
     const { title, contents, address } = dto;
-    const urls = images.map((image) => `${this.domain}/${image.path}`);
+    const urls = images.map(
+      (image) => `${this.domain}/public/${image.filename}`,
+    );
 
     const p = new PostEntity();
     p.title = title;
