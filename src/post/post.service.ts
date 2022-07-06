@@ -33,7 +33,10 @@ export class PostService {
   }
 
   async findPost(postId: string) {
-    const post = await this.postRepository.findOne({ where: { id: postId } });
+    const post = await this.postRepository.findOne({
+      where: { id: postId },
+      relations: ['images'],
+    });
     return post;
   }
 
