@@ -1,26 +1,13 @@
-import { Document, Model } from "mongoose";
-
-export interface CreateUserReq {
+export interface GoogleUser {
+  provider: string;
+  providerId: string;
   email: string;
-  password: string;
-  passwordConfirm: string;
-  nickname: string;
+  name: string;
 }
 
-export interface UserInfo {
-  email: string;
-  nickname: string;
+export interface User extends GoogleUser {
+  id: string;
+  role: string;
+  created: Date;
+  hashedRefreshToken?: string;
 }
-
-export interface User {
-  email: string;
-  password: string;
-  nickname: string;
-}
-
-export interface UserDocument extends User, Document {
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-export interface UserModel extends Model<UserDocument> {}
