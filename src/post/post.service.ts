@@ -24,6 +24,9 @@ export class PostService {
     const [posts, total] = await this.postRepository.findAndCount({
       take,
       skip,
+      order: {
+        created: 'DESC',
+      },
       relations: ['images'],
     });
 
