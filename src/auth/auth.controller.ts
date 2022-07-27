@@ -45,15 +45,11 @@ export class AuthController {
       refreshToken: string;
     };
 
-    const user = await this.userService.findByIdAndCheckRT(sub, refreshToken);
-
+    await this.userService.findByIdAndCheckRT(sub, refreshToken);
     const token = this.authService.getToken({ sub, email });
 
     res.cookie('access-token', token.accessToken);
-    res.cookie('refresh-token', token.refreshToken);
 
-    await this.userService.updateHashedRefreshToken(user.id, refreshToken);
-
-    return {};
+    res.json({ accessToken: token.accessToken });
   }
 }
