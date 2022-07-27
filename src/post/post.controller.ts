@@ -62,6 +62,7 @@ export class PostController {
   ) {
     this.validatePostId(postId);
     await this.postService.updatePost(postId, dto);
+    return {};
   }
 
   @Delete(':postId')
@@ -70,6 +71,7 @@ export class PostController {
   async deletePost(@Param('postId') postId: string) {
     this.validatePostId(postId);
     await this.postService.deletePost(postId);
+    return {};
   }
 
   private validatePostId(postId: string) {
