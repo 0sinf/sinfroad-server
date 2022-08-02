@@ -43,14 +43,9 @@ export class PostService {
     return post;
   }
 
-  async createPost(
-    images: Array<Express.Multer.File>,
-    dto: PostReq,
-  ): Promise<PostEntity> {
+  async createPost(images: Array<string>, dto: PostReq): Promise<PostEntity> {
     const { title, contents, address } = dto;
-    const urls = images.map(
-      (image) => `${this.domain}/public/${image.filename}`,
-    );
+    const urls = images.map((image) => `${this.domain}/public/${image}`);
 
     const p = new PostEntity();
     p.title = title;

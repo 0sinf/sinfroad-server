@@ -19,6 +19,7 @@ import { PostService } from './post.service';
 import { multerOptions } from '../common/options';
 import { AtGuard, RolesGuard } from '../common/guards';
 import { Roles } from '../common/decorators';
+import { SharpPipe } from '../common/pipes/sharp.pipe';
 
 @Controller('posts')
 export class PostController {
@@ -44,7 +45,7 @@ export class PostController {
   @UseGuards(AtGuard, RolesGuard)
   @UseInterceptors(FilesInterceptor('images', 4, multerOptions))
   async createPost(
-    @UploadedFiles() images: Array<Express.Multer.File>,
+    @UploadedFiles(SharpPipe) images: Array<string>,
     @Body(ValidationPipe) dto: PostReq,
   ) {
     const post = await this.postService.createPost(images, dto);
