@@ -1,5 +1,6 @@
 import { Injectable, PipeTransform } from '@nestjs/common';
 import { v4 as uuid } from 'uuid';
+import * as fs from 'fs';
 import * as path from 'path';
 import * as sharp from 'sharp';
 
@@ -14,7 +15,7 @@ export class SharpPipe
     const newFilename = [];
 
     for (let i = 0; i < images.length; i++) {
-      const filename = this.resizeFile(images[i]);
+      const filename = await this.resizeFile(images[i]);
 
       newFilename.push(filename);
     }
@@ -28,6 +29,7 @@ export class SharpPipe
     const filePath = path.join(__dirname, '../../../static/public', filename);
 
     await sharp(file).resize(500, 500).withMetadata().toFile(filePath);
+    fs.unlinkSync(file);
 
     return filename;
   }
