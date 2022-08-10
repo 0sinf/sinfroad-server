@@ -1,6 +1,8 @@
-import { Controller, Delete, Post } from '@nestjs/common';
+import { Controller, Delete, Post, UseGuards } from '@nestjs/common';
+import { AtGuard } from '../common/guards/at.guard';
 
 @Controller()
+@UseGuards(AtGuard)
 export class LikeController {
   @Post('likes')
   async addLike() {
