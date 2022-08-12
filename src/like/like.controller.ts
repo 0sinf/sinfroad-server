@@ -2,32 +2,28 @@ import { Body, Controller, Delete, Post, UseGuards, Req } from '@nestjs/common';
 import { Request } from 'express';
 import { AtGuard } from '../common/guards/at.guard';
 import { LikeReq } from './dto/like.dto';
+import { User } from '../@types/user';
+import { LikeService } from './like.service';
 
 @Controller()
 @UseGuards(AtGuard)
 export class LikeController {
+  constructor(private likeService: LikeService) {}
+
   @Post('likes')
   async addLike(@Req() req: Request, @Body() { postId }: LikeReq) {
-    const user = req.user;
+    const { id: userId } = req.user as User;
 
-    // TODO: Check exist like
-
-    // TODO: Check exist post
-
-    // TODO: add like entity with postId, userId
+    await this.likeService.addLike(userId, postId);
 
     throw new Error('Not implement');
   }
 
   @Delete('likes')
   async removeLike(@Req() req: Request, @Body() { postId }: LikeReq) {
-    const user = req.user;
+    const { id: userId } = req.user as User;
 
-    // TODO: Check exist like
-
-    // TODO: Check exist post
-
-    // TODO: remove like entity with postId, userId
+    await this.likeService.removeLike(userId, postId);
 
     throw new Error('Not implement');
   }
