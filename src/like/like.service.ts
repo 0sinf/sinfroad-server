@@ -35,8 +35,20 @@ export class LikeService {
   }
 
   async removeLike(userId: string, postId: string) {
-    // TODO: Check exist like
-    // TODO: Check exist post
-    // TODO: remove like entity with postId, userId
+    const like = await this.likeRepository.findOne({
+      where: { userId, postId },
+    });
+
+    if (!like) {
+      throw new BadRequestException();
+    }
+
+    const post = await this.postService.findPost(postId);
+
+    if (!post) {
+      throw new BadRequestException();
+    }
+
+    await this.likeRepository.delete({ postId, userId });
   }
 }
