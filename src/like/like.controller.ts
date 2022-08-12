@@ -16,7 +16,7 @@ export class LikeController {
 
     await this.likeService.addLike(userId, postId);
 
-    throw new Error('Not implement');
+    return {};
   }
 
   @Delete('likes')
