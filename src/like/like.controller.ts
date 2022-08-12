@@ -25,6 +25,6 @@ export class LikeController {
 
     await this.likeService.removeLike(userId, postId);
 
-    throw new Error('Not implement');
+    return {};
   }
 }
