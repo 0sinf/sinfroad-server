@@ -38,12 +38,11 @@ export class PostController {
   @Get(':postId')
   @UseInterceptors(GetUserInterceptor)
   async getPost(@Req() req: Request, @Param('postId') postId: string) {
-    const userId = req.user;
-    console.log(userId);
+    const userId = req.user && String(req.user);
 
     this.validatePostId(postId);
 
-    const post = await this.postService.findPost(postId);
+    const post = await this.postService.findPost(postId, userId);
 
     return { post };
   }

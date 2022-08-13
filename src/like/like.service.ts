@@ -18,14 +18,14 @@ export class LikeService {
     private postService: PostService,
   ) {}
 
-  async findAllByPostId(postId: string) {
+  async findAllByPostId(postId: string, userId?: string) {
     const [likes, count] = await this.likeRepository.findAndCount({
       where: { postId },
     });
 
-    // TODO: Check user like this.
+    const beLiked = likes.some((like) => like.userId === userId);
 
-    return [count, likes];
+    return [count, beLiked];
   }
 
   async addLike(userId: string, postId: string) {

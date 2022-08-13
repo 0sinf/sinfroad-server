@@ -43,18 +43,21 @@ export class PostService {
     return [posts, { page, hasNext }];
   }
 
-  async findPost(postId: string) {
+  async findPost(postId: string, userId?: string) {
     const post = await this.postRepository.findOne({
       where: { id: postId },
       relations: ['images'],
     });
 
-    // TODO: check user
-    const [likes] = await this.likeService.findAllByPostId(postId);
+    const [likes, beLiked] = await this.likeService.findAllByPostId(
+      postId,
+      userId,
+    );
 
     return {
       ...post,
       likes,
+      beLiked,
     };
   }
 
