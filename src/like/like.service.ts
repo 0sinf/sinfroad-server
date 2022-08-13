@@ -23,9 +23,9 @@ export class LikeService {
       where: { postId },
     });
 
-    const beLiked = likes.some((like) => like.userId === userId);
+    const beliked = likes.some((like) => like.userId === userId);
 
-    return [count, beLiked];
+    return [count, beliked];
   }
 
   async addLike(userId: string, postId: string) {

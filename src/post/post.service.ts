@@ -49,7 +49,7 @@ export class PostService {
       relations: ['images'],
     });
 
-    const [likes, beLiked] = await this.likeService.findAllByPostId(
+    const [likes, beliked] = await this.likeService.findAllByPostId(
       postId,
       userId,
     );
@@ -57,7 +57,7 @@ export class PostService {
     return {
       ...post,
       likes,
-      beLiked,
+      beliked,
     };
   }
 
