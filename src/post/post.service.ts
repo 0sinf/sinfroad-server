@@ -48,6 +48,9 @@ export class PostService {
       where: { id: postId },
       relations: ['images'],
     });
+
+    // TODO: Get likes, and check user
+
     return post;
   }
 
