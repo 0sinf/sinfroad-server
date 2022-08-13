@@ -1,4 +1,9 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  Inject,
+  forwardRef,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { LikeEntity } from './like.entity';
@@ -9,8 +14,19 @@ export class LikeService {
   constructor(
     @InjectRepository(LikeEntity)
     private likeRepository: Repository<LikeEntity>,
+    @Inject(forwardRef(() => PostService))
     private postService: PostService,
   ) {}
+
+  async findAllByPostId(postId: string) {
+    const [likes, count] = await this.likeRepository.findAndCount({
+      where: { postId },
+    });
+
+    // TODO: Check user like this.
+
+    return [count, likes];
+  }
 
   async addLike(userId: string, postId: string) {
     const like = await this.likeRepository.findOne({
