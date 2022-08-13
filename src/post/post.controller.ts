@@ -19,6 +19,7 @@ import { PostService } from './post.service';
 import { multerOptions } from '../common/options';
 import { AtGuard, RolesGuard } from '../common/guards';
 import { Roles } from '../common/decorators';
+import { GetUserInterceptor } from '../common/interceptors/get-user.interceptor';
 
 @Controller('posts')
 export class PostController {
@@ -33,6 +34,7 @@ export class PostController {
   }
 
   @Get(':postId')
+  @UseInterceptors(GetUserInterceptor)
   async getPost(@Param('postId') postId: string) {
     this.validatePostId(postId);
     const post = await this.postService.findPost(postId);
