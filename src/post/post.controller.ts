@@ -7,6 +7,7 @@ import {
   Patch,
   Post,
   Query,
+  Req,
   UploadedFiles,
   UseGuards,
   UseInterceptors,
@@ -14,6 +15,7 @@ import {
 import { BadRequestException, ValidationPipe } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import * as uuid from 'uuid';
+import { Request } from 'express';
 import { PostReq } from './dto/post.dto';
 import { PostService } from './post.service';
 import { multerOptions } from '../common/options';
@@ -35,9 +37,14 @@ export class PostController {
 
   @Get(':postId')
   @UseInterceptors(GetUserInterceptor)
-  async getPost(@Param('postId') postId: string) {
+  async getPost(@Req() req: Request, @Param('postId') postId: string) {
+    const userId = req.user;
+    console.log(userId);
+
     this.validatePostId(postId);
+
     const post = await this.postService.findPost(postId);
+
     return { post };
   }
 

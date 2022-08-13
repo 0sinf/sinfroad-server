@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { Request } from 'express';
 import { Observable } from 'rxjs';
+import { decode } from 'jsonwebtoken';
 
 @Injectable()
 export class GetUserInterceptor implements NestInterceptor {
@@ -18,8 +19,8 @@ export class GetUserInterceptor implements NestInterceptor {
     const token = req.headers.authorization?.split('Bearer ')[1];
 
     if (token) {
-      // TODO: req.user = user;
-      console.log(token);
+      const { sub: userId } = decode(token);
+      req.user = userId;
     }
 
     return next.handle();
