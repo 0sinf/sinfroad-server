@@ -49,9 +49,13 @@ export class PostService {
       relations: ['images'],
     });
 
-    // TODO: Get likes, and check user
+    // TODO: check user
+    const [likes] = await this.likeService.findAllByPostId(postId);
 
-    return post;
+    return {
+      ...post,
+      likes,
+    };
   }
 
   async createPost(
