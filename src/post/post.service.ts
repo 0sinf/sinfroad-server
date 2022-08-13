@@ -1,9 +1,15 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  Inject,
+  forwardRef,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PostEntity } from './post.entity';
 import { PostReq } from './dto/post.dto';
 import { ImageService } from '../image/image.service';
+import { LikeService } from '../like/like.service';
 
 @Injectable()
 export class PostService {
@@ -13,6 +19,8 @@ export class PostService {
     @InjectRepository(PostEntity)
     private postRepository: Repository<PostEntity>,
     private imageService: ImageService,
+    @Inject(forwardRef(() => LikeService))
+    private likeService: LikeService,
   ) {
     this.domain = process.env.DOMAIN;
   }

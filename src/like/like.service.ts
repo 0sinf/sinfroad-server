@@ -1,4 +1,9 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  Inject,
+  forwardRef,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { LikeEntity } from './like.entity';
@@ -9,6 +14,7 @@ export class LikeService {
   constructor(
     @InjectRepository(LikeEntity)
     private likeRepository: Repository<LikeEntity>,
+    @Inject(forwardRef(() => PostService))
     private postService: PostService,
   ) {}
 
