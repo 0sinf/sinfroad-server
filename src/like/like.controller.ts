@@ -5,12 +5,12 @@ import { LikeReq } from './dto/like.dto';
 import { User } from '../@types/user';
 import { LikeService } from './like.service';
 
-@Controller()
+@Controller('likes')
 @UseGuards(AtGuard)
 export class LikeController {
   constructor(private likeService: LikeService) {}
 
-  @Post('likes')
+  @Post()
   async addLike(@Req() req: Request, @Body() { postId }: LikeReq) {
     const { id: userId } = req.user as User;
 
@@ -19,7 +19,7 @@ export class LikeController {
     return {};
   }
 
-  @Delete('likes')
+  @Delete()
   async removeLike(@Req() req: Request, @Body() { postId }: LikeReq) {
     const { id: userId } = req.user as User;
 
