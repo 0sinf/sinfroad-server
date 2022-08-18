@@ -7,6 +7,7 @@ import {
   Patch,
   Post,
   Query,
+  Req,
   UploadedFiles,
   UseGuards,
   UseInterceptors,
@@ -14,11 +15,13 @@ import {
 import { BadRequestException, ValidationPipe } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import * as uuid from 'uuid';
+import { Request } from 'express';
 import { PostReq } from './dto/post.dto';
 import { PostService } from './post.service';
 import { multerOptions } from '../common/options';
 import { AtGuard, RolesGuard } from '../common/guards';
 import { Roles } from '../common/decorators';
+import { GetUserInterceptor } from '../common/interceptors/get-user.interceptor';
 
 @Controller('posts')
 export class PostController {
@@ -33,9 +36,14 @@ export class PostController {
   }
 
   @Get(':postId')
-  async getPost(@Param('postId') postId: string) {
+  @UseInterceptors(GetUserInterceptor)
+  async getPost(@Req() req: Request, @Param('postId') postId: string) {
+    const userId = req.user && String(req.user);
+
     this.validatePostId(postId);
-    const post = await this.postService.findPost(postId);
+
+    const post = await this.postService.findPost(postId, userId);
+
     return { post };
   }
 
