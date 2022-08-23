@@ -1,4 +1,11 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryColumn,
+} from 'typeorm';
+import { CommentEntity } from '../comment/comment.entity';
 
 @Entity('users')
 export class UserEntity {
@@ -25,4 +32,7 @@ export class UserEntity {
 
   @Column({ nullable: true })
   hashedRefreshToken?: string;
+
+  @OneToMany(() => CommentEntity, (comment) => comment.user)
+  comments: CommentEntity[];
 }
