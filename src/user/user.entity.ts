@@ -3,13 +3,13 @@ import {
   CreateDateColumn,
   Entity,
   OneToMany,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { CommentEntity } from '../comment/comment.entity';
 
 @Entity('users')
 export class UserEntity {
-  @PrimaryColumn({ generated: 'uuid' })
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
