@@ -36,8 +36,9 @@ export class CommentController {
 
   @Delete(':id')
   async deleteComment(@Req() req: Request, @Param('id') commentId: string) {
-    // TODO: Check exist comment
-    // TODO: Check owner
+    const user = req.user as UserEntity;
+
+    await this.commentService.deleteComment(user, commentId);
 
     throw new Error('Not Implement');
   }

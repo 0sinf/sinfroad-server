@@ -29,4 +29,9 @@ export class CommentService {
 
     return newComment;
   }
+
+  async deleteComment(user: UserEntity, commentId: string) {
+    // TODO: Check exist comment
+    // TODO: Check owner
+  }
 }
