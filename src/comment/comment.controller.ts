@@ -40,6 +40,6 @@ export class CommentController {
 
     await this.commentService.deleteComment(user, commentId);
 
-    throw new Error('Not Implement');
+    return {};
   }
 }

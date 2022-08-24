@@ -31,7 +31,15 @@ export class CommentService {
   }
 
   async deleteComment(user: UserEntity, commentId: string) {
-    // TODO: Check exist comment
-    // TODO: Check owner
+    const comment = await this.commentRepository.findOne({
+      where: { id: commentId },
+      relations: ['user'],
+    });
+
+    if (!comment || comment.user.id !== user.id) {
+      throw new BadRequestException();
+    }
+
+    await this.commentRepository.remove(comment);
   }
 }
