@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   Post,
+  Query,
   Req,
   UseGuards,
   UseInterceptors,
@@ -22,7 +23,11 @@ export class CommentController {
 
   @Get()
   @UseInterceptors(GetUserInterceptor)
-  async getComments(@Req() req: Request) {
+  async getComments(
+    @Req() req: Request,
+    @Query('postId') postId: string,
+    @Query('page') page: number,
+  ) {
     // TODO: Get postId, userId, page
     const userId = req.user && String(req.user);
     throw new Error('Not Implement');
