@@ -9,10 +9,10 @@ import {
 import { PostEntity } from '../post/post.entity';
 import { UserEntity } from '../user/user.entity';
 
-@Entity()
+@Entity('comments')
 export class CommentEntity {
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  id: string;
 
   @Column()
   contents: string;
@@ -20,7 +20,7 @@ export class CommentEntity {
   @ManyToOne(() => PostEntity, { onDelete: 'CASCADE' })
   post: PostEntity;
 
-  @ManyToOne(() => CommentEntity, { onDelete: 'CASCADE' })
+  @ManyToOne(() => UserEntity, { onDelete: 'CASCADE' })
   user: UserEntity;
 
   @CreateDateColumn()
