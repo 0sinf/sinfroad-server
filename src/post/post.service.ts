@@ -43,6 +43,12 @@ export class PostService {
     return [posts, { page, hasNext }];
   }
 
+  async findById(postId: string) {
+    const post = await this.postRepository.findOne({ where: { id: postId } });
+
+    return post;
+  }
+
   async findPost(postId: string, userId?: string) {
     const post = await this.postRepository.findOne({
       where: { id: postId },
