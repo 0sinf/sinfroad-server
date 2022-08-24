@@ -29,4 +29,17 @@ export class CommentService {
 
     return newComment;
   }
+
+  async deleteComment(user: UserEntity, commentId: string) {
+    const comment = await this.commentRepository.findOne({
+      where: { id: commentId },
+      relations: ['user'],
+    });
+
+    if (!comment || comment.user.id !== user.id) {
+      throw new BadRequestException();
+    }
+
+    await this.commentRepository.remove(comment);
+  }
 }

@@ -1,4 +1,12 @@
-import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Param,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { Request } from 'express';
 import { CreateCommentReq } from './dto/create-comment.dto';
 import { CommentService } from './comment.service';
@@ -24,5 +32,14 @@ export class CommentController {
     );
 
     return { id: comment.id };
+  }
+
+  @Delete(':id')
+  async deleteComment(@Req() req: Request, @Param('id') commentId: string) {
+    const user = req.user as UserEntity;
+
+    await this.commentService.deleteComment(user, commentId);
+
+    return {};
   }
 }
