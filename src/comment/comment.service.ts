@@ -13,6 +13,34 @@ export class CommentService {
     private postService: PostService,
   ) {}
 
+  async getComments(postId: string, userId: string, page: number) {
+    const take = 10;
+    const skip = take * (page - 1);
+
+    const [comments, total] = await this.commentRepository.findAndCount({
+      relations: ['user'],
+      where: { post: { id: postId } },
+      order: { created: 'ASC' },
+      skip,
+      take,
+    });
+
+    const hasNext = take * page < total;
+
+    return [
+      comments.map((comment) => this.parseByUser(comment, userId)),
+      { page, hasNext },
+    ];
+  }
+
+  private parseByUser({ user, ...comment }: CommentEntity, userId: string) {
+    return {
+      ...comment,
+      isOwner: user.id === userId,
+      author: user.name,
+    };
+  }
+
   async createComment(user: UserEntity, postId: string, contents: string) {
     const post = await this.postService.findById(postId);
 
