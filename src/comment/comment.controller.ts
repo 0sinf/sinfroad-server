@@ -37,7 +37,7 @@ export class CommentController {
       page,
     );
 
-    throw new Error('Not Implement');
+    return { comments };
   }
 
   @Post()

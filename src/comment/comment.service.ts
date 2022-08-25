@@ -13,7 +13,13 @@ export class CommentService {
     private postService: PostService,
   ) {}
 
-  async getComments(postId: string, userId: string, page: number) {}
+  async getComments(postId: string, userId: string, page: number) {
+    const comments = await this.commentRepository.find({
+      where: { post: { id: postId } },
+    });
+
+    return comments;
+  }
 
   async createComment(user: UserEntity, postId: string, contents: string) {
     const post = await this.postService.findById(postId);
