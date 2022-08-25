@@ -26,10 +26,17 @@ export class CommentController {
   async getComments(
     @Req() req: Request,
     @Query('postId') postId: string,
-    @Query('page') page: number,
+    @Query('page') p?: string,
   ) {
-    // TODO: Get postId, userId, page
     const userId = req.user && String(req.user);
+    const page = p && Number(p);
+
+    const comments = await this.commentService.getComments(
+      postId,
+      userId,
+      page,
+    );
+
     throw new Error('Not Implement');
   }
 
