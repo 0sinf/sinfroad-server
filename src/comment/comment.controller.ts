@@ -31,13 +31,13 @@ export class CommentController {
     const userId = req.user && String(req.user);
     const page = Number(p) || 1;
 
-    const comments = await this.commentService.getComments(
+    const [comments, pagination] = await this.commentService.getComments(
       postId,
       userId,
       page,
     );
 
-    return { comments };
+    return { comments, pagination };
   }
 
   @Post()

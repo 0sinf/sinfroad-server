@@ -14,11 +14,22 @@ export class CommentService {
   ) {}
 
   async getComments(postId: string, userId: string, page: number) {
-    const comments = await this.commentRepository.find({
+    const take = 10;
+    const skip = take * (page - 1);
+
+    const [comments, total] = await this.commentRepository.findAndCount({
+      relations: ['user'],
       where: { post: { id: postId } },
+      order: { created: 'ASC' },
+      skip,
+      take,
     });
 
-    return comments;
+    // TODO: by userId, check owner
+
+    const hasNext = take * page < total;
+
+    return [comments, { page, hasNext }];
   }
 
   async createComment(user: UserEntity, postId: string, contents: string) {
