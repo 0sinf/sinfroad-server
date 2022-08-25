@@ -29,7 +29,7 @@ export class CommentController {
     @Query('page') p?: string,
   ) {
     const userId = req.user && String(req.user);
-    const page = p && Number(p);
+    const page = Number(p) || 1;
 
     const comments = await this.commentService.getComments(
       postId,
