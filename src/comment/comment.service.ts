@@ -25,11 +25,20 @@ export class CommentService {
       take,
     });
 
-    // TODO: by userId, check owner
-
     const hasNext = take * page < total;
 
-    return [comments, { page, hasNext }];
+    return [
+      comments.map((comment) => this.parseByUser(comment, userId)),
+      { page, hasNext },
+    ];
+  }
+
+  private parseByUser({ user, ...comment }: CommentEntity, userId: string) {
+    return {
+      ...comment,
+      isOwner: user.id === userId,
+      author: user.name,
+    };
   }
 
   async createComment(user: UserEntity, postId: string, contents: string) {
