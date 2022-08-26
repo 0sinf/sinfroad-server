@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   Post,
+  Put,
   Query,
   Req,
   UseGuards,
@@ -55,6 +56,16 @@ export class CommentController {
     );
 
     return { id: comment.id };
+  }
+
+  @Put(':id')
+  @UseGuards()
+  async updateComment(@Req() req: Request, @Param('id') commentId: string) {
+    const user = req.user as UserEntity;
+
+    const comment = await this.commentService.updateComment(user, commentId);
+
+    return { comment };
   }
 
   @Delete(':id')
