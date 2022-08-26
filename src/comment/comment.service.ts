@@ -58,6 +58,23 @@ export class CommentService {
     return newComment;
   }
 
+  async updateComment(user: UserEntity, commentId: string, contents: string) {
+    const comment = await this.commentRepository.findOne({
+      where: { id: commentId },
+      relations: ['user'],
+    });
+
+    if (!comment || comment.user.id !== user.id) {
+      throw new BadRequestException();
+    }
+
+    comment.contents = contents;
+
+    const newComment = await this.commentRepository.save(comment);
+
+    return newComment;
+  }
+
   async deleteComment(user: UserEntity, commentId: string) {
     const comment = await this.commentRepository.findOne({
       where: { id: commentId },
