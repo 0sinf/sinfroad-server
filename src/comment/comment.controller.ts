@@ -60,7 +60,7 @@ export class CommentController {
   }
 
   @Put(':id')
-  @UseGuards()
+  @UseGuards(AtGuard)
   async updateComment(
     @Req() req: Request,
     @Param('id') commentId: string,
