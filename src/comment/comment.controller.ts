@@ -16,7 +16,8 @@ import { CreateCommentReq } from './dto/create-comment.dto';
 import { CommentService } from './comment.service';
 import { AtGuard } from '../common/guards/at.guard';
 import { UserEntity } from '../user/user.entity';
-import { GetUserInterceptor } from 'src/common/interceptors/get-user.interceptor';
+import { GetUserInterceptor } from '../common/interceptors/get-user.interceptor';
+import { UpdateCommentReq } from './dto/update-comment.dto';
 
 @Controller('comments')
 export class CommentController {
@@ -60,10 +61,18 @@ export class CommentController {
 
   @Put(':id')
   @UseGuards()
-  async updateComment(@Req() req: Request, @Param('id') commentId: string) {
+  async updateComment(
+    @Req() req: Request,
+    @Param('id') commentId: string,
+    @Body() { contents }: UpdateCommentReq,
+  ) {
     const user = req.user as UserEntity;
 
-    const comment = await this.commentService.updateComment(user, commentId);
+    const comment = await this.commentService.updateComment(
+      user,
+      commentId,
+      contents,
+    );
 
     return { comment };
   }
