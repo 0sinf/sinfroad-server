@@ -61,7 +61,7 @@ export class CommentService {
 
     return {
       ...newComment,
-      isOwer: currentUser.id === user.id,
+      isOwner: currentUser.id === user.id,
       author: user.name,
     };
   }
