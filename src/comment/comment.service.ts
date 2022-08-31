@@ -20,7 +20,7 @@ export class CommentService {
     const [comments, total] = await this.commentRepository.findAndCount({
       relations: ['user'],
       where: { post: { id: postId } },
-      order: { created: 'ASC' },
+      order: { created: 'DESC' },
       skip,
       take,
     });
@@ -41,7 +41,11 @@ export class CommentService {
     };
   }
 
-  async createComment(user: UserEntity, postId: string, contents: string) {
+  async createComment(
+    currentUser: UserEntity,
+    postId: string,
+    contents: string,
+  ) {
     const post = await this.postService.findById(postId);
 
     if (!post) {
@@ -50,12 +54,16 @@ export class CommentService {
 
     const comment = new CommentEntity();
     comment.contents = contents;
-    comment.user = user;
+    comment.user = currentUser;
     comment.post = post;
 
-    const newComment = await this.commentRepository.save(comment);
+    const { user, ...newComment } = await this.commentRepository.save(comment);
 
-    return newComment;
+    return {
+      ...newComment,
+      isOwner: currentUser.id === user.id,
+      author: user.name,
+    };
   }
 
   async updateComment(user: UserEntity, commentId: string, contents: string) {

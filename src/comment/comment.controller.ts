@@ -56,7 +56,7 @@ export class CommentController {
       contents,
     );
 
-    return { id: comment.id };
+    return { comment };
   }
 
   @Put(':id')
