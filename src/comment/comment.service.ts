@@ -20,7 +20,7 @@ export class CommentService {
     const [comments, total] = await this.commentRepository.findAndCount({
       relations: ['user'],
       where: { post: { id: postId } },
-      order: { created: 'ASC' },
+      order: { created: 'DESC' },
       skip,
       take,
     });
