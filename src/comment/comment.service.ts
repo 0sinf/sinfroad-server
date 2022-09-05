@@ -89,7 +89,7 @@ export class CommentService {
       relations: ['user'],
     });
 
-    if (!comment || comment.user.id !== user.id) {
+    if (!comment || (user.role !== 'ADMIN' && comment.user.id !== user.id)) {
       throw new BadRequestException();
     }
 
