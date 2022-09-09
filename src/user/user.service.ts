@@ -66,4 +66,13 @@ export class UserService {
 
     return user;
   }
+
+  async fixNickname(userId: string, nickname: string) {
+    await this.userRepository
+      .createQueryBuilder()
+      .update()
+      .set({ name: nickname })
+      .where('id=:id', { id: userId })
+      .execute();
+  }
 }
