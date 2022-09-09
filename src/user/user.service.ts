@@ -67,11 +67,11 @@ export class UserService {
     return user;
   }
 
-  async fixNickname(userId: string, nickname: string) {
+  async updateUserName(userId: string, name: string) {
     await this.userRepository
       .createQueryBuilder()
       .update()
-      .set({ name: nickname })
+      .set({ name })
       .where('id=:id', { id: userId })
       .execute();
   }

@@ -12,7 +12,7 @@ import { AtGuard } from '../common/guards';
 import { User } from '../@types/user';
 import { UserService } from './user.service';
 import { UserEntity } from './user.entity';
-import { FixNicknameReq } from './dto/user.dto';
+import { UpdateUserReq } from './dto/user.dto';
 
 @Controller('users')
 @UseGuards(AtGuard)
@@ -38,14 +38,14 @@ export class UserController {
   }
 
   @Patch()
-  async fixNickname(@Req() req: Request, @Body() { nickname }: FixNicknameReq) {
+  async updateUserName(@Req() req: Request, @Body() { name }: UpdateUserReq) {
     const user = req.user as UserEntity;
 
     if (!user) {
       throw new ForbiddenException();
     }
 
-    await this.userService.fixNickname(user.id, nickname);
+    await this.userService.updateUserName(user.id, name);
 
     return {};
   }

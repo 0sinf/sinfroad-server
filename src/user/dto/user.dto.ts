@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsString } from 'class-validator';
 
-export class FixNicknameReq {
+export class UpdateUserReq {
   @IsString()
   @IsNotEmpty()
-  nickname: string;
+  name: string;
 }
