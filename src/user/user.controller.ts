@@ -10,9 +10,9 @@ import { AtGuard } from '../common/guards';
 import { User } from '../@types/user';
 
 @Controller('users')
+@UseGuards(AtGuard)
 export class UserController {
   @Get()
-  @UseGuards(AtGuard)
   async getUser(@Req() req: Request) {
     const user = req.user as User;
 
