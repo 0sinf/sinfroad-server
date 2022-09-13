@@ -66,4 +66,13 @@ export class UserService {
 
     return user;
   }
+
+  async updateUserName(userId: string, name: string) {
+    await this.userRepository
+      .createQueryBuilder()
+      .update()
+      .set({ name })
+      .where('id=:id', { id: userId })
+      .execute();
+  }
 }
