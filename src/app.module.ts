@@ -5,6 +5,8 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join, resolve } from 'path';
 import { UserModule } from './user/user.module';
 import { PostModule } from './post/post.module';
+import { CommentModule } from './comment/comment.module';
+import { LikeModule } from './like/like.module';
 
 @Module({
   imports: [
@@ -27,6 +29,8 @@ import { PostModule } from './post/post.module';
     }),
     UserModule,
     PostModule,
+    CommentModule,
+    LikeModule,
   ],
   controllers: [],
   providers: [],
