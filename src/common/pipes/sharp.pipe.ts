@@ -15,7 +15,7 @@ export class SharpPipe
     const newFilename = [];
 
     for (let i = 0; i < images.length; i++) {
-      const filename = await this.resizeFile(images[i]);
+      const filename = await this.convertToWebp(images[i]);
 
       newFilename.push(filename);
     }
@@ -23,18 +23,18 @@ export class SharpPipe
     return newFilename;
   }
 
-  private async resizeFile(image: Express.Multer.File) {
+  private async convertToWebp(image: Express.Multer.File) {
     const file = path.join(__dirname, '../../..', image.path);
-    const filename = this.generateRandomFilename(image);
+    const filename = this.generateRandomFilename();
     const filePath = path.join(__dirname, '../../../static/public', filename);
 
-    await sharp(file).resize(500, 500).withMetadata().toFile(filePath);
+    await sharp(file).webp().withMetadata().toFile(filePath);
     fs.unlinkSync(file);
 
     return filename;
   }
 
-  private generateRandomFilename(file: Express.Multer.File): string {
-    return `${uuid()}${path.extname(file.originalname)}`;
+  private generateRandomFilename(): string {
+    return `${uuid()}.webp`;
   }
 }
