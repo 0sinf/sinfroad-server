@@ -1,8 +1,7 @@
 import { BadRequestException } from '@nestjs/common';
 import * as multer from 'multer';
-import { v4 as uuid } from 'uuid';
 import { existsSync, mkdirSync } from 'fs';
-import { extname, join } from 'path';
+import { join } from 'path';
 import { MulterOptions } from '@nestjs/platform-express/multer/interfaces/multer-options.interface';
 
 export const multerOptions: MulterOptions = {
@@ -32,11 +31,7 @@ export const multerOptions: MulterOptions = {
     },
 
     filename: (req, file, cb) => {
-      cb(null, generateRandomFilename(file));
+      cb(null, file.originalname);
     },
   }),
 };
-
-function generateRandomFilename(file: Express.Multer.File): string {
-  return `${uuid()}${extname(file.originalname)}`;
-}
