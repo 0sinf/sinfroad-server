@@ -6,7 +6,7 @@ import { MulterOptions } from '@nestjs/platform-express/multer/interfaces/multer
 
 export const multerOptions: MulterOptions = {
   fileFilter: (req, file, cb) => {
-    if (file.mimetype.match(/\/(jpg|jpeg|png)$/)) {
+    if (file.mimetype.match(/\/(jpe?g|png|heic)$/)) {
       return cb(null, true);
     }
     return cb(
