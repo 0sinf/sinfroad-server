@@ -2,12 +2,14 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { ImageEntity } from '../image/image.entity';
 import { CommentEntity } from '../comment/comment.entity';
+import { UserEntity } from '../user/user.entity';
 
 @Entity('posts')
 export class PostEntity {
@@ -28,6 +30,9 @@ export class PostEntity {
 
   @OneToMany(() => CommentEntity, (comment) => comment.post)
   comments: CommentEntity[];
+
+  @ManyToOne(() => UserEntity, { onDelete: 'CASCADE' })
+  user: UserEntity;
 
   @CreateDateColumn()
   created: Date;
