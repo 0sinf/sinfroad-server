@@ -23,6 +23,7 @@ import { AtGuard, RolesGuard } from '../common/guards';
 import { Roles } from '../common/decorators';
 import { SharpPipe } from '../common/pipes/sharp.pipe';
 import { GetUserInterceptor } from '../common/interceptors/get-user.interceptor';
+import { UserEntity } from '../user/user.entity';
 
 @Controller('posts')
 export class PostController {
@@ -54,9 +55,13 @@ export class PostController {
   @UseInterceptors(FilesInterceptor('images', 4, multerOptions))
   async createPost(
     @UploadedFiles(SharpPipe) images: Array<string>,
+    @Req() req: Request,
     @Body(ValidationPipe) dto: PostReq,
   ) {
-    const post = await this.postService.createPost(images, dto);
+    const user = req.user as UserEntity;
+
+    const post = await this.postService.createPost(images, dto, user);
+
     return {
       id: post.id,
     };
