@@ -49,7 +49,7 @@ export class PostController {
   }
 
   @Post()
-  @Roles('ADMIN')
+  @Roles('AUTHOR', 'ADMIN')
   @UseGuards(AtGuard, RolesGuard)
   @UseInterceptors(FilesInterceptor('images', 4, multerOptions))
   async createPost(
@@ -63,7 +63,7 @@ export class PostController {
   }
 
   @Patch(':postId')
-  @Roles('ADMIN')
+  @Roles('AUTHOR', 'ADMIN')
   @UseGuards(AtGuard, RolesGuard)
   async updatePost(
     @Param('postId') postId: string,
@@ -75,7 +75,7 @@ export class PostController {
   }
 
   @Delete(':postId')
-  @Roles('ADMIN')
+  @Roles('AUTHOR', 'ADMIN')
   @UseGuards(AtGuard, RolesGuard)
   async deletePost(@Param('postId') postId: string) {
     this.validatePostId(postId);
