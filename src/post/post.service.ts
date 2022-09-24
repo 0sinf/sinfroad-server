@@ -10,6 +10,7 @@ import { PostEntity } from './post.entity';
 import { PostReq } from './dto/post.dto';
 import { ImageService } from '../image/image.service';
 import { LikeService } from '../like/like.service';
+import { UserEntity } from '../user/user.entity';
 
 @Injectable()
 export class PostService {
@@ -52,7 +53,7 @@ export class PostService {
   async findPost(postId: string, userId?: string) {
     const post = await this.postRepository.findOne({
       where: { id: postId },
-      relations: ['images'],
+      relations: ['user', 'images'],
     });
 
     const [likes, beliked] = await this.likeService.findAllByPostId(
@@ -64,10 +65,16 @@ export class PostService {
       ...post,
       likes,
       beliked,
+      user: post.user.name,
+      isOwner: userId === post.user.id,
     };
   }
 
-  async createPost(images: Array<string>, dto: PostReq): Promise<PostEntity> {
+  async createPost(
+    images: Array<string>,
+    dto: PostReq,
+    user: UserEntity,
+  ): Promise<PostEntity> {
     const { title, contents, address } = dto;
     const urls = images.map((image) => `${this.domain}/public/${image}`);
 
@@ -75,6 +82,7 @@ export class PostService {
     p.title = title;
     p.contents = contents;
     p.address = address;
+    p.user = user;
     const post = await this.postRepository.save(p);
 
     await Promise.all(urls.map((url) => this.imageService.saveImage(p, url)));

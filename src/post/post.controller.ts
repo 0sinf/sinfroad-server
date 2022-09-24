@@ -23,6 +23,7 @@ import { AtGuard, RolesGuard } from '../common/guards';
 import { Roles } from '../common/decorators';
 import { SharpPipe } from '../common/pipes/sharp.pipe';
 import { GetUserInterceptor } from '../common/interceptors/get-user.interceptor';
+import { UserEntity } from '../user/user.entity';
 
 @Controller('posts')
 export class PostController {
@@ -49,35 +50,41 @@ export class PostController {
   }
 
   @Post()
-  @Roles('ADMIN')
+  @Roles('AUTHOR', 'ADMIN')
   @UseGuards(AtGuard, RolesGuard)
   @UseInterceptors(FilesInterceptor('images', 4, multerOptions))
   async createPost(
     @UploadedFiles(SharpPipe) images: Array<string>,
+    @Req() req: Request,
     @Body(ValidationPipe) dto: PostReq,
   ) {
-    const post = await this.postService.createPost(images, dto);
+    const user = req.user as UserEntity;
+
+    const post = await this.postService.createPost(images, dto, user);
+
     return {
       id: post.id,
     };
   }
 
   @Patch(':postId')
-  @Roles('ADMIN')
+  @Roles('AUTHOR', 'ADMIN')
   @UseGuards(AtGuard, RolesGuard)
   async updatePost(
     @Param('postId') postId: string,
     @Body(ValidationPipe) dto: PostReq,
   ) {
+    // TODO: Patch by owner and ADMIN
     this.validatePostId(postId);
     await this.postService.updatePost(postId, dto);
     return {};
   }
 
   @Delete(':postId')
-  @Roles('ADMIN')
+  @Roles('AUTHOR', 'ADMIN')
   @UseGuards(AtGuard, RolesGuard)
   async deletePost(@Param('postId') postId: string) {
+    // TODO: DELETE by owner and ADMIN
     this.validatePostId(postId);
     await this.postService.deletePost(postId);
     return {};
