@@ -74,6 +74,7 @@ export class PostController {
     @Param('postId') postId: string,
     @Body(ValidationPipe) dto: PostReq,
   ) {
+    // TODO: Patch by owner and ADMIN
     this.validatePostId(postId);
     await this.postService.updatePost(postId, dto);
     return {};
@@ -83,6 +84,7 @@ export class PostController {
   @Roles('AUTHOR', 'ADMIN')
   @UseGuards(AtGuard, RolesGuard)
   async deletePost(@Param('postId') postId: string) {
+    // TODO: DELETE by owner and ADMIN
     this.validatePostId(postId);
     await this.postService.deletePost(postId);
     return {};
