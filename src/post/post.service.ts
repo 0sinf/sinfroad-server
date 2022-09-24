@@ -53,7 +53,7 @@ export class PostService {
   async findPost(postId: string, userId?: string) {
     const post = await this.postRepository.findOne({
       where: { id: postId },
-      relations: ['images'],
+      relations: ['user', 'images'],
     });
 
     const [likes, beliked] = await this.likeService.findAllByPostId(
@@ -65,6 +65,8 @@ export class PostService {
       ...post,
       likes,
       beliked,
+      user: post.user.name,
+      isOwner: userId === post.user.id,
     };
   }
 
